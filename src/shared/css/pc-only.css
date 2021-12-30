@@ -1,49 +1,5 @@
 @media only screen and (min-width: 768px) {
-  .landing-app-name {
-    font-size: 96px;
-  }
-
-  .bottom-chatlist-items {
-    bottom: 10px;
-  }
-  .chat-messages-container {
-    height: 85vh;
-  }
-  .chatting-area {
-    height: 94.1vh;
-  }
-
   .pc-vanish {
     display: none;
-  }
-  .msg-inter {
-    padding: 15px 25px;
-  }
-  .avatar-container {
-    width: 60%;
-    height: 450px;
-    flex-wrap: wrap;
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
-    background: var(--app-color-whitest);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: var(--elevate-3);
-  }
-
-  .name-input-box {
-    width: 55%;
-  }
-  .image-icon-select {
-    height: 150px;
-    width: 150px;
-  }
-  .chatroom-label {
-    font-size: 35px;
-  }
-
-  .thestweets {
-    font-size: 23px;
   }
 }

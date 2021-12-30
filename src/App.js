@@ -1,9 +1,10 @@
 import React from "react";
+import Sidebar from "./pages/sidebar/Sidebar";
 
 export default function App() {
   return (
     <div>
-      <h2>Now this i sthe main component bro</h2>
+      <Sidebar />
     </div>
   );
 }
