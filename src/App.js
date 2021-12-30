@@ -1,5 +1,5 @@
 import logo from "./logo.svg";
-import "./App.css";
+import "./shared/css/universal.css";
 import { bindActionCreators } from "redux";
 import { testReduxAction } from "./redux/actions/actions";
 import { connect } from "react-redux";
