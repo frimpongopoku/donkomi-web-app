@@ -1,3 +1,5 @@
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import Toolbar from "../../components/toolbar/Toolbar";
 import PageWrapper from "../wrapper/PageWrapper";
@@ -16,11 +18,15 @@ export default function Shop() {
   );
 }
 
-const ShopItem = () => {
+const ShopItem = ({}) => {
   return (
     <div className="shop-item">
-      <div>
+      <div style={{ position: "relative" }}>
+        <div className="add-btn elevate-1">
+          <FontAwesomeIcon icon={faPlus} />
+        </div>
         <ImageThumbnail />
+        <small className="s-badge">3</small>
       </div>
       <div className="s-dets">
         <small className="price">Rs 9500</small>
