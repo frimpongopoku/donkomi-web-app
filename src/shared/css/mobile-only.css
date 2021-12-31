@@ -1,4 +1,11 @@
 @media only screen and (max-width: 767px) {
+  .shop-item {
+    width: 30%;
+    margin: 10px 1%;
+  }
+  .shop-page-container {
+    flex: 3;
+  }
   .bottom-nav-container {
     box-shadow: var(--elevate-float);
   }
