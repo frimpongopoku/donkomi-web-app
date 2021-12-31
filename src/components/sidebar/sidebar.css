@@ -1,5 +1,6 @@
 .sidebar-wrapper {
   height: 100vh;
+  opacity: 0;
 }
 
 .mid {
@@ -21,7 +22,7 @@
 
 .side-menu-item p {
   margin: 0;
-  margin-left: 10px;
+  margin-left: 30px;
   font-weight: bold;
 }
 
@@ -51,4 +52,21 @@
 .upper small {
   font-weight: bold;
   color: var(--app-color-whiter);
+}
+
+@keyframes slide-from-left {
+  from {
+    opacity: 0px;
+    transform: translateX(-300px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+.slide-anime {
+  animation: slide-from-left;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
 }

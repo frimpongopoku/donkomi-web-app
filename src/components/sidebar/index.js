@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 
-export default function SidebarWrapper() {
+export default function SidebarWrapper({ onMount }) {
   const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    if (onMount) onMount(setShow);
+  }, []);
+  
   return (
     <div>
       <div className="pc-vanish">

@@ -7,7 +7,7 @@ import { MENU } from "./values";
 function Sidebar(props) {
   const {} = props;
   return (
-    <div className="sidebar-wrapper elevate-float">
+    <div className="sidebar-wrapper elevate-float slide-anime">
       <div className="upper">
         <img src="https://i.pravatar.cc/300" />
         <h5>Frimpong Opoku Agyemang</h5>
