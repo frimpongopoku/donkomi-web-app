@@ -1,11 +1,39 @@
 import React from "react";
+import "./sidebar.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHome, faMotorcycle } from "@fortawesome/free-solid-svg-icons";
+import { MENU } from "./values";
 
-function Sidebar() {
+function Sidebar(props) {
+  const {} = props;
   return (
-    <div>
-      <h3>This is the entire point</h3>
+    <div className="sidebar-wrapper elevate-2">
+      <div className="upper">
+        <img src="https://i.pravatar.cc/300" />
+        <h5>Frimpong Opoku Agyemang</h5>
+        <small>@Merchant, @Seller, @Driver</small>
+      </div>
+      <div className="mid">
+        {MENU.map((menu, index) => {
+          return (
+            <div key={index?.toString()}>
+              <SideMenuItem label={menu.name} icon={menu.icon} />
+            </div>
+          );
+        })}
+      </div>
+      <div className="lower"></div>
     </div>
   );
 }
+
+const SideMenuItem = ({ icon = faHome, label = "Home", className }) => {
+  return (
+    <div className={`side-menu-item ${className || ""}`}>
+      <FontAwesomeIcon icon={icon} />
+      <p>{label}</p>
+    </div>
+  );
+};
 
 export default Sidebar;

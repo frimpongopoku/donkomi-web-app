@@ -2,4 +2,8 @@
   .pc-vanish {
     display: none;
   }
+
+  .sidebar-wrapper {
+    width: 300px;
+  }
 }

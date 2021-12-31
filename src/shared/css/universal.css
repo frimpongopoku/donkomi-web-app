@@ -4,12 +4,20 @@
 @import url("https://fonts.googleapis.com/css?family=Google+Sans:200,300,400,400i,500,600,700,900");
 @import url("https://fonts.googleapis.com/css?family=Roboto+Slab:400,700");
 @import url("https://fonts.googleapis.com/css?family=Nunito:200,300,400,500,600,700");
-@import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+@import url("https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
 * {
   font-family: "Google Sans", sans-serif;
   box-sizing: border-box;
 }
 
 :root {
-  
+  --app-color: #e5176e;
+  --app-color-darker: #d42265;
+  --app-color-whiter: #ffc6db;
+  --app-accent-color: #fca236;
+}
+
+body {
+  margin: 0px;
+  padding: 0px;
 }

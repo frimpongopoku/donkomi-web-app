@@ -1,8 +1,26 @@
 @media only screen and (max-width: 767px) {
- 
+  .sidebar-wrapper {
+    width: 250px;
+    background: white;
+  }
   .phone-vanish {
     display: none;
   }
+  .mobile-sidebar {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: 5;
+  }
 
-
+  .side-overlay {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100vh;
+    background-color: black;
+    opacity: 0.6;
+    z-index: 3;
+  }
 }
