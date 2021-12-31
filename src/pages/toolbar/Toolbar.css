@@ -1,0 +1,46 @@
+.toolbar-container {
+  padding: 20px0px;
+  display: flex;
+  flex-direction: row;
+}
+
+.right {
+  margin-left: auto;
+  /* padding: 0px 20px; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.flex {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.tool-icon {
+  font-size: 20px;
+  padding: 15px 20px;
+  height: 100%;
+  color: var(--app-color-darker);
+}
+.tool-icon:hover {
+  /* opacity: 0.4; */
+  background-color: var(--app-color-darker);
+  color: white;
+  transition: 0.2s ease-out;
+}
+.cart-icon {
+  color: green;
+}
+
+.cart-icon:hover {
+  opacity: 0.4;
+  transition: 0.2s ease-out;
+}
