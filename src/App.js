@@ -1,11 +1,14 @@
 import React from "react";
-import Sidebar from "./pages/sidebar/";
-import Toolbar from "./pages/toolbar/Toolbar";
+import BottomNavigation from "./components/bottom navigation/BottomNavigation";
+import Sidebar from "./components/sidebar";
+import Toolbar from "./components/toolbar/Toolbar";
 
 export default function App() {
   return (
     <div>
       <Toolbar />
+
+      <BottomNavigation />
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import "./sidebar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome, faMotorcycle } from "@fortawesome/free-solid-svg-icons";
+import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { MENU } from "./values";
 
 function Sidebar(props) {

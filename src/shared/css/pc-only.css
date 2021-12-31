@@ -6,4 +6,16 @@
   .sidebar-wrapper {
     width: 300px;
   }
+
+  .bottom-nav-container {
+    box-shadow: 0 0 0;
+  }
+
+  .tab-item {
+    box-shadow: -30px 4px 104px -10px rgb(0 0 0 / 52%);
+    /* box-shadow: var(--elevate-float); */
+    border-radius: 5px;
+    margin: 20px 10px;
+    cursor: pointer;
+  }
 }
