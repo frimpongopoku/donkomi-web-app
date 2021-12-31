@@ -7,10 +7,15 @@ function PageWrapper(props) {
   const { children } = props;
   return (
     <>
-      <Toolbar />
-      <div>{children}</div>
-      <Sidebar />
-      <BottomNavigation />
+      <div className="page-wrapper">
+        <div>
+          <Sidebar />
+        </div>
+        <div>
+          <Toolbar />
+          <div>{children}</div>
+        </div>
+      </div>
     </>
   );
 }

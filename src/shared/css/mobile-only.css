@@ -7,7 +7,23 @@
     margin: 10px 1.5%;
     border-radius: 3px;
   }
+
+  .s-badge {
+    padding: 3px 8px;
+    bottom: 10px;
+  }
+
+  .s-dets .name {
+    font-size: 11px;
+  }
+
+  .s-dets .date {
+    font-size: 12px;
+  }
   .shop-page-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     flex: 3;
   }
   .bottom-nav-container {

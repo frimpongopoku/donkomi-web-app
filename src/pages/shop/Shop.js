@@ -1,6 +1,7 @@
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import BottomNavigation from "../../components/bottom navigation/BottomNavigation";
 import Toolbar from "../../components/toolbar/Toolbar";
 import PageWrapper from "../wrapper/PageWrapper";
 import ImageThumbnail from "./../../components/thumbnail/ImageThumbnail";
@@ -9,11 +10,13 @@ export default function Shop() {
   return (
     <PageWrapper>
       <div className="shop-page-container">
-        <ShopItem />
-        <ShopItem />
-        <ShopItem />
-        <ShopItem />
+        {[1, 2, 3, 4, 5, 6, 5, 6, 7].map((itm, ind) => (
+          <React.Fragment key={ind?.toString()}>
+            <ShopItem />
+          </React.Fragment>
+        ))}
       </div>
+      <BottomNavigation />
     </PageWrapper>
   );
 }

@@ -3,6 +3,34 @@
     display: none;
   }
 
+  .s-badge {
+    padding: 8px 12px;
+    bottom: -10px;
+  }
+  .s-dets {
+    padding: 15px;
+  }
+
+  .s-dets .price .name {
+    font-size: 16px;
+  }
+  .s-dets .date {
+    font-size: 13px;
+  }
+  .shop-page-container {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .page-wrapper {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    max-height: 100vh;
+    overflow-y: hidden;
+  }
+
   .sidebar-wrapper {
     width: 300px;
   }
@@ -13,7 +41,6 @@
 
   .tab-item {
     box-shadow: -30px 4px 104px -10px rgb(0 0 0 / 52%);
-    /* box-shadow: var(--elevate-float); */
     border-radius: 5px;
     margin: 20px 10px;
     cursor: pointer;
