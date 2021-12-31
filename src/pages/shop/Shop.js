@@ -1,6 +1,7 @@
 import React from "react";
 import Toolbar from "../../components/toolbar/Toolbar";
 import PageWrapper from "../wrapper/PageWrapper";
+import ImageThumbnail from "./../../components/thumbnail/ImageThumbnail";
 import "./Shop.css";
 export default function Shop() {
   return (
@@ -19,10 +20,14 @@ const ShopItem = () => {
   return (
     <div className="shop-item">
       <div>
-        <small>This is a shop item bro</small>
+        <ImageThumbnail />
       </div>
-      <div className="shop-item-details">
-        <small>Here it is and so what</small>
+      <div className="s-dets">
+        <small className="price">Rs 9500</small>
+        <br />
+        <small className="name">Big Mac Burger</small>
+        <br />
+        <small className="date">2nd July 2020</small>
       </div>
     </div>
   );

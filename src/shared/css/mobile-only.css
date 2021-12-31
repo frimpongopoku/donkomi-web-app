@@ -1,7 +1,11 @@
 @media only screen and (max-width: 767px) {
+  .s-dets {
+    padding: 10px;
+  }
   .shop-item {
     width: 30%;
     margin: 10px 1%;
+    border-radius: 3px;
   }
   .shop-page-container {
     flex: 3;

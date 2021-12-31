@@ -6,6 +6,26 @@
 }
 
 .shop-item {
-  border: solid 2px grey;
- 
+  border: solid 2px var(--app-color-grey);
+  position: relative;
+}
+
+.shop-item img {
+  width: 100%;
+}
+
+.s-dets .price {
+  font-weight: bold;
+  color: var(--app-color);
+}
+
+.s-dets .name {
+  color: black;
+  font-weight: bold;
+  font-size: 11px;
+}
+
+.s-dets .date {
+  font-size: 12px;
+  color: grey;
 }
