@@ -1,0 +1,59 @@
+.news-page {
+}
+
+.camp-h3 {
+  color: var(--app-color-darker);
+}
+.camp-container h3 {
+  margin: 3px;
+}
+.camp-fee {
+  color: var(--app-color-darker);
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.camp-footer p {
+  margin: 0px;
+}
+.camp-footer {
+  padding: 10px 20px;
+  background-color: var(--app-color);
+  cursor: pointer;
+  color: white;
+}
+
+.camp-footer:hover {
+  background-color: var(--app-color-darker);
+}
+.camp-footer span {
+  margin-left: auto;
+  font-size: 26px;
+}
+
+.camp-bottom {
+  margin-top: 10px;
+}
+.camp-bottom svg {
+  font-size: 35px;
+  color: green;
+}
+
+.camp-bottom p {
+  font-size: 28px;
+  color: green;
+  font-weight: bold;
+}
+
+.camp-bottom small {
+  color: green;
+}
+
+.camp-mid h4 {
+  font-weight: 500;
+  color: green;
+}
+
+.trip-duration {
+  color: var(--app-color-darkest);
+}

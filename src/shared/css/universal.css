@@ -16,8 +16,19 @@
   --app-color-whiter: #ffc6db;
   --app-accent-color: #fca236;
   --app-color-grey: #f1f1f1;
+  --app-color-accent-2: green;
+  --app-color-darkest: #bc1a57;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 3px;
+}
 body {
   margin: 0px;
   padding: 0px;
