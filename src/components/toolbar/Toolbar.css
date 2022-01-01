@@ -1,7 +1,12 @@
 .toolbar-container {
-  padding: 20px0px;
+  /* padding: 20px 0px; */
   display: flex;
   flex-direction: row;
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  z-index: 2;
+  background: white;
 }
 
 .right {

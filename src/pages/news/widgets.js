@@ -1,6 +1,6 @@
 import { faArrowCircleRight, faBus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import ImageThumbnail from "./../../components/thumbnail/ImageThumbnail";
 export const CampaignNewsCard = () => {
   return (
     <div className="camp-container">
@@ -38,6 +38,35 @@ export const CampaignNewsCard = () => {
       <div className="camp-footer flex">
         <p>Place your order</p>
         <span>
+          <FontAwesomeIcon icon={faArrowCircleRight} />
+        </span>
+      </div>
+    </div>
+  );
+};
+
+export const AdCard = () => {
+  return (
+    <div className="ad-card">
+      <h4 style={{ fontWeight: "500", padding: "10px 0px" }} className="flex">
+        Frimpong Opoku Agyemang
+        <span style={{ marginLeft: "auto", color: "grey", fontSize: 14 }}>
+          30 seconds ago
+        </span>
+      </h4>
+      <ImageThumbnail
+        style={{ width: "100%", height: 200, objectFit: "cover" }}
+      />
+      <p>
+        is simply dummy text of the printing and typesetting industry. Lorem
+        Ipsum has been the industry's standard dummy text ever since the 1500s,
+        when an unknown printer took a galley of type and scrambled it to make a
+        type specimen book
+      </p>
+
+      <div className="news-ad-footer flex">
+        <p>Look Into This</p>
+        <span style={{ marginLeft: "auto" }}>
           <FontAwesomeIcon icon={faArrowCircleRight} />
         </span>
       </div>

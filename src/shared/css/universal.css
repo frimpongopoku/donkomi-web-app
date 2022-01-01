@@ -9,14 +9,16 @@
   font-family: "Google Sans", sans-serif;
   box-sizing: border-box;
 }
-
+html body {
+  overscroll-behavior: none;
+}
 :root {
   --app-color: #e5176e;
   --app-color-darker: #d42265;
   --app-color-whiter: #ffc6db;
   --app-accent-color: #fca236;
   --app-color-grey: #f1f1f1;
-  --app-color-accent-2: green;
+  --app-accent-color-2: green;
   --app-color-darkest: #bc1a57;
 }
 

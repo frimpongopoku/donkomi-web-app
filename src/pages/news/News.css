@@ -1,4 +1,8 @@
 .news-page {
+  height: 100%;
+  overflow-y: scroll;
+  padding-bottom: 70px;
+  margin-top: 60px;
 }
 
 .camp-h3 {
@@ -56,4 +60,25 @@
 
 .trip-duration {
   color: var(--app-color-darkest);
+}
+.ad-img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.ad-card p {
+  line-height: 1.5;
+  font-weight: 400;
+  margin: 13px;
+}
+
+.news-ad-footer p {
+  margin: 0px;
+}
+
+.news-ad-footer {
+  padding: 15px 20px;
+  background-color: var(--app-accent-color-2);
+  cursor: pointer;
+  color: white;
 }
