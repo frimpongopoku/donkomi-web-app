@@ -1,6 +1,47 @@
 @media only screen and (min-width: 768px) {
+  .pc-sidebar {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    z-index: 5;
+  }
+  .ad-name-box {
+    padding: 15px 20px;
+  }
   .pc-vanish {
     display: none;
+  }
+  .ad-card {
+    margin-bottom: 20px;
+    box-shadow: var(--elevate-float);
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+  }
+  .news-ad-footer {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+
+  .camp-container {
+    margin-bottom: 20px;
+    box-shadow: var(--elevate-float);
+  }
+  .camp-content {
+    padding: 20px;
+  }
+  .camp-footer {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+
+  .news-page {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+  .toolbar-container {
+    position: absolute;
   }
 
   .s-badge {
@@ -11,6 +52,9 @@
     padding: 15px;
   }
 
+  .left {
+    margin-left: 300px;
+  }
   .s-dets .price .name {
     font-size: 16px;
   }
@@ -25,7 +69,7 @@
   }
 
   .page-wrapper {
-    display: grid;
+    /* display: grid; */
     grid-template-columns: 300px 1fr;
     max-height: 100vh;
     overflow-y: hidden;
@@ -44,5 +88,8 @@
     border-radius: 5px;
     margin: 20px 10px;
     cursor: pointer;
+  }
+  .page-content {
+    padding-left: 300px;
   }
 }

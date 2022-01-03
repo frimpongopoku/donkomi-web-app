@@ -1,7 +1,8 @@
 .news-page {
   height: 100%;
+  max-height: 100vh;
   overflow-y: scroll;
-  padding-bottom: 70px;
+  padding-bottom: 100px;
   margin-top: 60px;
 }
 
@@ -10,6 +11,7 @@
 }
 .camp-container h3 {
   margin: 3px;
+  margin-bottom: 15px;
 }
 .camp-fee {
   color: var(--app-color-darker);
@@ -81,4 +83,12 @@
   background-color: var(--app-accent-color-2);
   cursor: pointer;
   color: white;
+}
+.news-ad-footer:hover {
+  opacity: 0.8;
+  transition: 0.2s ease-out;
+}
+
+.news-ad-footer svg {
+  font-size: 25px;
 }

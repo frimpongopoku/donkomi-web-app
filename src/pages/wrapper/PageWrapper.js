@@ -16,7 +16,7 @@ function PageWrapper(props) {
         </div>
         <div>
           <Toolbar showSidebar={showSidebar} />
-          <div>{children}</div>
+          <div className="page-content">{children}</div>
         </div>
       </div>
     </>

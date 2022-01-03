@@ -7,10 +7,20 @@ function News() {
   return (
     <PageWrapper>
       <div className="news-page">
-        <CampaignNewsCard />
-        <AdCard />
-        <CampaignNewsCard />
+        <div>
+          <CampaignNewsCard />
+          <AdCard />
+          <CampaignNewsCard />
+          <AdCard />
+          <CampaignNewsCard />
+        </div>
+        <div className="phone-vanish">
+          <center>
+            <h3 style={{}}>Advertisement Board</h3>
+          </center>
+        </div>
       </div>
+
       <BottomNavigation />
     </PageWrapper>
   );

@@ -48,7 +48,7 @@ export const CampaignNewsCard = () => {
 export const AdCard = () => {
   return (
     <div className="ad-card">
-      <h4 style={{ fontWeight: "500", padding: "10px 0px" }} className="flex">
+      <h4 style={{ fontWeight: "500" }} className="flex ad-name-box">
         Frimpong Opoku Agyemang
         <span style={{ marginLeft: "auto", color: "grey", fontSize: 14 }}>
           30 seconds ago

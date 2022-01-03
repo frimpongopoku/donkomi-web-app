@@ -3,7 +3,7 @@
   bottom: 0px;
   width: 100%;
   /* padding: 20px; */
-  background: white;
+  /* background: white; */
 }
 
 .bottom-nav-content {
@@ -19,6 +19,7 @@
   align-items: center;
   flex-direction: column;
   justify-content: center;
+  background: white;
 }
 
 .tab-item * {

@@ -7,7 +7,7 @@ export default function SidebarWrapper({ onMount }) {
   useEffect(() => {
     if (onMount) onMount(setShow);
   }, []);
-  
+
   return (
     <div>
       <div className="pc-vanish">
@@ -21,7 +21,9 @@ export default function SidebarWrapper({ onMount }) {
         )}
       </div>
       <div className="phone-vanish">
-        <Sidebar />
+        <div className="pc-sidebar">
+          <Sidebar />
+        </div>
       </div>
     </div>
   );

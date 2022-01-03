@@ -1,4 +1,5 @@
 import {
+  faBell,
   faNewspaper,
   faShoppingBasket,
   faUserAlt,
@@ -7,6 +8,6 @@ import {
 export const NAV_MENU = [
   { name: "News", icon: faNewspaper, key: "news" },
   { name: "Market Place", icon: faShoppingBasket, key: "market-place" },
-  { name: "Notifications", icon: faNewspaper, key: "notifications" },
+  { name: "Notifications", icon: faBell, key: "notifications" },
   { name: "Profile", icon: faUserAlt, key: "profile" },
 ];
