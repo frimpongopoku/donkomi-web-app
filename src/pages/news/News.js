@@ -21,7 +21,7 @@ function News() {
         </div>
       </div>
 
-      <BottomNavigation />
+      {/* <BottomNavigation /> */}
     </PageWrapper>
   );
 }

@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import BottomNavigation from "../../components/bottom navigation/BottomNavigation";
 import Sidebar from "../../components/sidebar/";
 import Toolbar from "../../components/toolbar/Toolbar";
 
@@ -18,6 +19,7 @@ function PageWrapper(props) {
           <Toolbar showSidebar={showSidebar} />
           <div className="page-content">{children}</div>
         </div>
+        <BottomNavigation />
       </div>
     </>
   );
