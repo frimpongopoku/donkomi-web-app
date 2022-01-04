@@ -8,6 +8,7 @@
 .profile-container {
   height: 100vh;
   width: 100vw;
+  padding-bottom: 100px;
   overflow-y: scroll;
 }
 
@@ -28,4 +29,9 @@
 .setting-toggles {
   width: 100%;
   padding: 20px;
+}
+
+.t-title {
+  font-weight: bold;
+  color: var(--app-accent-color-3);
 }

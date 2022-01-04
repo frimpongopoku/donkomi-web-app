@@ -8,17 +8,23 @@
   .page-content {
     padding-top: 70px;
   }
-
   .profile-roles {
     font-weight: 600;
     color: var(--app-color);
   }
-  .profile-container {
+
+  .user-details-div {
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
     align-items: center;
+    justify-content: center;
   }
+  /* .profile-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  } */
 
   .profile-img {
     border-radius: 100%;
@@ -84,5 +90,15 @@
     background-color: black;
     opacity: 0.6;
     z-index: 3;
+  }
+  .t-title {
+    font-size: 16px;
+  }
+  .t-desc {
+    font-size: 14px;
+  }
+
+  .user-info-box {
+    /* padding: 10px; */
   }
 }

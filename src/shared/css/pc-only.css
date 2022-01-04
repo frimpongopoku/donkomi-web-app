@@ -93,4 +93,33 @@
     padding-left: 300px;
     padding-top: 70px;
   }
+
+  .profile-container {
+    padding: 20px;
+  }
+  .user-details-div {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .user-info-box {
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    padding: 15px 30px;
+    flex-direction: column;
+  }
+  .user-name {
+    font-size: 30px;
+  }
+
+  .profile-roles {
+    font-weight: bold;
+    font-size: 18px;
+    color: var(--app-color-darker);
+  }
+  .profile-img {
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+  }
 }
