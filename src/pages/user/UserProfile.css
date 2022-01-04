@@ -7,5 +7,25 @@
 
 .profile-container {
   height: 100vh;
+  width: 100vw;
   overflow-y: scroll;
+}
+
+.one-control-option {
+  /* background: red; */
+  flex-direction: row;
+  width: 100vw;
+  padding: 15px 25px;
+  border: solid 0px var(--app-color-grey);
+  border-bottom-width: 2px;
+}
+
+.controls-container {
+  margin-top: 20px;
+}
+/* .one-control-option {} */
+
+.setting-toggles {
+  width: 100%;
+  padding: 20px;
 }
