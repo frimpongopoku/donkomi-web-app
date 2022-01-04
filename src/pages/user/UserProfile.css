@@ -1,0 +1,11 @@
+.profile-small small {
+  font-weight: bold;
+  cursor: pointer;
+  margin: 4px;
+  font-size: 15px;
+}
+
+.profile-container {
+  height: 100vh;
+  overflow-y: scroll;
+}

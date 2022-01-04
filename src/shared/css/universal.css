@@ -58,3 +58,8 @@ small {
   color: var(--app-color-darker);
   font-weight: bold;
 }
+
+.touchable-opacity:hover {
+  opacity: 0.6;
+  transition: 0.2s ease-out;
+}
