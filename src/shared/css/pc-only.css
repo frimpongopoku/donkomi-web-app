@@ -96,6 +96,7 @@
 
   .profile-container {
     padding: 20px;
+    /* margin-bottom: 150px; */
   }
   .user-details-div {
     display: flex;
@@ -121,5 +122,17 @@
   .profile-img {
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
+  }
+
+  .toggler {
+    margin-bottom: 20px;
+  }
+
+  .t-title {
+    font-size: 21px;
+  }
+  .setting-toggles h3 {
+    font-size: 23px;
+    margin-bottom: 25px;
   }
 }

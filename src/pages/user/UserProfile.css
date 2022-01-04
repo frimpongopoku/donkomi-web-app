@@ -24,7 +24,9 @@
 .controls-container {
   margin-top: 20px;
 }
-/* .one-control-option {} */
+.one-control-option {
+  cursor: pointer;
+}
 
 .setting-toggles {
   width: 100%;
