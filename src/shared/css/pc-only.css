@@ -95,8 +95,8 @@
   }
 
   .profile-container {
-    padding: 20px;
-    /* margin-bottom: 150px; */
+    padding: 0px 20px;
+    padding-bottom: 160px;
   }
   .user-details-div {
     display: flex;
