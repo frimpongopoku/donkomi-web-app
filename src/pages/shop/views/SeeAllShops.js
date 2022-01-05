@@ -11,20 +11,20 @@ function SeeAllShops() {
       </p>
       <div style={{ marginTop: 20 }}>
         {[1, 2, 3, 4, 5].map((s, i) => {
-          return <ShopItem />;
+          return <ShopCard />;
         })}
-        <ShopItem />
       </div>
     </div>
   );
 }
 
-const ShopItem = ({}) => {
+export const ShopCard = ({ children }) => {
   return (
     <div className="shop-card flex">
       <ImageThumbnail className="shop-image" />
       <div className="shop-mid-part">
         <h4>The main shop</h4>
+        {children}
       </div>
       <div style={{ marginLeft: "auto" }}>
         <div className="right-items" style={{ padding: "0px 10px" }}>

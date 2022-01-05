@@ -14,6 +14,16 @@
 }
 .shop-card {
   border: solid 0px var(--app-color-grey);
-  border-bottom-width: 2px;
+  border-bottom-width: 1px;
   margin-bottom: 10px;
+}
+
+.shop-mid-part h5 {
+  font-size: 17px;
+}
+
+.right-items small,
+.right-items span {
+  font-size: 17px;
+  cursor: pointer;
 }

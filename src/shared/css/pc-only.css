@@ -142,4 +142,17 @@
   .management-content-area {
     padding: 20px;
   }
+
+  .drop-area {
+    padding: 20px 0px;
+  }
+
+  .shop-image {
+    height: 80px;
+    width: 80px;
+  }
+
+  .shop-card h4 {
+    font-size: 18px;
+  }
 }
