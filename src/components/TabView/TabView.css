@@ -1,0 +1,76 @@
+:root {
+  --app-theme-lighter: #ef9f0c;
+  --app-theme-accent: #db6c11;
+}
+
+.tab-headers-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.tab-header {
+  padding: 10px 20px;
+  cursor: pointer;
+  border: solid 1px antiquewhite;
+  margin: 5px;
+  border-radius: 5px;
+}
+
+.tab-header:hover {
+  background: var(--app-theme-lighter);
+  border-color: var(--app-theme-lighter);
+  box-shadow: var(--elevate-1);
+  transition: 0.3s ease-out;
+}
+
+.tab-header:hover p {
+  color: white;
+  transition: 0.3s ease-out;
+}
+.tab-header p {
+  color: var(--app-theme-lighter);
+  margin: 0px;
+}
+
+.tab-header:active {
+  background: antiquewhite;
+  border-color: antiquewhite;
+  box-shadow: 0 0 0;
+  transition: 0.1s ease-out;
+}
+
+.tab-header:active p {
+  color: var(--app-theme-lighter);
+  transition: 0.1s ease-out;
+}
+
+.tab-selected {
+  background: var(--app-theme-lighter);
+  border-color: var(--app-theme-lighter);
+  box-shadow: var(--elevate-2);
+  transition: 0.3s ease-out;
+}
+
+.tab-selected p {
+  color: white;
+}
+
+@keyframes move-in-from-left {
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+.tab-content-area {
+  width: 100%;
+  opacity: 0;
+  animation: move-in-from-left;
+  animation-duration: 0.4s;
+  animation-fill-mode: forwards;
+}
