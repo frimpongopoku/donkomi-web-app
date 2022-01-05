@@ -13,3 +13,7 @@ export const commonStylePropValues = {
   className: "",
   containerClassName: "",
 };
+
+
+
+// This doesnt work. Prototypes arent computed in storybook.

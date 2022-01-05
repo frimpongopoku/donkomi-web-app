@@ -52,7 +52,7 @@ body {
 }
 
 .back-hover-interaction:hover p,
-small {
+.back-hover-interaction small {
   color: white;
 }
 .app-bold-text {

@@ -1,7 +1,7 @@
 import { css, cx } from "@emotion/css";
-export const THEME_COLOR = "#ef9f0c";
-export const THEME_HOVER_COLOR = "orange";
-export const THEME_ACTIVE_COLOR = "#db6c11";
+export const THEME_COLOR = "#e5176e";
+export const THEME_HOVER_COLOR = "#d42265";
+export const THEME_ACTIVE_COLOR = "#bc1a57";
 
 export const makeClass = (cssString) => cx(css(cssString));
 export const DEFAULT = "default";

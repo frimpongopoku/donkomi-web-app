@@ -14,14 +14,17 @@ const selectorCss = {
     padding-bottom: 5%;
     min-height: 300px;
     margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   `,
   iconCss: css`
     color: ${THEME_COLOR};
     cursor: pointer;
-    font-size: 70px;
+    font-size: 40px;
     border: solid 1px #f5f5f5;
     border-radius: 100%;
-    padding: 50px;
+    padding: 30px 35px;
 
     &:hover {
       background: ${THEME_HOVER_COLOR};

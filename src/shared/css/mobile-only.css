@@ -7,6 +7,7 @@
   }
   .page-content {
     padding-top: 70px;
+    padding-bottom: 100px;
   }
   .profile-roles {
     font-weight: 600;
@@ -24,12 +25,6 @@
     padding-bottom: 100px;
     width: 100vw;
   }
-  /* .profile-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  } */
 
   .profile-img {
     border-radius: 100%;
@@ -109,5 +104,8 @@
   }
   .one-control-option {
     width: 100vw;
+  }
+  .create-shop-container {
+    padding: 10px 10px;
   }
 }

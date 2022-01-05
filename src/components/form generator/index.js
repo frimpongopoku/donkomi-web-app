@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useReducer } from "react";
-import { ACTIONS, formStateReducer } from "./reducer";
+import { ACTIONS, FieldTypes, formStateReducer } from "./reducer";
 import MultiStepForm from "./MultiStepForm";
 import VerticalForm from "./VerticalForm";
 import Notification from "./notification/Notification";
@@ -22,7 +22,7 @@ function FormGenerator(props) {
   };
   const setDefaults = () => {
     var obj = {};
-    fields.forEach((field) => {
+    fields?.forEach((field) => {
       obj = {
         ...obj,
         [field.dbName || field.name]: field.value || field.defaultValue || null,
@@ -78,6 +78,12 @@ function FormGenerator(props) {
     [notification]
   );
 
+  if (!fields || !fields?.length)
+    return (
+      <p style={{ color: "deeporange" }}>
+        Please add <i>fields</i> to generate form...
+      </p>
+    );
   var Form;
   if (multiStep) Form = MultiStepForm;
   else Form = VerticalForm;
@@ -102,10 +108,12 @@ function FormGenerator(props) {
   );
 }
 
+FormGenerator.FieldTypes = FieldTypes;
 FormGenerator.propTypes = {};
 
 FormGenerator.defaultProps = {
   actionText: "Submit",
+  fields: [],
 };
 
 export default FormGenerator;

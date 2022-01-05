@@ -1,0 +1,17 @@
+.create-shop-container {
+  height: 100vh;
+  overflow-y: scroll;
+}
+
+.intro-box {
+  padding: 10px;
+}
+
+.intro-box h1 {
+  color: var(--app-color);
+}
+
+.intro-box p {
+  color: var(--app-color-darker);
+}
+

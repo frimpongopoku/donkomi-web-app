@@ -143,10 +143,10 @@ export default class ImageSlector extends Component {
     return (
       <>
         <center>
-          <span onClick={this.searchForImage}>
-            <FontAwesomeIcon icon={faUpload} className={cx(iconCss)} />
+          <span onClick={this.searchForImage} className={cx(iconCss)}>
+            <FontAwesomeIcon icon={faUpload} />
           </span>
-          <p style={{}}>
+          <p style={{ marginTop: 40 }}>
             {this.props.placeholder || "Select An Image To Upload"}
           </p>
         </center>

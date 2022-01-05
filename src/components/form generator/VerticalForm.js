@@ -176,7 +176,7 @@ export default function VerticalForm(props) {
         })}
       </div>
 
-      <div style={{ display: "flex", width: "100%" }}>
+      <div style={{ display: "flex", width: "100%", marginTop: 15 }}>
         <Button style={{ marginLeft: "auto" }} onClick={onSubmit}>
           {actionText}
         </Button>
