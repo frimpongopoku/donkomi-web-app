@@ -8,12 +8,13 @@ const fields = [
   {
     dbName: "shop_name",
     required: true,
-    label: "What would you like your shop to be known as? ",
+    label:
+      "What would you like your shop to be known as? ( Victor's liquor store? Abena's shoe den? ) ",
     placeholder: "Enter shop name here...",
     fieldType: FormGenerator.FieldTypes.INPUT,
   },
   {
-    dbName: "shop_description",
+    dbName: "about_shop",
     required: true,
     label:
       "Briefly indicate what kind of items you will be selling in this shop ",
@@ -23,7 +24,7 @@ const fields = [
   {
     dbName: "image",
     required: true,
-    label: "Provide a cover photo for your shop",
+    label: "People love images! Add a photo that best describes your shop.",
     placeholder: "Select photo from your device",
     fieldType: FormGenerator.FieldTypes.MEDIAUPLOAD,
   },

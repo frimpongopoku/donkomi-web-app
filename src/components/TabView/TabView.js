@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {
   getPropsArrayFromJsonArrayAdv,
   getRandomStringKey,
-} from "../../form generator/shared/utils/utils";
+} from "./../form generator/shared/utils/utils";
 import "./TabView.css";
 import { TAB_DATA } from "./values";
 
@@ -83,7 +83,7 @@ TabView.propTypes = {
   /**
    * Take a look at `TabView.DATA_EXAMPLE` to see the structure of what your data prop should look like
    */
-  data: PropTypes.arrayOf(PropTypes.object.object),
+  data: PropTypes.arrayOf(PropTypes.object),
 
   /**
    * To set the preselected tab, add the id of your preferred tab

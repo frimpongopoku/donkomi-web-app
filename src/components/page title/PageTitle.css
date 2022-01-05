@@ -1,3 +1,6 @@
-.ui-page-title h3 {
+.ui-page-intro h1 {
   color: var(--app-color);
+}
+.ui-page-intro p {
+  color: var(--app-color-darker);
 }

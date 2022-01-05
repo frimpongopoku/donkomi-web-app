@@ -4,7 +4,9 @@ import App from "./App";
 import Home from "./pages/home/Home";
 import News from "./pages/news/News";
 import CreateShop from "./pages/shop/CreateShop";
+import CreateShopItem from "./pages/shop/CreateShopItem";
 import Shop from "./pages/shop/Shop";
+import ShopManagement from "./pages/shop/ShopManagement";
 import UserProfile from "./pages/user/UserProfile";
 
 function Router() {
@@ -26,6 +28,8 @@ const ProtectedRoutes = () => {
       <Route path="/shop" exact element={<Shop />} />
       <Route path="/news" exact element={<News />} />
       <Route path="/shop/create" exact element={<CreateShop />} />
+      <Route path="/shop/manage" exact element={<ShopManagement />} />
+      <Route path="/shop/create/item" exact element={<CreateShopItem />} />
       <Route path="/user/profile" exact element={<UserProfile />} />
     </Routes>
   );

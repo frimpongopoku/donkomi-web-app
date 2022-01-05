@@ -1,7 +1,7 @@
 import React from "react";
 import "./sidebar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome } from "@fortawesome/free-solid-svg-icons";
+import { faHome, faLock } from "@fortawesome/free-solid-svg-icons";
 import { MENU } from "./values";
 
 function Sidebar(props) {
@@ -17,7 +17,11 @@ function Sidebar(props) {
         {MENU.map((menu, index) => {
           return (
             <div key={index?.toString()}>
-              <SideMenuItem label={menu.name} icon={menu.icon} />
+              <SideMenuItem
+                label={menu.name}
+                icon={menu.icon}
+                locked={menu.locked}
+              />
             </div>
           );
         })}
@@ -27,11 +31,19 @@ function Sidebar(props) {
   );
 }
 
-const SideMenuItem = ({ icon = faHome, label = "Home", className }) => {
+const SideMenuItem = ({ icon = faHome, label = "Home", className, locked }) => {
   return (
     <div className={`side-menu-item ${className || ""}`}>
       <FontAwesomeIcon icon={icon} />
       <p>{label}</p>
+      {locked && (
+        <span style={{ marginLeft: "auto" }}>
+          <FontAwesomeIcon
+            icon={faLock}
+            style={{ color: "var(--app-color-grey)" }}
+          />
+        </span>
+      )}
     </div>
   );
 };
