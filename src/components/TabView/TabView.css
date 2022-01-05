@@ -1,6 +1,6 @@
 :root {
-  --app-theme-lighter: #ef9f0c;
-  --app-theme-accent: #db6c11;
+  --app-theme-lighter: var(--app-color-darkest);
+  --app-theme-accent: var(--app-color-darker);
 }
 
 .tab-headers-container {
@@ -12,7 +12,7 @@
 .tab-header {
   padding: 10px 20px;
   cursor: pointer;
-  border: solid 1px antiquewhite;
+  border: solid 1px var(--app-color);
   margin: 5px;
   border-radius: 5px;
 }

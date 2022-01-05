@@ -1,3 +1,19 @@
 .shop-management-container {
   padding: 10px;
 }
+
+.all-shops-container {
+}
+.shop-mid-part {
+  margin-right: 15px;
+  margin-left: 15px;
+}
+
+.shop-image {
+  border-radius: 6px;
+}
+.shop-card {
+  border: solid 0px var(--app-color-grey);
+  border-bottom-width: 2px;
+  margin-bottom: 10px;
+}

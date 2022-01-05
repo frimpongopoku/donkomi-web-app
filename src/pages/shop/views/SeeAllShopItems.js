@@ -1,9 +1,9 @@
 import React from "react";
-
+import "./../ShopManagement.css";
 function SeeAllShopItems() {
   return (
-    <div>
-      <h2>See all shop items</h2>
+    <div className="all-shop-items-container">
+      <p>If you have created shops, all your shops will show up below</p>
     </div>
   );
 }
