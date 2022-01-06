@@ -1,5 +1,6 @@
 import React from "react";
 import PageTitle from "../../components/page title/PageTitle";
+import SellerOrders from "../order/SellerOrders";
 import PageWrapper from "../wrapper/PageWrapper";
 import TabView from "./../../components/TabView/TabView";
 import "./ShopManagement.css";
@@ -8,21 +9,26 @@ import SeeAllShops from "./views/SeeAllShops";
 function ShopManagement() {
   const TABS = [
     {
-      name: "All Shops",
+      name: "Shops",
       id: "shop-listing",
       component: <SeeAllShops />,
     },
     {
-      name: "All Shop Items",
+      name: "Products",
       id: "item-listing",
       component: <SeeAllShopItems />,
+    },
+    {
+      name: "Orders",
+      id: "seller-order",
+      component: <SellerOrders />,
     },
   ];
   return (
     <PageWrapper>
       <div className="shop-management-container">
         <PageTitle
-          title="Manage your shop"
+          title="Manage your shops"
           subtitle="All your shops and shop items are here. Move things around and make changes here!"
         />
       </div>

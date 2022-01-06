@@ -159,9 +159,9 @@
     font-size: 18px;
   }
 
-  .shop-management-container,
+  /* .shop-management-container, */
   .management-content-area {
-    padding: 10px 50px;
+    padding-top: 20px;
   }
 
   .item-full-container {

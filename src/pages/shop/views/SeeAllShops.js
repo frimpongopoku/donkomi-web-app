@@ -5,7 +5,7 @@ import ImageThumbnail from "./../../../components/thumbnail/ImageThumbnail";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import NotFound from "./../../../components/not found/NotFound";
 function SeeAllShops() {
-  return <NotFound />;
+  // return <NotFound />;
   return (
     <div className="all-shops-container">
       <p style={{ marginTop: 15 }}>

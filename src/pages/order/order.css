@@ -1,0 +1,10 @@
+.sec-tab-item {
+  padding: 15px 10px;
+  border: solid 0px white;
+  font-size: 15px;
+  font-weight: 500;
+}
+.sec-tab-selected {
+  border-bottom-color: var(--app-color);
+  border-bottom-width: 4px;
+}

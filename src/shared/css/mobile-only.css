@@ -113,7 +113,7 @@
     padding: 10px 10px;
   }
   .management-content-area {
-    padding: 15px;
+    /* padding: 15px; */
   }
   .shop-image {
     height: 60px;
@@ -125,7 +125,7 @@
   }
 
   .shop-management-container {
-    padding: 10px;
+    /* padding: 10px; */
   }
 
   .item-full-container {
