@@ -119,4 +119,9 @@
   .drop-area { 
     margin:10px 0px
   }
+
+  .shop-management-container {
+    padding: 10px;
+  }
+  
 }

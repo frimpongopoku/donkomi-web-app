@@ -2,6 +2,8 @@ import React from "react";
 import "./../ShopManagement.css";
 import { ShopCard } from "./SeeAllShops";
 import Dropdown from "./../../../components/form generator/dropdown/Dropdown";
+import NotFound from "../../../components/not found/NotFound";
+
 function SeeAllShopItems() {
   return (
     <div className="all-shop-items-container">

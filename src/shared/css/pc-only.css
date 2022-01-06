@@ -139,9 +139,9 @@
   .create-shop-container {
     padding: 0px 20px;
   }
-  .management-content-area {
+  /* .management-content-area {
     padding: 20px;
-  }
+  } */
 
   .drop-area {
     padding: 20px 0px;
@@ -155,4 +155,14 @@
   .shop-card h4 {
     font-size: 18px;
   }
+
+  .shop-management-container,
+  .management-content-area {
+    padding: 10px 50px;
+  }
+
+  /* .all-shops-container,
+  .all-shop-items-container {
+    padding: 0px 30px;
+  } */
 }

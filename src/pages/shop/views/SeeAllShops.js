@@ -3,7 +3,9 @@ import "./../ShopManagement.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ImageThumbnail from "./../../../components/thumbnail/ImageThumbnail";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import NotFound from "./../../../components/not found/NotFound";
 function SeeAllShops() {
+  return <NotFound />;
   return (
     <div className="all-shops-container">
       <p style={{ marginTop: 15 }}>
@@ -11,7 +13,11 @@ function SeeAllShops() {
       </p>
       <div style={{ marginTop: 20 }}>
         {[1, 2, 3, 4, 5].map((s, i) => {
-          return <ShopCard />;
+          return (
+            <React.Fragment key={i?.toString()}>
+              <ShopCard />
+            </React.Fragment>
+          );
         })}
       </div>
     </div>
