@@ -17,7 +17,9 @@ function PageWrapper(props) {
         </div>
         <div>
           <Toolbar showSidebar={showSidebar} />
-          <div className="page-content">{children}</div>
+          <div className="page-content">
+            <div className="page-inner-wrapper">{children}</div>
+          </div>
         </div>
         <BottomNavigation />
       </div>

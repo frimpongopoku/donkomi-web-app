@@ -9,6 +9,10 @@
     padding-top: 70px;
     padding-bottom: 100px;
   }
+
+  .page-inner-wrapper {
+    padding: 15px;
+  }
   .profile-roles {
     font-weight: 600;
     color: var(--app-color);
@@ -170,6 +174,6 @@
   }
 
   .cart-content {
-    padding: 15px;
+    padding: 15px 0px;
   }
 }

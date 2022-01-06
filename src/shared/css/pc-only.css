@@ -94,6 +94,9 @@
     padding-top: 70px;
     padding-bottom: 160px;
   }
+  .page-inner-wrapper {
+    padding: 20px 50px;
+  }
 
   .profile-container {
     padding: 0px 20px;
@@ -193,14 +196,15 @@
     align-items: flex-end;
   }
 
-  .cart-content {
+  .cart-wrapper {
     padding: 50px;
   }
+  /* .cart-content {
+    padding: 50px;
+  } */
 
   .cart-total h2 span {
     font-size: 36px;
     font-weight: bold;
   }
-
- 
 }
