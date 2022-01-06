@@ -1,6 +1,7 @@
 import React from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import App from "./App";
+import Cart from "./pages/cart/Cart";
 import Home from "./pages/home/Home";
 import News from "./pages/news/News";
 import CreateShop from "./pages/shop/CreateShop";
@@ -26,6 +27,7 @@ const ProtectedRoutes = () => {
     <Routes>
       <Route path="/home" exact element={<Home />} />
       <Route path="/market-place" exact element={<MarketPlace />} />
+      <Route path="/user/show-my-cart" exact element={<Cart />} />
       <Route path="/news" exact element={<News />} />
       <Route path="/shop/create" exact element={<CreateShop />} />
       <Route path="/shop/manage" exact element={<ShopManagement />} />

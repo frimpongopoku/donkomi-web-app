@@ -4,3 +4,7 @@
 .ui-page-intro p {
   color: var(--app-color-darker);
 }
+
+.ui-page-intro {
+  padding: 20px;
+}

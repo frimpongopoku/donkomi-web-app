@@ -165,10 +165,11 @@
     box-shadow: var(--elevate-float);
   }
 
- 
   .full-view-img {
     height: 300px;
   }
-  
 
+  .cart-content {
+    padding: 15px;
+  }
 }

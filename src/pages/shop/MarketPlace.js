@@ -11,7 +11,7 @@ export default function MarketPlace() {
   return (
     <PageWrapper>
       <Market />
-      <ItemFullView />
+      {/* <ItemFullView /> */}
     </PageWrapper>
   );
 }
