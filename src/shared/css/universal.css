@@ -60,6 +60,9 @@ body {
   font-weight: bold;
 }
 
+.touchable-opacity {
+  cursor: pointer;
+}
 .touchable-opacity:hover {
   opacity: 0.6;
   transition: 0.2s ease-out;

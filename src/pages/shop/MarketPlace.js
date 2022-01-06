@@ -10,7 +10,7 @@ import ItemFullView from "./views/ItemFullView";
 export default function MarketPlace() {
   return (
     <PageWrapper>
-      {/* <Market /> */}
+      <Market />
       <ItemFullView />
     </PageWrapper>
   );

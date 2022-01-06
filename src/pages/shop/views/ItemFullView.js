@@ -22,9 +22,25 @@ function ItemFullView() {
               <small>Rs 4589</small>
             </span>
           </div>
+
           <div className="item-full-content">
             <ImageThumbnail className="full-view-img" />
+
             <div className="phone-vanish">
+              <p
+                className="touchable-opacity"
+                style={{
+                  width: "100%",
+                  background: "var(--app-color-darkest)",
+                  padding: 15,
+                  textAlign: "center",
+                  color: "white",
+                  fontWeight: "bold",
+                  marginTop: -5,
+                }}
+              >
+                CLOSE
+              </p>
               <Footer />
             </div>
             <div className="full-details">
