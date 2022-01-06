@@ -128,6 +128,8 @@
     min-height: 100vh;
     z-index: 20;
     background: white;
+    bottom: 0px;
+    width: 100%;
   }
   .item-full-header {
     background: white;
@@ -155,31 +157,18 @@
   }
 
   .item-full-footer {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    display: flex;
     flex: 3;
-
     box-shadow: var(--elevate-float);
   }
 
-  .item-full-footer span,
-  .item-full-footer small {
-    font-size: 20px;
-    text-align: center;
-    padding: 15px;
-    font-weight: bold;
-  }
+ 
   .full-view-img {
     height: 300px;
   }
-  .full-details h3 {
-    margin-bottom: 15px;
-    font-size: 23px;
-    font-weight: 300;
-  }
+  
 
-  .f-det-item {
-    margin-bottom: 10px;
-  }
-  .f-det-item span {
-    font-weight: bold;
-  }
 }

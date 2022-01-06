@@ -11,9 +11,9 @@ import ImageThumbnail from "./../../../components/thumbnail/ImageThumbnail";
 function ItemFullView() {
   return (
     <div>
-      <div className="item-full-container">
+      <div className="item-full-container anime-show-from-left">
         <div style={{ position: "relative" }}>
-          <div className="item-full-header">
+          <div className="item-full-header pc-vanish">
             <span style={{ padding: "15px" }}>
               <FontAwesomeIcon icon={faLongArrowAltLeft} />
               <small style={{ marginLeft: 10 }}>Back</small>
@@ -24,6 +24,9 @@ function ItemFullView() {
           </div>
           <div className="item-full-content">
             <ImageThumbnail className="full-view-img" />
+            <div className="phone-vanish">
+              <Footer />
+            </div>
             <div className="full-details">
               <h3>First Item Here Bro</h3>
               <p className="f-det-item">
@@ -51,22 +54,8 @@ function ItemFullView() {
               </small>
             </div>
           </div>
-          <div className="item-full-footer">
-            <span
-              style={{ flex: 1, color: "red" }}
-              className="touchable-opacity"
-            >
-              <FontAwesomeIcon icon={faMinus} />
-            </span>
-            <span style={{ flex: 1 }}>
-              <small>3</small>
-            </span>
-            <span
-              style={{ flex: 1, color: "green" }}
-              className="touchable-opacity"
-            >
-              <FontAwesomeIcon icon={faPlus} />
-            </span>
+          <div className="pc-vanish">
+            <Footer />
           </div>
         </div>
       </div>
@@ -74,4 +63,19 @@ function ItemFullView() {
   );
 }
 
+const Footer = () => {
+  return (
+    <div className="item-full-footer">
+      <span style={{ flex: 1, color: "red" }} className="touchable-opacity">
+        <FontAwesomeIcon icon={faMinus} />
+      </span>
+      <span style={{ flex: 1 }}>
+        <small>3</small>
+      </span>
+      <span style={{ flex: 1, color: "green" }} className="touchable-opacity">
+        <FontAwesomeIcon icon={faPlus} />
+      </span>
+    </div>
+  );
+};
 export default ItemFullView;
