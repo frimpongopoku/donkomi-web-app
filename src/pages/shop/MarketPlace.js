@@ -4,22 +4,29 @@ import React from "react";
 import BottomNavigation from "../../components/bottom navigation/BottomNavigation";
 import Toolbar from "../../components/toolbar/Toolbar";
 import PageWrapper from "../wrapper/PageWrapper";
-import ImageThumbnail from "./../../components/thumbnail/ImageThumbnail";
-import "./Shop.css";
-export default function Shop() {
+import ImageThumbnail from "../../components/thumbnail/ImageThumbnail";
+import "./MarketPlace.css";
+import ItemFullView from "./views/ItemFullView";
+export default function MarketPlace() {
   return (
     <PageWrapper>
-      <div className="shop-page-container">
-        {[1, 2, 3, 4, 5, 6, 5, 6, 7].map((itm, ind) => (
-          <React.Fragment key={ind?.toString()}>
-            <ShopItem />
-          </React.Fragment>
-        ))}
-      </div>
-      <BottomNavigation />
+      {/* <Market /> */}
+      <ItemFullView />
     </PageWrapper>
   );
 }
+
+const Market = () => {
+  return (
+    <div className="shop-page-container">
+      {[1, 2, 3, 4, 5, 6, 5, 6, 7].map((itm, ind) => (
+        <React.Fragment key={ind?.toString()}>
+          <ShopItem />
+        </React.Fragment>
+      ))}
+    </div>
+  );
+};
 
 const ShopItem = ({}) => {
   return (

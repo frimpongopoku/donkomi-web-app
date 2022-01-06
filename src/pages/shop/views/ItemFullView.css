@@ -1,0 +1,22 @@
+.item-full-container {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+}
+
+.item-full-footer {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  display: flex;
+}
+
+.full-view-img {
+  width: 100%;
+  object-fit: contain;
+}
+
+.full-details {
+  padding: 20px;
+  /* color: var(--app-color-darker); */
+}

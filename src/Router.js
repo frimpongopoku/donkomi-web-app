@@ -5,7 +5,7 @@ import Home from "./pages/home/Home";
 import News from "./pages/news/News";
 import CreateShop from "./pages/shop/CreateShop";
 import CreateShopItem from "./pages/shop/CreateShopItem";
-import Shop from "./pages/shop/Shop";
+import MarketPlace from "./pages/shop/MarketPlace";
 import ShopManagement from "./pages/shop/ShopManagement";
 import UserProfile from "./pages/user/UserProfile";
 
@@ -25,7 +25,7 @@ const ProtectedRoutes = () => {
   return (
     <Routes>
       <Route path="/home" exact element={<Home />} />
-      <Route path="/shop" exact element={<Shop />} />
+      <Route path="/market-place" exact element={<MarketPlace />} />
       <Route path="/news" exact element={<News />} />
       <Route path="/shop/create" exact element={<CreateShop />} />
       <Route path="/shop/manage" exact element={<ShopManagement />} />
