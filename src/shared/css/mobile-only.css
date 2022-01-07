@@ -176,4 +176,23 @@
   .cart-content {
     padding: 15px 0px;
   }
+
+  .order-full-root {
+    width: 100%;
+    height: 100vh;
+    overflow-y: scroll;
+  }
+  .order-full-container {
+    padding: 15px;
+    padding-top: 10px;
+  }
+  .head-stone {
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+  }
+  .order-status {
+    margin-left: auto;
+  }
 }

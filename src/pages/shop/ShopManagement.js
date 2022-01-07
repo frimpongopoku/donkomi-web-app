@@ -1,5 +1,6 @@
 import React from "react";
 import PageTitle from "../../components/page title/PageTitle";
+import OrderFullView from "../order/OrderFullView";
 import SellerOrders from "../order/SellerOrders";
 import PageWrapper from "../wrapper/PageWrapper";
 import TabView from "./../../components/TabView/TabView";
@@ -24,6 +25,7 @@ function ShopManagement() {
       component: <SellerOrders />,
     },
   ];
+
   return (
     <PageWrapper>
       <div className="shop-management-container">
@@ -32,6 +34,7 @@ function ShopManagement() {
           subtitle="All your shops and shop items are here. Move things around and make changes here!"
         />
       </div>
+      <OrderFullView />
       <div className="management-content-area">
         <TabView data={TABS} />
       </div>

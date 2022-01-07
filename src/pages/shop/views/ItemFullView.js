@@ -64,7 +64,6 @@ function ItemFullView() {
               <p className="f-det-item">
                 <span>Shop Owner: </span> Pongo
               </p>
-
               <small style={{ color: "green" }}>
                 <i>You have this item in your cart</i>
               </small>

@@ -1,0 +1,12 @@
+.order-full-root {
+  position: fixed;
+  z-index: 5;
+  background-color: white;
+  top: 0px;
+  left: 0px;
+}
+
+.order-dets h3 {
+  font-weight: 300;
+  color: var(--app-color-darker);
+}
