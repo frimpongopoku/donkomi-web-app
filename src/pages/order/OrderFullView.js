@@ -4,14 +4,16 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import { CartItem, OrderViewItem } from "../cart/CartItem";
 import "./OrderFullView.css";
 function OrderFullView() {
   return (
     <div className="order-full-root">
       <div style={{ position: "relative" }}>
         <div
-          className="elevate-float order-full-phone-header pc-vanish"
-          style={{ width: "100%", padding: 15 }}
+          // className="elevate-float order-full-phone-header pc-vanish"
+          className="elevate-float order-full-phone-header "
+          style={{}}
         >
           <span
             className="touchable-opacity"
@@ -27,7 +29,7 @@ function OrderFullView() {
           </span>
         </div>
 
-        {/* ---------- NOW ORDER CONTENT --------------- */}
+        {/* ---------------------- NOW ORDER CONTENT --------------- */}
         <div className="order-full-container">
           <div className="head-stone">
             <div className="order-dets">
@@ -47,8 +49,35 @@ function OrderFullView() {
               </center>
             </div>
           </div>
-          <div className="order-content"></div>
-          <div className="caller-details"></div>
+          <div className="order-content">
+            <p className="subtitle">
+              Here is a list of all the products you selected in this order
+            </p>
+            <div>
+              {[2, 3, 4, 5, 4].map((x, id) => {
+                return (
+                  <React.Fragment key={id.toString()}>
+                    <OrderViewItem />
+                  </React.Fragment>
+                );
+              })}
+            </div>
+          </div>
+          <div className="caller-details">
+            <p className="subtitle">
+              You may contact the buyer/seller via the line provided
+            </p>
+            <div>
+              <span>
+                <span>Name: </span> Frimpong Opoku Agyemang
+              </span>
+            </div>
+            <div>
+              <span>
+                <span>Phone Number: </span> +233 243 98 33 64
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </div>

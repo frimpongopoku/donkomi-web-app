@@ -180,7 +180,7 @@
   .order-full-root {
     width: 100%;
     height: 100vh;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
   }
   .order-full-container {
     padding: 15px;
@@ -194,5 +194,14 @@
   }
   .order-status {
     margin-left: auto;
+  }
+
+  .order-full-phone-header {
+    width: 100%;
+    padding: 15px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
   }
 }

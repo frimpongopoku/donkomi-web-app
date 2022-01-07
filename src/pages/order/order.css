@@ -8,3 +8,8 @@
   border-bottom-color: var(--app-color);
   border-bottom-width: 4px;
 }
+
+.order-full-container {
+  height: 100vh;
+  overflow-y: scroll;
+}
