@@ -9,10 +9,9 @@ import "./OrderFullView.css";
 function OrderFullView() {
   return (
     <div className="order-full-root">
-      <div style={{ position: "relative" }}>
+      <div>
         <div
-          // className="elevate-float order-full-phone-header pc-vanish"
-          className="elevate-float order-full-phone-header "
+          className="elevate-float order-full-phone-header pc-vanish"
           style={{}}
         >
           <span
@@ -28,7 +27,6 @@ function OrderFullView() {
             <small style={{ marginLeft: 10 }}>Back</small>
           </span>
         </div>
-
         {/* ---------------------- NOW ORDER CONTENT --------------- */}
         <div className="order-full-container">
           <div className="head-stone">
@@ -38,7 +36,7 @@ function OrderFullView() {
               <h5>Your ordered (6) Items</h5>
             </div>
             <div className="order-status">
-              <center>
+              <center style={{ margin: "15px 0px" }}>
                 <span style={{ fontSize: 20, color: "green" }}>
                   <FontAwesomeIcon icon={faHourglass} />
                 </span>

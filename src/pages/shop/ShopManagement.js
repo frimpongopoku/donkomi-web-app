@@ -34,9 +34,26 @@ function ShopManagement() {
           subtitle="All your shops and shop items are here. Move things around and make changes here!"
         />
       </div>
-      <OrderFullView />
+
       <div className="management-content-area">
         <TabView data={TABS} />
+      </div>
+      <div className="pc-vanish">
+        <OrderFullView />
+      </div>
+      <div
+        className="phone-vanish elevate-float"
+        style={{
+          position: "absolute",
+          right: 0,
+          top: 60,
+          height: "100vh",
+          width: 300,
+          zIndex: 20,
+          background: "white",
+        }}
+      >
+        <OrderFullView />
       </div>
     </PageWrapper>
   );

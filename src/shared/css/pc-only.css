@@ -211,5 +211,10 @@
   .order-full-container {
     /* padding: 15px; */
     /* padding-top: 60px; */
+    padding: 10px 20px;
+  }
+
+  .order-content {
+    margin: 15px 0px;
   }
 }
