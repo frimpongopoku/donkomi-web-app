@@ -48,7 +48,7 @@ function ShopManagement() {
           right: 0,
           top: 60,
           height: "100vh",
-          width: 300,
+          width: 360,
           zIndex: 20,
           background: "white",
         }}

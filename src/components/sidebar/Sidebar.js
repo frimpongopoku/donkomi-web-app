@@ -3,6 +3,7 @@ import "./sidebar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome, faLock } from "@fortawesome/free-solid-svg-icons";
 import { MENU } from "./values";
+import { useNavigate } from "react-router-dom";
 
 function Sidebar(props) {
   const {} = props;
@@ -18,6 +19,7 @@ function Sidebar(props) {
           return (
             <div key={index?.toString()}>
               <SideMenuItem
+                {...menu}
                 label={menu.name}
                 icon={menu.icon}
                 locked={menu.locked}
@@ -31,9 +33,23 @@ function Sidebar(props) {
   );
 }
 
-const SideMenuItem = ({ icon = faHome, label = "Home", className, locked }) => {
+const SideMenuItem = ({
+  icon = faHome,
+  label = "Home",
+  className,
+  locked,
+  onClick,
+  url,
+}) => {
+  const navigate = useNavigate();
   return (
-    <div className={`side-menu-item ${className || ""}`}>
+    <div
+      className={`side-menu-item ${className || ""}`}
+      onClick={() => {
+        if (url) return navigate(url);
+        if (onClick) onClick();
+      }}
+    >
       <FontAwesomeIcon icon={icon} />
       <p>{label}</p>
       {locked && (

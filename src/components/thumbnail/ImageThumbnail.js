@@ -10,7 +10,7 @@ function ImageThumbnail({ onClick, imageSource, src, style = {}, className }) {
     ? { boxShadow: "0 0 0", borderColor: "white" }
     : {};
   return (
-    <div >
+    <div>
       {/*  This is what actually loads the image, but is always invisible */}
       <img
         src={imageSource || src}
