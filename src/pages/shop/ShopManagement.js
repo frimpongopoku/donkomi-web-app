@@ -38,10 +38,10 @@ function ShopManagement() {
       <div className="management-content-area">
         <TabView data={TABS} />
       </div>
-      <div className="pc-vanish">
+      {/* <div className="pc-vanish">
         <OrderFullView />
-      </div>
-      <div
+      </div> */}
+      {/* <div
         className="phone-vanish elevate-float"
         style={{
           position: "absolute",
@@ -54,7 +54,7 @@ function ShopManagement() {
         }}
       >
         <OrderFullView />
-      </div>
+      </div> */}
     </PageWrapper>
   );
 }

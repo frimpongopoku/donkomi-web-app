@@ -3,10 +3,14 @@ import "./sidebar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome, faLock } from "@fortawesome/free-solid-svg-icons";
 import { MENU } from "./values";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function Sidebar(props) {
   const {} = props;
+
+  const params = useParams();
+
+  console.log("I am the params bro", params);
   return (
     <div className="sidebar-wrapper elevate-float slide-anime">
       <div className="upper">
