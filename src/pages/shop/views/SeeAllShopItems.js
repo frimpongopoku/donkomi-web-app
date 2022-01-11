@@ -5,8 +5,10 @@ import Dropdown from "./../../../components/form generator/dropdown/Dropdown";
 import NotFound from "../../../components/not found/NotFound";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 
 function SeeAllShopItems() {
+  const goto = useNavigate();
   return (
     <div className="all-shop-items-container">
       <p
@@ -16,6 +18,7 @@ function SeeAllShopItems() {
           padding: 10,
           fontWeight: "bold",
         }}
+        onClick={() => goto("new-product")}
       >
         <FontAwesomeIcon icon={faPlus} />
         <span style={{ marginLeft: 15 }}>Add New Product</span>

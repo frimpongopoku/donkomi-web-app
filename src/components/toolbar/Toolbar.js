@@ -8,10 +8,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./Toolbar.css";
 
 export default function Toolbar(props) {
   const { back, showSidebar } = props;
+  const goto = useNavigate();
   return (
     <div className=" elevate-float toolbar-container">
       <div className="left">
@@ -26,7 +28,7 @@ export default function Toolbar(props) {
           </span>
           {back && <FontAwesomeIcon icon={faLongArrowAltLeft} />}
           <p style={{ margin: 0, marginLeft: 7, fontWeight: "bold" }}>
-            Homepage
+            Donkomi
           </p>
         </div>
       </div>
@@ -34,7 +36,10 @@ export default function Toolbar(props) {
         <span className="tool-icon">
           <FontAwesomeIcon icon={faBell} />
         </span>
-        <span className="tool-icon">
+        <span
+          className="tool-icon"
+          onClick={() => goto("/user/control/shop-management/show-my-cart")}
+        >
           <FontAwesomeIcon icon={faCartArrowDown} className="" />
         </span>
       </div>

@@ -7,9 +7,14 @@ import PageWrapper from "../wrapper/PageWrapper";
 import ImageThumbnail from "../../components/thumbnail/ImageThumbnail";
 import "./MarketPlace.css";
 import ItemFullView from "./views/ItemFullView";
+import PageTitle from "../../components/page title/PageTitle";
 export default function MarketPlace() {
   return (
     <PageWrapper>
+      <PageTitle
+        title="Market"
+        subtitle="I am sure you know what happens in markets. Just a reminder, the experience  is way better when you have a lot of money!"
+      />
       <Market />
       {/* <ItemFullView /> */}
     </PageWrapper>

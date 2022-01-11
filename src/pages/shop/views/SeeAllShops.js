@@ -3,8 +3,10 @@ import "./../ShopManagement.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ImageThumbnail from "./../../../components/thumbnail/ImageThumbnail";
 import { faPlus, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 
 function SeeAllShops() {
+  const goto = useNavigate();
   return (
     <div className="all-shops-container">
       <p
@@ -14,6 +16,7 @@ function SeeAllShops() {
           padding: 10,
           fontWeight: "bold",
         }}
+        onClick={() => goto("new-shop")}
       >
         <FontAwesomeIcon icon={faPlus} />
         <span style={{ marginLeft: 15 }}>Add New Shop</span>

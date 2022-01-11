@@ -70,6 +70,7 @@
   }
   .bottom-nav-container {
     box-shadow: var(--elevate-float);
+    background: white;
   }
   .sidebar-wrapper {
     width: 250px;
