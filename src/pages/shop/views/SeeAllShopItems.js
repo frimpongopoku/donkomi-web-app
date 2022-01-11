@@ -3,10 +3,23 @@ import "./../ShopManagement.css";
 import { ShopCard } from "./SeeAllShops";
 import Dropdown from "./../../../components/form generator/dropdown/Dropdown";
 import NotFound from "../../../components/not found/NotFound";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 function SeeAllShopItems() {
   return (
     <div className="all-shop-items-container">
+      <p
+        className="touchable-opacity"
+        style={{
+          color: "var(--app-color-darker)",
+          padding: 10,
+          fontWeight: "bold",
+        }}
+      >
+        <FontAwesomeIcon icon={faPlus} />
+        <span style={{ marginLeft: 15 }}>Add New Product</span>
+      </p>
       <p>
         Use the dropdown to go through your shops. The items in your chosen shop
         will be shown below

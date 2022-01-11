@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
 import PageTitle from "../../components/page title/PageTitle";
 import OrderFullView from "../order/OrderFullView";
 import SellerOrders from "../order/SellerOrders";
@@ -8,6 +10,9 @@ import "./ShopManagement.css";
 import SeeAllShopItems from "./views/SeeAllShopItems";
 import SeeAllShops from "./views/SeeAllShops";
 function ShopManagement() {
+  const pageParams = useParams();
+  
+ 
   const TABS = [
     {
       name: "Shops",
@@ -26,6 +31,9 @@ function ShopManagement() {
     },
   ];
 
+  
+
+
   return (
     <PageWrapper>
       <div className="shop-management-container">
@@ -36,7 +44,7 @@ function ShopManagement() {
       </div>
 
       <div className="management-content-area">
-        <TabView data={TABS} />
+        <TabView data={TABS} defaultTab={pageParams.tab} />
       </div>
       {/* <div className="pc-vanish">
         <OrderFullView />

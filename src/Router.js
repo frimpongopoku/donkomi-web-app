@@ -26,13 +26,13 @@ const ProtectedRoutes = () => {
   return (
     <Routes>
       <Route path="/home" exact element={<Home />} />
-      <Route path="/market-place" exact element={<MarketPlace />} />
+      <Route path="/browse/:page" exact  element={<MarketPlace />} />
       <Route path="/user/show-my-cart" exact element={<Cart />} />
       <Route path="/news" exact element={<News />} />
       <Route path="/shop/create" exact element={<CreateShop />} />
-      <Route path="/shop/manage" exact element={<ShopManagement />} />
-      <Route path="/shop/create/item" exact element={<CreateShopItem />} />
-      <Route path="/user/profile" exact element={<UserProfile />} />
+      <Route path="/user/manage/:page/:tab" exact element={<ShopManagement />} />
+      {/* <Route path="/shop/create/item" exact element={<CreateShopItem />} /> */}
+      <Route path="/user/control/:page" exact element={<UserProfile />} />
     </Routes>
   );
 };

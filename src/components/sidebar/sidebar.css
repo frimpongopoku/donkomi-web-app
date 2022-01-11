@@ -15,9 +15,22 @@
   cursor: pointer;
 }
 
+.just-show {
+  display: block;
+  opacity: 1;
+}
 .side-menu-item:hover {
   background: var(--app-color-darker);
   color: White;
+}
+
+.side-menu-active {
+  background: var(--app-color-darkest);
+  color: White;
+}
+.side-menu-active:hover {
+  background: antiquewhite;
+  color: var(--app-color-darker);
 }
 
 .side-menu-item p {

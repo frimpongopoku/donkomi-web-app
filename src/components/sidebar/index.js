@@ -15,7 +15,7 @@ export default function SidebarWrapper({ onMount }) {
           <>
             <div className="side-overlay" onClick={() => setShow(false)}></div>
             <div className=" mobile-sidebar">
-              <Sidebar />
+              <Sidebar animate />
             </div>
           </>
         )}

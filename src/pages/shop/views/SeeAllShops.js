@@ -2,12 +2,22 @@ import React from "react";
 import "./../ShopManagement.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ImageThumbnail from "./../../../components/thumbnail/ImageThumbnail";
-import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import NotFound from "./../../../components/not found/NotFound";
+import { faPlus, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+
 function SeeAllShops() {
-  // return <NotFound />;
   return (
     <div className="all-shops-container">
+      <p
+        className="touchable-opacity"
+        style={{
+          color: "var(--app-color-darker)",
+          padding: 10,
+          fontWeight: "bold",
+        }}
+      >
+        <FontAwesomeIcon icon={faPlus} />
+        <span style={{ marginLeft: 15 }}>Add New Shop</span>
+      </p>
       <p style={{ marginTop: 15 }}>
         If you have created shops, all your shops will show up below
       </p>

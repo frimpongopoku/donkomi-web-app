@@ -6,13 +6,14 @@ import { MENU } from "./values";
 import { useNavigate, useParams } from "react-router-dom";
 
 function Sidebar(props) {
-  const {} = props;
+  const { animate } = props;
 
   const params = useParams();
 
-  console.log("I am the params bro", params);
   return (
-    <div className="sidebar-wrapper elevate-float slide-anime">
+    <div
+      className={`sidebar-wrapper elevate-float ${animate? "slide-anime" : "just-show"}`}
+    >
       <div className="upper">
         <img src="https://i.pravatar.cc/300" />
         <h5>Frimpong Opoku Agyemang</h5>
@@ -27,6 +28,7 @@ function Sidebar(props) {
                 label={menu.name}
                 icon={menu.icon}
                 locked={menu.locked}
+                active={params.page === menu.key}
               />
             </div>
           );
@@ -44,11 +46,14 @@ const SideMenuItem = ({
   locked,
   onClick,
   url,
+  active,
 }) => {
   const navigate = useNavigate();
   return (
     <div
-      className={`side-menu-item ${className || ""}`}
+      className={`side-menu-item ${className || ""} ${
+        active && "side-menu-active"
+      }`}
       onClick={() => {
         if (url) return navigate(url);
         if (onClick) onClick();
