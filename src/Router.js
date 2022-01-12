@@ -30,7 +30,7 @@ const ProtectedRoutes = () => {
       <Route path="/home" exact element={<Home />} />
       <Route path="/browse/:page" exact  element={<MarketPlace />} />
       {/* <Route path="/user/show-my-cart" exact element={<Cart />} /> */}
-      <Route path="/user/control/:page/show-my-cart" exact element={<Cart />} />
+      <Route path="/user/control/:page/show"exact element={<Cart />} />
       <Route path="/news" exact element={<News />} />
       <Route path="/shop/create" exact element={<CreateShop />} />
       <Route path="/user/manage/:page/:tab" exact element={<ShopManagement />} />

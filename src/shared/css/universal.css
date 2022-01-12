@@ -75,3 +75,8 @@ body {
   margin-bottom: 20px;
   padding-bottom: 10px;
 }
+
+.page-content {
+  overflow-y: scroll;
+  max-height: 100vh;
+}

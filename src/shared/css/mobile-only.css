@@ -8,6 +8,12 @@
   .page-content {
     padding-top: 70px;
     padding-bottom: 100px;
+   
+  }
+
+  .page-wrapper {
+    overflow-y: hidden;
+    max-height: 100vh;
   }
 
   .page-inner-wrapper {

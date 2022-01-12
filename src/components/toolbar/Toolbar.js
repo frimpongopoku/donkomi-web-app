@@ -38,7 +38,7 @@ export default function Toolbar(props) {
         </span>
         <span
           className="tool-icon"
-          onClick={() => goto("/user/control/shop-management/show-my-cart")}
+          onClick={() => goto("/user/control/my-cart/show")}
         >
           <FontAwesomeIcon icon={faCartArrowDown} className="" />
         </span>

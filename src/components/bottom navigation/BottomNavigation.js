@@ -31,7 +31,9 @@ const TabItem = ({ icon = faHome, label = "Home", url, onClick }) => {
       }}
     >
       <FontAwesomeIcon icon={icon} style={{ fontSize: 18 }} />
-      <small style={{ fontWeight: "bold", marginTop: 5 }}>{label}</small>
+      <small style={{ fontWeight: "bold", marginTop: 5, textAlign: "center" }}>
+        {label}
+      </small>
     </div>
   );
 };

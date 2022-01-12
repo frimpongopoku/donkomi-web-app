@@ -1,6 +1,7 @@
 import {
   faBell,
   faNewspaper,
+  faShoppingBag,
   faShoppingBasket,
   faUserAlt,
 } from "@fortawesome/free-solid-svg-icons";
@@ -14,13 +15,20 @@ export const NAV_MENU = [
     url: "/browse/market-place",
   },
   {
+    name: "Shop",
+    icon: faShoppingBag,
+    key: "shop-management",
+    url: "/user/manage/shop-management/shop-listing",
+  },
+  {
     name: "Notifications",
     icon: faBell,
     key: "notifications",
     // url: "/user/notifications",
   },
+
   {
-    name: "Your Profile",
+    name: "Profile",
     icon: faUserAlt,
     key: "profile",
     url: "/user/control/settings",

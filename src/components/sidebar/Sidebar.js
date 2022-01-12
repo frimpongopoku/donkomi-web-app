@@ -1,7 +1,7 @@
 import React from "react";
 import "./sidebar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome, faLock } from "@fortawesome/free-solid-svg-icons";
+import { faHammer, faHome, faLock } from "@fortawesome/free-solid-svg-icons";
 import { MENU } from "./values";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -12,7 +12,9 @@ function Sidebar(props) {
 
   return (
     <div
-      className={`sidebar-wrapper elevate-float ${animate? "slide-anime" : "just-show"}`}
+      className={`sidebar-wrapper elevate-float ${
+        animate ? "slide-anime" : "just-show"
+      }`}
     >
       <div className="upper">
         <img src="https://i.pravatar.cc/300" />
@@ -47,6 +49,7 @@ const SideMenuItem = ({
   onClick,
   url,
   active,
+  construction,
 }) => {
   const navigate = useNavigate();
   return (
@@ -61,14 +64,26 @@ const SideMenuItem = ({
     >
       <FontAwesomeIcon icon={icon} />
       <p>{label}</p>
-      {locked && (
-        <span style={{ marginLeft: "auto" }}>
-          <FontAwesomeIcon
-            icon={faLock}
-            style={{ color: "var(--app-color-grey)" }}
-          />
-        </span>
-      )}
+      <div
+        style={{ marginLeft: "auto", display: "flex", flexDirection: "row" }}
+      >
+        {locked && (
+          <span>
+            <FontAwesomeIcon
+              icon={faLock}
+              style={{ color: "var(--app-color-grey)" }}
+            />
+          </span>
+        )}
+        {construction && (
+          <span style={{ marginLeft: 6 }}>
+            <FontAwesomeIcon
+              icon={faHammer}
+              style={{ color: "var(--app-color-grey)" }}
+            />
+          </span>
+        )}
+      </div>
     </div>
   );
 };
