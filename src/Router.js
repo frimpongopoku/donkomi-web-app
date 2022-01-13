@@ -16,7 +16,7 @@ function Router() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" exact element={<App />} />
+        <Route path="/" exact element={<Home />} />
         {/* <Route path = "*" /> */}
       </Routes>
       <ProtectedRoutes />
@@ -28,14 +28,26 @@ const ProtectedRoutes = () => {
   return (
     <Routes>
       <Route path="/home" exact element={<Home />} />
-      <Route path="/browse/:page" exact  element={<MarketPlace />} />
+      <Route path="/browse/:page" exact element={<MarketPlace />} />
       {/* <Route path="/user/show-my-cart" exact element={<Cart />} /> */}
-      <Route path="/user/control/:page/show"exact element={<Cart />} />
+      <Route path="/user/control/:page/show" exact element={<Cart />} />
       <Route path="/news" exact element={<News />} />
       <Route path="/shop/create" exact element={<CreateShop />} />
-      <Route path="/user/manage/:page/:tab" exact element={<ShopManagement />} />
-      <Route path="/user/manage/:page/:tab/new-shop" exact element={<NewShopForm />} />
-      <Route path="/user/manage/:page/:tab/new-product" exact element={<NewProductShop />} />
+      <Route
+        path="/user/manage/:page/:tab"
+        exact
+        element={<ShopManagement />}
+      />
+      <Route
+        path="/user/manage/:page/:tab/new-shop"
+        exact
+        element={<NewShopForm />}
+      />
+      <Route
+        path="/user/manage/:page/:tab/new-product"
+        exact
+        element={<NewProductShop />}
+      />
       {/* <Route path="/shop/create/item" exact element={<CreateShopItem />} /> */}
       <Route path="/user/control/:page" exact element={<UserProfile />} />
     </Routes>

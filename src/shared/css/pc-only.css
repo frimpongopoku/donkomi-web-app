@@ -217,4 +217,11 @@
   .order-content {
     margin: 15px 0px;
   }
+  .bottom-half h3 {
+    font-size: 26px;
+  }
+
+  .top-half h1 {
+    font-size: 60px;
+  }
 }
