@@ -1,9 +1,10 @@
 import { faPenAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./../auth.css";
 function Login() {
+  const goto = useNavigate();
   return (
     <div className="auth-container">
       <h2>DONKOMI</h2>
@@ -34,6 +35,7 @@ function Login() {
         <p
           style={{ color: "green", marginBottom: 6 }}
           className="touchable-opacity"
+          onClick={() => goto("/register")}
         >
           <FontAwesomeIcon icon={faPenAlt} /> <i>I want to register instead</i>
         </p>

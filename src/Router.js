@@ -12,12 +12,13 @@ import MarketPlace from "./pages/shop/MarketPlace";
 import ShopManagement from "./pages/shop/ShopManagement";
 import UserProfile from "./pages/user/UserProfile";
 import Login from "./pages/auth/login/Login";
+import Register from "./pages/auth/registration/Register";
 function Router() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/login" exact element={<Login />} />
-        <Route path="/register" exact element={<Login />} />
+        <Route path="/register" exact element={<Register />} />
         <Route path="/" exact element={<Home />} />
         {/* <Route path = "*" /> */}
       </Routes>
