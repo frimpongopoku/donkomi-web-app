@@ -2,6 +2,7 @@ import { faPenAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Link } from "react-router-dom";
+import AuthLoader from "../AuthLoader";
 import "./../auth.css";
 function Register() {
   const fields = [
@@ -66,6 +67,8 @@ function Register() {
             </div>
           );
         })}
+
+        <AuthLoader />
       </div>
 
       <div className="auth-bottom-div">

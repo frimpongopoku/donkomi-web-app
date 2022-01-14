@@ -6,6 +6,20 @@
   transition: 0.2s ease-out;
 }
 
+@keyframes do-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spin {
+  animation: do-spin 2s linear infinite;
+}
+
 :root {
   --auth-theme-: #e5176e;
   --auth-theme-darker: #d42265;
@@ -44,6 +58,8 @@
 @media only screen and (max-width: 767px) {
   .auth-container {
     padding: 20px 15px;
+    max-height: 100vh;
+    overflow-y: scroll;
   }
   .auth-content-box {
     margin: 20px 0px;

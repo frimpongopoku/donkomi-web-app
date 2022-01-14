@@ -80,3 +80,12 @@ body {
   overflow-y: scroll;
   max-height: 100vh;
 }
+
+.le-toast {
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.le-toast p {
+  font-size: 15px;
+}

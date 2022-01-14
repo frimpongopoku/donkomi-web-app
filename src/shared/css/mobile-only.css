@@ -223,4 +223,8 @@
     overflow-y: scroll;
     max-height: 50vh;
   }
+
+  .le-toast {
+    padding: 15px 10px;
+  }
 }
