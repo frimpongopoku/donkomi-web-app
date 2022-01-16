@@ -8,32 +8,36 @@ import ImageThumbnail from "../../components/thumbnail/ImageThumbnail";
 import "./MarketPlace.css";
 import ItemFullView from "./views/ItemFullView";
 import PageTitle from "../../components/page title/PageTitle";
+import { generateMarketContent } from "../../factory/make";
+import DateHandler from "../../shared/classes/DateHandler";
+const products = generateMarketContent();
 export default function MarketPlace() {
+  console.log("I am the producst", products);
   return (
     <PageWrapper>
       <PageTitle
         title="Market"
         subtitle="I am sure you know what happens in markets. Just a reminder, the experience  is way better when you have a lot of money!"
       />
-      <Market />
+      <Market products={products} />
       {/* <ItemFullView /> */}
     </PageWrapper>
   );
 }
 
-const Market = () => {
+const Market = ({ products }) => {
   return (
     <div className="shop-page-container">
-      {[1, 2, 3, 4, 5, 6, 5, 6, 7].map((itm, ind) => (
+      {products?.map((prod, ind) => (
         <React.Fragment key={ind?.toString()}>
-          <ShopItem />
+          <ShopItem {...prod} />
         </React.Fragment>
       ))}
     </div>
   );
 };
 
-const ShopItem = ({}) => {
+const ShopItem = ({ name, price, created_at }) => {
   return (
     <div className="shop-item">
       <div style={{ position: "relative" }}>
@@ -41,14 +45,14 @@ const ShopItem = ({}) => {
           <FontAwesomeIcon icon={faPlus} />
         </div>
         <ImageThumbnail />
-        <small className="s-badge">3</small>
+        {/* <small className="s-badge">3</small> */}
       </div>
       <div className="s-dets">
-        <small className="price">Rs 9500</small>
+        <small className="price">Rs {Number(price)}</small>
         <br />
-        <small className="name">Big Mac Burger</small>
+        <small className="name">{name}</small>
         <br />
-        <small className="date">2nd July 2020</small>
+        <small className="date">{DateHandler.makeTimeAgo(created_at)}</small>
       </div>
     </div>
   );

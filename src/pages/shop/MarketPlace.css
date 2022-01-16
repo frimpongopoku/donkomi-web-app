@@ -1,6 +1,6 @@
 .shop-page-container {
   max-width: 100vw;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
   max-height: 100vh;
 }
 
