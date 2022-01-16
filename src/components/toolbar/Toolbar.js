@@ -8,12 +8,17 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { makeCartSummary } from "../../shared/js/utils";
 import "./Toolbar.css";
 
-export default function Toolbar(props) {
-  const { back, showSidebar } = props;
+function Toolbar(props) {
+  const { back, showSidebar, cart } = props;
   const goto = useNavigate();
+  const basket = cart?.shop || [];
+  const { numberOfItems } = makeCartSummary(basket);
+
   return (
     <div className=" elevate-float toolbar-container">
       <div className="left">
@@ -41,8 +46,20 @@ export default function Toolbar(props) {
           onClick={() => goto("/user/control/my-cart/show")}
         >
           <FontAwesomeIcon icon={faCartArrowDown} className="" />
+          {numberOfItems ? (
+            <span className="tool-icon-badge">{numberOfItems}</span>
+          ) : (
+            <></>
+          )}
         </span>
       </div>
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    cart: state.cart,
+  };
+};
+export default connect(mapStateToProps)(Toolbar);

@@ -34,6 +34,7 @@
   padding: 15px 20px;
   height: 100%;
   color: var(--app-color-darker);
+  cursor: pointer;
 }
 .tool-icon:hover {
   /* opacity: 0.4; */

@@ -39,7 +39,7 @@ const makeShopItem = () => {
   return {
     id: generateFakeWord(14),
     name: generateFakeWord(8),
-    price: generateFakeWord(4, "0123456789"),
+    price: Number(generateFakeWord(4, "0123456789")),
     size: SIZES[getRandomCharFromAlphabet("lms")],
     variation: generateFakeWord(5),
     image: `https://picsum.photos/200/300?random=${generateFakeWord(3)}/`,

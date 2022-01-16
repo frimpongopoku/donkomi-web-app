@@ -6,15 +6,35 @@ import Basket from "./Basket";
 import "./Cart.css";
 
 import TabView from "./../../components/TabView/TabView";
-function Cart() {
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { reduxAddToShoppingBasket } from "../../redux/actions/actions";
+import { pop } from "../../components/form generator/shared/utils/utils";
+import { useEffect } from "react";
+import { add, remove } from "../../shared/js/utils";
+function Cart({ cart, addToCart }) {
+  const basket = cart?.shop || [];
+
   const TABS = [
-    { name: "Cart", id: "cart", component: <Basket /> },
+    {
+      name: "Cart",
+      id: "cart",
+      component: (
+        <Basket
+          add={(product) => add(product, cart, addToCart)}
+          remove={(itemId) => remove(itemId, true, cart, addToCart)}
+          reduce={(itemId) => remove(itemId, false, cart, addToCart)}
+          basket={basket}
+        />
+      ),
+    },
     {
       name: "Order History",
       id: "order-history",
       component: <OrderHistory />,
     },
   ];
+
   return (
     <PageWrapper>
       <div className="cart-container">
@@ -30,4 +50,18 @@ function Cart() {
   );
 }
 
-export default Cart;
+const mapStateToProps = (state) => {
+  return {
+    cart: state.cart,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      addToCart: reduxAddToShoppingBasket,
+    },
+    dispatch
+  );
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);

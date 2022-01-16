@@ -47,7 +47,12 @@ function MarketPlace({ addToCart, cart }) {
         title="Market"
         subtitle="I am sure you know what happens in markets. Just a reminder, the experience  is way better when you have a lot of money!"
       />
-      <Market products={products} add={add} remove={remove} cart={cart} />
+      <Market
+        products={products}
+        add={(product) => add(product, cart, addToCart)}
+        remove={(itemId) => remove(itemId, false, cart, addToCart)}
+        cart={cart}
+      />
       {/* <ItemFullView /> */}
     </PageWrapper>
   );
