@@ -2,6 +2,8 @@ import { faPenAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Link } from "react-router-dom";
+import FlatButton from "../../../components/flat button/FlatButton";
+import Notification from "../../../components/form generator/notification/Notification";
 import AuthLoader from "../AuthLoader";
 import "./../auth.css";
 function Register() {
@@ -24,10 +26,17 @@ function Register() {
     },
     {
       type: "input",
+      name: "phone",
+      placeholder: "Enter phone number",
+      label: "Enter a working phone number",
+    },
+    {
+      type: "input",
       name: "password",
       placeholder: "Enter password",
       label:
         "This isnt mean't to be bae's name. Enter a secure code only you will remember!",
+      contentType: "password",
     },
     {
       type: "input",
@@ -36,49 +45,49 @@ function Register() {
       label: "Enter the password again, just in case!",
       contentType: "password",
     },
-    {
-      type: "input",
-      name: "password",
-      placeholder: "Confirm password",
-      label:
-        "This isnt mean't to be bae's name. Enter a secure code only you will remember!",
-      contentType: "password",
-    },
   ];
   return (
-    <div className="auth-container">
-      <h2>DONKOMI</h2>
-      <p>
-        It just takes a minute! Pro the following, and get started right away!
-      </p>
-      <div className="auth-content-box">
-        {fields.map((field, i) => {
-          return (
-            <div>
-              <small>{field.label}</small>
-              <input
-                className="auth-textbox"
-                placeholder={field.placeholder}
-                name={field.name}
-                type={field.contentType || "text"}
-                {...(field.max ? { maxLength: field.max } : {})}
-              />
-              <br />
-            </div>
-          );
-        })}
+    <div className="auth-wrapper">
+      <div className="auth-container">
+        <h2>DONKOMI</h2>
+        <p>
+          It just takes a minute! Pro the following, and get started right away!
+        </p>
+        <div className="auth-content-box">
+          {fields.map((field, i) => {
+            return (
+              <div>
+                <small>{field.label}</small>
+                <input
+                  className="auth-textbox"
+                  placeholder={field.placeholder}
+                  name={field.name}
+                  type={field.contentType || "text"}
+                  {...(field.max ? { maxLength: field.max } : {})}
+                />
+                <br />
+              </div>
+            );
+          })}
 
-        <AuthLoader />
-      </div>
-
-      <div className="auth-bottom-div">
-        <div
-          className="flat-btn touchable-opacity"
-          style={{ background: "green", color: "white" }}
-        >
-          Done, Sign Me Up!
+          <Link to="/" style={{ color: "green" }}>
+            <br />
+            <i>Already have an account, I want to login instead</i>
+          </Link>
+          <AuthLoader />
+          <div style={{ padding: 10, width: "100%" }}>
+            <Notification />
+          </div>
         </div>
-        {/* <div className="flat-btn">Use Google Instead</div> */}
+        <div className="auth-bottom-div">
+          <div
+            className="flat-btn touchable-opacity"
+            style={{ background: "green", color: "white" }}
+          >
+            Done, Sign Me Up!
+          </div>
+          {/* <div className="flat-btn">Use Google Instead</div> */}
+        </div>
       </div>
     </div>
   );
