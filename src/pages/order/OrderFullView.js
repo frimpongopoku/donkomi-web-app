@@ -6,11 +6,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { CartItem, OrderViewItem } from "../cart/CartItem";
 import "./OrderFullView.css";
-function OrderFullView({ close }) {
+function OrderFullView({ close, closeText }) {
   return (
-    <div className="order-full-root">
+    <div className="order-full-root slide-anime-right">
       <div>
-        <div className="elevate-float order-full-phone-header pc-vanish">
+        <div className="elevate-float order-full-phone-header ">
           <span
             onClick={() => close && close()}
             className="touchable-opacity"
@@ -22,7 +22,7 @@ function OrderFullView({ close }) {
             }}
           >
             <FontAwesomeIcon icon={faLongArrowAltLeft} />
-            <small style={{ marginLeft: 10 }}>Back</small>
+            <small style={{ marginLeft: 10 }}>{closeText || "Back"}</small>
           </span>
         </div>
         {/* ---------------------- NOW ORDER CONTENT --------------- */}

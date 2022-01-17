@@ -32,7 +32,6 @@ function ShopManagement() {
     },
   ];
 
-  console.log("THE ITEM TO VIEW", itemToView);
   return (
     <PageWrapper>
       <div className="shop-management-container">
@@ -66,7 +65,10 @@ function ShopManagement() {
             background: "white",
           }}
         >
-          <OrderFullView close={() => setShowFullView(null)} />
+          <OrderFullView
+            close={() => setShowFullView(null)}
+            closeText="Close This Panel"
+          />
         </div>
       )}
     </PageWrapper>

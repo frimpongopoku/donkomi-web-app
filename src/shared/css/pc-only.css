@@ -1,4 +1,13 @@
 @media only screen and (min-width: 768px) {
+  .order-full-phone-header {
+    padding: 10px 20px;
+    box-shadow: 0 0 0 !important;
+    cursor: pointer;
+    background: var(--app-color-darkest);
+  }
+  .order-full-phone-header > span {
+    color: white !important;
+  }
   .pc-sidebar {
     position: fixed;
     left: 0px;
@@ -225,8 +234,7 @@
     font-size: 60px;
   }
 
-  .le-toast { 
-    padding:20px; 
-    
+  .le-toast {
+    padding: 20px;
   }
 }
