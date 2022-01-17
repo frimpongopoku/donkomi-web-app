@@ -6,15 +6,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { CartItem, OrderViewItem } from "../cart/CartItem";
 import "./OrderFullView.css";
-function OrderFullView() {
+function OrderFullView({ close }) {
   return (
     <div className="order-full-root">
       <div>
-        <div
-          className="elevate-float order-full-phone-header pc-vanish"
-          style={{}}
-        >
+        <div className="elevate-float order-full-phone-header pc-vanish">
           <span
+            onClick={() => close && close()}
             className="touchable-opacity"
             style={{
               padding: "15px",

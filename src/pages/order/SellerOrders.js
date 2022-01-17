@@ -3,17 +3,17 @@ import TabView from "../../components/TabView/TabView";
 import OrdersForShop from "./OrdersForShop";
 import SellerOrderHistory from "./SellerOrderHistory";
 
-function SellerOrders() {
+function SellerOrders({ showFullView }) {
   const TABS = [
     {
       name: "Orders for you",
       id: "orders-for-your",
-      component: <OrdersForShop />,
+      component: <OrdersForShop showFullView={showFullView} />,
     },
     {
       name: "History",
       id: "order-history",
-      component: <SellerOrderHistory />,
+      component: <SellerOrderHistory showFullView={showFullView} />,
     },
   ];
   return (

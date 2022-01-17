@@ -1,8 +1,8 @@
 import React from "react";
 import ItemFrame from "./../cart/item frame/ItemFrame";
-function OrderItem({}) {
+function OrderItem({ onClick }) {
   return (
-    <div className="touchable-opacity">
+    <div className="touchable-opacity" onClick={() => onClick && onClick()}>
       <ItemFrame
         right={
           <p style={{ color: "green", fontWeight: "bold", textAlign: "right" }}>

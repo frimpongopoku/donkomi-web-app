@@ -11,8 +11,9 @@ import SeeAllShopItems from "./views/SeeAllShopItems";
 import SeeAllShops from "./views/SeeAllShops";
 function ShopManagement() {
   const pageParams = useParams();
-  
- 
+
+  const [itemToView, setShowFullView] = useState(null);
+
   const TABS = [
     {
       name: "Shops",
@@ -27,13 +28,11 @@ function ShopManagement() {
     {
       name: "Orders",
       id: "seller-order",
-      component: <SellerOrders />,
+      component: <SellerOrders showFullView={setShowFullView} />,
     },
   ];
 
-  
-
-
+  console.log("THE ITEM TO VIEW", itemToView);
   return (
     <PageWrapper>
       <div className="shop-management-container">
@@ -46,23 +45,30 @@ function ShopManagement() {
       <div className="management-content-area">
         <TabView data={TABS} defaultTab={pageParams.tab} />
       </div>
-      {/* <div className="pc-vanish">
-        <OrderFullView />
-      </div> */}
-      {/* <div
-        className="phone-vanish elevate-float"
-        style={{
-          position: "absolute",
-          right: 0,
-          top: 60,
-          height: "100vh",
-          width: 360,
-          zIndex: 20,
-          background: "white",
-        }}
-      >
-        <OrderFullView />
-      </div> */}
+      {itemToView && (
+        <div className="pc-vanish">
+          <OrderFullView
+            data={itemToView}
+            close={() => setShowFullView(null)}
+          />
+        </div>
+      )}
+      {itemToView && (
+        <div
+          className="phone-vanish elevate-float"
+          style={{
+            position: "absolute",
+            right: 0,
+            top: 60,
+            height: "100vh",
+            width: 360,
+            zIndex: 20,
+            background: "white",
+          }}
+        >
+          <OrderFullView close={() => setShowFullView(null)} />
+        </div>
+      )}
     </PageWrapper>
   );
 }
