@@ -9,8 +9,6 @@ import TabView from "./../../components/TabView/TabView";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { reduxAddToShoppingBasket } from "../../redux/actions/actions";
-import { pop } from "../../components/form generator/shared/utils/utils";
-import { useEffect } from "react";
 import { add, remove } from "../../shared/js/utils";
 function Cart({ cart, addToCart }) {
   const basket = cart?.shop || [];

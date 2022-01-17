@@ -9,9 +9,11 @@ function FlatButton({ children, loading, style, className, onClick }) {
       className={`flat-btn touchable-opacity ${className}`}
       style={{ ...(style || {}) }}
     >
-      <span style={{ marginRight: 6 }}>
-        <FontAwesomeIcon icon={faSpinner} className="spin" />
-      </span>
+      {loading && (
+        <span style={{ marginRight: 6 }}>
+          <FontAwesomeIcon icon={faSpinner} className="spin" />
+        </span>
+      )}
       <span>{children || "Clicke Me"}</span>
     </div>
   );

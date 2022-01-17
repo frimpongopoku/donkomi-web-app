@@ -1,12 +1,9 @@
 import React from "react";
 import NotFound from "../../components/not found/NotFound";
-import { NotFoundImage } from "../../components/notice/exports";
-import Notice from "./../../components/notice/Notice";
 import "./Cart.css";
 import { CartItem } from "./CartItem";
 import { makeCartSummary } from "./../../shared/js/utils";
-import { useEffect } from "react";
-
+import FlatButton from "../../components/flat button/FlatButton";
 function Basket({ add, remove, reduce, basket }) {
   const { totalPrice } = makeCartSummary(basket);
   return (
@@ -35,6 +32,12 @@ function Basket({ add, remove, reduce, basket }) {
 
         {!basket?.length && (
           <NotFound label="You have not added anything to your cart yet, start shopping!" />
+        )}
+
+        {basket.length ? (
+          <FlatButton style={{ borderRadius: 3 }}>Complete Checkout</FlatButton>
+        ) : (
+          <></>
         )}
       </div>
     </div>
