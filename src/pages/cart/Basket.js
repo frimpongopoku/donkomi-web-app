@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import NotFound from "../../components/not found/NotFound";
 import "./Cart.css";
 import { CartItem } from "./CartItem";
 import { makeCartSummary } from "./../../shared/js/utils";
 import FlatButton from "../../components/flat button/FlatButton";
-function Basket({ add, remove, reduce, basket }) {
+import Modal from "../../components/modal/Modal";
+function Basket({ add, remove, reduce, basket, confirmCheckout }) {
   const { totalPrice } = makeCartSummary(basket);
   return (
     <div>
@@ -35,7 +36,12 @@ function Basket({ add, remove, reduce, basket }) {
         )}
 
         {basket.length ? (
-          <FlatButton style={{ borderRadius: 3 }}>Complete Checkout</FlatButton>
+          <FlatButton
+            style={{ borderRadius: 3 }}
+            onClick={() => confirmCheckout()}
+          >
+            Complete Checkout ( Rs {Number(totalPrice)} )
+          </FlatButton>
         ) : (
           <></>
         )}
