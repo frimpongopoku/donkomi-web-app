@@ -68,6 +68,7 @@ function ShopManagement() {
           <OrderFullView
             close={() => setShowFullView(null)}
             closeText="Close This Panel"
+            data={itemToView}
           />
         </div>
       )}

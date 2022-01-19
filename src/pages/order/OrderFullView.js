@@ -1,4 +1,5 @@
 import {
+  faCheckCircle,
   faHourglass,
   faLongArrowAltLeft,
 } from "@fortawesome/free-solid-svg-icons";
@@ -6,7 +7,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { CartItem, OrderViewItem } from "../cart/CartItem";
 import "./OrderFullView.css";
-function OrderFullView({ close, closeText }) {
+function OrderFullView({ close, closeText, data }) {
+  const {
+    id,
+    quantity,
+    totalPrice,
+    product_orders,
+    seller,
+    customer,
+    completed,
+    shop
+  } = data || {};
   return (
     <div className="order-full-root slide-anime-right">
       <div>
@@ -29,18 +40,24 @@ function OrderFullView({ close, closeText }) {
         <div className="order-full-container">
           <div className="head-stone">
             <div className="order-dets">
-              <h3>Order Number #3445</h3>
-              <h2 style={{ color: "green" }}>Rs 5345</h2>
-              <h5>Your ordered (6) Items</h5>
+              <h3>Order Number #{id || "..."}</h3>
+              <h2 style={{ color: "green" }}>Rs {totalPrice || "..."}</h2>
+              <h5>
+                {quantity === 1
+                  ? " 1 Item Ordered"
+                  : quantity + " Items Ordered"}
+              </h5>
             </div>
             <div className="order-status">
               <center style={{ margin: "15px 0px" }}>
                 <span style={{ fontSize: 20, color: "green" }}>
-                  <FontAwesomeIcon icon={faHourglass} />
+                  <FontAwesomeIcon
+                    icon={completed ? faCheckCircle : faHourglass}
+                  />
                 </span>
                 <br />
                 <small style={{ color: "green", fontWeight: "bold" }}>
-                  In Progress
+                  {completed ? "Completed" : "In Progress.."}
                 </small>
               </center>
             </div>
@@ -50,10 +67,10 @@ function OrderFullView({ close, closeText }) {
               Here is a list of all the products you selected in this order
             </p>
             <div>
-              {[2, 3, 4, 5, 4].map((x, id) => {
+              {product_orders?.map((order, id) => {
                 return (
                   <React.Fragment key={id.toString()}>
-                    <OrderViewItem />
+                    <OrderViewItem {...order} />
                   </React.Fragment>
                 );
               })}

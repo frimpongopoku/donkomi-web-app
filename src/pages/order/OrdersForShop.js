@@ -17,7 +17,9 @@ function OrdersForShop({ showFullView, orders }) {
           return (
             <React.Fragment key={i.toString()}>
               <OrderItem
-                onClick={() => showFullView({})}
+                onClick={() =>
+                  showFullView({ ...order, totalPrice, quantity, shopString })
+                }
                 {...order}
                 {...{ totalPrice, quantity, shopString }}
               />
