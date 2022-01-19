@@ -1,14 +1,18 @@
 import React from "react";
 import TabView from "../../components/TabView/TabView";
+import { generateOrders } from "../../factory/make";
 import OrdersForShop from "./OrdersForShop";
 import SellerOrderHistory from "./SellerOrderHistory";
 
+const sellerOrders = generateOrders();
 function SellerOrders({ showFullView }) {
   const TABS = [
     {
       name: "Orders for you",
       id: "orders-for-your",
-      component: <OrdersForShop showFullView={showFullView} />,
+      component: (
+        <OrdersForShop showFullView={showFullView} orders={sellerOrders} />
+      ),
     },
     {
       name: "History",

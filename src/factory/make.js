@@ -6,7 +6,7 @@ function randomDate(start = new Date(2018, 0, 1), end = new Date()) {
 
 const DEFAULT_ALPHABET =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
+const NUMBERS = "0123456789";
 function getRandomCharFromAlphabet(alphabet) {
   return alphabet.charAt(Math.floor(Math.random() * alphabet.length));
 }
@@ -50,4 +50,43 @@ const makeShopItem = () => {
 
 export const generateMarketContent = () => {
   return [1, 2, 3, 4, 3, 4, 5, 6, 7, 5, 4, 3].map((i) => makeShopItem());
+};
+
+const makeUser = () => {
+  return {
+    id: generateFakeWord(),
+    firstName: generateFakeWord(),
+    lastName: generateFakeWord(),
+    preferredName: generateFakeWord(),
+    email: generateFakeWord(5) + "@gmail.com",
+    user_id: generateFakeWord(14),
+    phone: generateFakeWord(10, NUMBERS),
+  };
+};
+
+const randomNumber = (length = 1) => {
+  return Number(generateFakeWord(length, NUMBERS));
+};
+const makeCheckoutOrder = () => {
+  const bools = { t: true, f: false };
+  return {
+    id: generateFakeWord(),
+    customer: makeUser(),
+    seller: makeUser(),
+    created_at: randomDate(),
+    completed: bools[getRandomCharFromAlphabet("tf")],
+    product_orders: [1, 4, 3, 6, 7, 8, 5].map((_) => {
+      const q = randomNumber();
+      const p = randomNumber(3);
+      return {
+        product: makeShopItem(),
+        quantity: q,
+        total_price: q * p,
+      };
+    }),
+  };
+};
+
+export const generateOrders = () => {
+  return [1, 2, 3, 4, 5, 6, 5, 4, 34, 6, 7, 8].map((_) => makeCheckoutOrder());
 };

@@ -25,6 +25,7 @@ function Router() {
 const FreeRoutes = () => {
   return (
     <Routes>
+      <Route exact path="/" element={<Navigate to="/browse/market-place" />} />
       <Route path="/login" exact element={<Login />} />
       <Route path="/register" exact element={<Register />} />
       <Route path="/" exact element={<Navigate to="/login" />} />

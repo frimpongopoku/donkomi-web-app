@@ -33,3 +33,41 @@ export const remove = (itemId, removeAll = false, cart, redux) => {
   rest.splice(index, 0, changed);
   redux(rest);
 };
+
+export const getDetailsFromProductOrders = (arr) => {
+  var shopString = "",
+    image;
+  var quantity = 0;
+  var totalPrice = 0;
+  if (!arr) return {};
+  arr.forEach((item, index) => {
+    totalPrice += Number(item.total_price);
+    quantity += item.quantity;
+    if (!shopString) shopString = shopString + item?.product?.name;
+    else shopString = shopString + " , " + item?.product?.name;
+    if (index === 0) image = item.product?.image;
+  });
+
+  return { quantity, shopString, image, totalPrice };
+};
+
+export const getDetailsFromMerchantOrders = (arr) => {
+  var vendorString = "",
+    image,
+    campaignName,
+    campaignId;
+  var totalEstimated = 0;
+  if (!arr) return {};
+  arr.forEach((item, index) => {
+    if (!vendorString) vendorString = item?.vendor?.name;
+    else vendorString = vendorString + " , " + item?.vendor?.name;
+    totalEstimated += Number(item.estimated_cost);
+    if (index === 0) {
+      image = item?.vendor?.image;
+      campaignName = item?.campaign?.title;
+      campaignId = item?.campaign?.id;
+    }
+  });
+
+  return { vendorString, image, campaignName, campaignId, totalEstimated };
+};
