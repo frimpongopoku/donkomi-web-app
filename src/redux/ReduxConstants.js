@@ -1,3 +1,4 @@
 export const DO_NOTHING = "DO_NOTHING";
 
 export const UPDATE_CART = "ADD TO BASKET"; 
+export const PUT_CONTENT_IN_FORM_HOLDER = "PUT_CONTENT_IN_FORM_HOLDER"

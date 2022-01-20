@@ -10,7 +10,7 @@ function NewProductShop() {
       label: "What is this? What am I buying?",
       name: " Item Name",
       dbName: "name",
-      _generics: { maxlength: "50" },
+      _generics: { maxLength: "50" },
       required: true,
     },
     {

@@ -29,6 +29,7 @@ const fields = [
     fieldType: FormGenerator.FieldTypes.MEDIAUPLOAD,
   },
 ];
+
 function CreateShop() {
   return (
     <PageWrapper>
@@ -41,7 +42,12 @@ function CreateShop() {
         />
 
         <div className="form-area">
-          <FormGenerator fields={fields} />
+          <FormGenerator
+            fields={fields}
+            onChange={(state) => {
+              console.log("THis be the onchangestate", state);
+            }}
+          />
         </div>
       </div>
     </PageWrapper>

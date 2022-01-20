@@ -1,4 +1,8 @@
-import { DO_NOTHING, UPDATE_CART } from "../ReduxConstants";
+import {
+  DO_NOTHING,
+  PUT_CONTENT_IN_FORM_HOLDER,
+  UPDATE_CART,
+} from "../ReduxConstants";
 
 export const doNothingReducer = (state = [], action = {}) => {
   if (action.type === DO_NOTHING) {
@@ -9,6 +13,12 @@ export const doNothingReducer = (state = [], action = {}) => {
 
 export const reducerForUpdatingCart = (state = {}, action) => {
   if (action.type === UPDATE_CART) {
+    return action.payload;
+  }
+  return state;
+};
+export const reducerForHoldingFormContent = (state = {}, action) => {
+  if (action.type === PUT_CONTENT_IN_FORM_HOLDER) {
     return action.payload;
   }
   return state;

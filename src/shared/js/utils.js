@@ -9,7 +9,6 @@ export const makeCartSummary = (basket) => {
       Number(price) +
         (Number(item.qty) * Number(item.product.price)).toFixed(2) || 0;
   });
-  console.log("JE SUIS LE PRICE", price);
   return { numberOfItems: items, totalPrice: price };
 };
 

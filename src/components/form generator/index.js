@@ -6,7 +6,7 @@ import Notification from "./notification/Notification";
 
 const initialFormState = { form: {}, resetors: [] };
 function FormGenerator(props) {
-  const { multiStep = false, onSubmit, notification, fields } = props;
+  const { multiStep = false, onSubmit, notification, fields, onChange } = props;
   const [state, dispatch] = useReducer(formStateReducer, initialFormState);
 
   const setState = (payload = {}) => {
@@ -77,6 +77,13 @@ function FormGenerator(props) {
     () => setState({ notification: notification || null }),
     [notification]
   );
+
+  useEffect(() => {
+    if (onChange) {
+      onChange(state);
+      console.log("I ma the state bruh, I have changed buda");
+    }
+  }, [state]);
 
   if (!fields || !fields?.length)
     return (
