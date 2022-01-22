@@ -8,8 +8,9 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import { reduxAddNewProduct } from "../../../redux/actions/actions";
 
-function SeeAllShopItems({ products }) {
+function SeeAllShopItems({ products, doDelete, confirmDelete, addToProducts }) {
   const goto = useNavigate();
   return (
     <div className="all-shop-items-container">
@@ -37,7 +38,21 @@ function SeeAllShopItems({ products }) {
           {products?.map((product, i) => {
             return (
               <React.Fragment key={i?.toString()}>
-                <ShopCard name={product?.name}>
+                <ShopCard
+                  name={product?.name}
+                  onEdit={() => goto("edit-product/" + product?.id)}
+                  onDelete={() =>
+                    confirmDelete(true, {
+                      onConfirm: () =>
+                        doDelete(product?.id, products, addToProducts),
+                      children: (
+                        <div style={{ padding: 20 }}>
+                          Would you like to delete '{product?.name}'
+                        </div>
+                      ),
+                    })
+                  }
+                >
                   <h5 style={{ color: "var(--app-color)" }}>
                     Rs {product?.price}
                   </h5>
@@ -63,7 +78,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({}, dispatch);
+  return bindActionCreators({ addToProducts: reduxAddNewProduct }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SeeAllShopItems);

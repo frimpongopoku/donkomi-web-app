@@ -38,7 +38,9 @@ function ShopManagement() {
     {
       name: "Products",
       id: "item-listing",
-      component: <SeeAllShopItems confirmDelete={confirmDelete} />,
+      component: (
+        <SeeAllShopItems confirmDelete={confirmDelete} doDelete={doDelete} />
+      ),
     },
     {
       name: "Orders",

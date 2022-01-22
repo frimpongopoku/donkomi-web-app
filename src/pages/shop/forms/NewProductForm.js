@@ -6,10 +6,23 @@ import { reduxAddNewProduct } from "../../../redux/actions/actions";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { PREVIOUS_PAGE } from "../../../redux/ReduxConstants";
+import { pop } from "../../../components/form generator/shared/utils/utils";
 
 const PRODUCT_FORM = "product_form";
 function NewProductForm({ products, shops, addProductToShop }) {
   const [old, setOldFormContent] = useState({});
+  const [itemToEdit, setItemToEdit] = useState({});
+  const { id } = useParams();
+  const isInEditMode = id;
+  const goto = useNavigate();
+
+  const getValue = (key) => {
+    if (isInEditMode) return (itemToEdit || [])[key];
+    return old[key] || "";
+  };
+
   const fields = [
     {
       fieldType: FormGenerator.FieldTypes.DROPDOWN,
@@ -20,7 +33,7 @@ function NewProductForm({ products, shops, addProductToShop }) {
       dbName: "shop_id",
       type: "full",
       required: true,
-      value: old?.shop_id,
+      value: getValue("shop_id"),
     },
     {
       fieldType: FormGenerator.FieldTypes.INPUT,
@@ -30,7 +43,7 @@ function NewProductForm({ products, shops, addProductToShop }) {
       dbName: "name",
       _generics: { maxLength: "50" },
       required: true,
-      value: old?.name || 0,
+      value: getValue("name"),
     },
     {
       fieldType: FormGenerator.FieldTypes.INPUT,
@@ -41,7 +54,7 @@ function NewProductForm({ products, shops, addProductToShop }) {
       dbName: "price",
       _generics: { min: 0, type: "number" },
       required: true,
-      value: old?.price || 0,
+      value: getValue("price") || 0,
       validator: (value) => [
         value >= 0,
         "You cannot add a negative number as 'price'",
@@ -55,7 +68,7 @@ function NewProductForm({ products, shops, addProductToShop }) {
       name: "image",
       dbName: "image",
       required: true,
-      value: old?.image,
+      value: getValue("image"),
     },
     {
       fieldType: FormGenerator.FieldTypes.INPUT,
@@ -63,7 +76,7 @@ function NewProductForm({ products, shops, addProductToShop }) {
       label: "Many of them like it large! What size is this in? (optional)",
       name: " Size",
       dbName: "size",
-      value: old?.size || "",
+      value: getValue("size"),
     },
     {
       fieldType: FormGenerator.FieldTypes.INPUT,
@@ -71,12 +84,32 @@ function NewProductForm({ products, shops, addProductToShop }) {
       label: "What variant is this? Spicy? Short? Omicron? (optional)",
       name: "Variation",
       dbName: "variation",
-      value: old?.variation || "",
+      value: getValue("variation"),
     },
   ];
 
+  const updateProduct = (data) => {
+    const { rest, index, found } = pop(
+      products,
+      (item) => item?.id?.toString() === id?.toString()
+    );
+    if (!found) return;
+    rest.splice(index, 0, data);
+    addProductToShop(rest);
+    goto(PREVIOUS_PAGE);
+    localStorage.removeItem(PRODUCT_FORM);
+  };
+
   const submit = (data, resetForm) => {
-    addProductToShop([data, ...(products || [])]);
+    if (isInEditMode) return updateProduct(data);
+    createProduct(data, resetForm);
+  };
+
+  const createProduct = (data, resetForm) => {
+    addProductToShop([
+      { id: Date.now().toString(), ...data },
+      ...(products || []),
+    ]);
     resetForm && resetForm();
     localStorage.removeItem(PRODUCT_FORM);
     setOldFormContent({});
@@ -87,6 +120,15 @@ function NewProductForm({ products, shops, addProductToShop }) {
     setOldFormContent(content);
   }, []);
 
+  useEffect(() => {
+    if (isInEditMode) {
+      const found = products?.find(
+        (item) => item.id?.toString() === id.toString()
+      );
+      setItemToEdit(found || {});
+    }
+  }, []);
+
   const saveFormProgress = (formState) => {
     var form = formState.form || {};
     form = { ...form }; // just to unlink reference from main object, cos I want to delete the image field
@@ -94,20 +136,22 @@ function NewProductForm({ products, shops, addProductToShop }) {
     localStorage.setItem(PRODUCT_FORM, JSON.stringify(form));
   };
 
-  console.log("I am the products", products);
-
   return (
     <PageWrapper>
       <PageTitle
-        title="Create New Product"
-        subtitle="Select one of your shops, add an item you sell -- its that easy!"
+        title={isInEditMode ? "Update Your Product" : "Create New Product"}
+        subtitle={
+          isInEditMode
+            ? "Edit your product with the prefilled form below"
+            : "Select one of your shops, add an item you sell -- its that easy!"
+        }
       />
 
       <FormGenerator
         onSubmit={submit}
         fields={fields}
-        actionText="Submit New Product"
-        formWillUnMount={(data) => saveFormProgress(data)}
+        actionText={isInEditMode ? "Update Product" : "Submit New Product"}
+        formWillUnMount={(data) => !isInEditMode && saveFormProgress(data)}
       />
     </PageWrapper>
   );

@@ -58,7 +58,7 @@ function NewShopForm({ shops, addShopToRedux }) {
     },
   ];
 
-  const updateShop = (data, resetForm) => {
+  const updateShop = (data) => {
     const { rest, index, found } = pop(
       shops,
       (item) => item?.id?.toString() === id?.toString()
@@ -71,7 +71,7 @@ function NewShopForm({ shops, addShopToRedux }) {
   };
 
   const submit = (data, resetForm) => {
-    if (isInEditMode) return updateShop(data, resetForm);
+    if (isInEditMode) return updateShop(data);
     createShop(data, resetForm);
   };
 
@@ -99,7 +99,6 @@ function NewShopForm({ shops, addShopToRedux }) {
       const found = shops?.find(
         (item) => item.id?.toString() === id.toString()
       );
-      console.log("AND NOW I AM FOUND", found, id, shops);
       setItemToEdit(found || {});
     }
   }, []);
