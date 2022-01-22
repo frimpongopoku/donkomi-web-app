@@ -6,8 +6,10 @@ import NotFound from "../../../components/not found/NotFound";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 
-function SeeAllShopItems() {
+function SeeAllShopItems({ products }) {
   const goto = useNavigate();
   return (
     <div className="all-shop-items-container">
@@ -30,19 +32,38 @@ function SeeAllShopItems() {
       <div className="drop-area">
         <Dropdown type="full" placeholder="Choose a shop to view items" />
       </div>
-      <div style={{ marginTop: 20 }}>
-        {[1, 2, 3, 4, 5].map((s, i) => {
-          return (
-            <React.Fragment key={i?.toString()}>
-              <ShopCard>
-                <h5 style={{ color: "var(--app-color)" }}>Rs 500</h5>
-              </ShopCard>
-            </React.Fragment>
-          );
-        })}
-      </div>
+      {products && (
+        <div style={{ marginTop: 20 }}>
+          {products?.map((product, i) => {
+            return (
+              <React.Fragment key={i?.toString()}>
+                <ShopCard name={product?.name}>
+                  <h5 style={{ color: "var(--app-color)" }}>
+                    Rs {product?.price}
+                  </h5>
+                </ShopCard>
+              </React.Fragment>
+            );
+          })}
+        </div>
+      )}
+
+      {(!products || !products?.length) && (
+        <NotFound
+          label="You cant just make an empty shop, add products you sell!"
+          actionText="Add New Product"
+          action={() => goto("new-product")}
+        />
+      )}
     </div>
   );
 }
+const mapStateToProps = (state) => {
+  return { products: state.userProducts };
+};
 
-export default SeeAllShopItems;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({}, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SeeAllShopItems);

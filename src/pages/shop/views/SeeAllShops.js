@@ -4,8 +4,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ImageThumbnail from "./../../../components/thumbnail/ImageThumbnail";
 import { faPlus, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-
-function SeeAllShops() {
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import NotFound from "../../../components/not found/NotFound";
+function SeeAllShops({ shops }) {
   const goto = useNavigate();
   return (
     <div className="all-shops-container">
@@ -24,25 +26,45 @@ function SeeAllShops() {
       <p style={{ marginTop: 15 }}>
         If you have created shops, all your shops will show up below
       </p>
-      <div style={{ marginTop: 20 }}>
-        {[1, 2, 3, 4, 5].map((s, i) => {
-          return (
-            <React.Fragment key={i?.toString()}>
-              <ShopCard />
-            </React.Fragment>
-          );
-        })}
-      </div>
+      {shops && (
+        <div style={{ marginTop: 20 }}>
+          {shops?.map((shop, i) => {
+            return (
+              <React.Fragment key={i?.toString()}>
+                <ShopCard name={shop?.name} />
+              </React.Fragment>
+            );
+          })}
+        </div>
+      )}
+ 
+      {(!shops || !shops?.length) && (
+        <NotFound
+          label="Create your shop and start selling right away!"
+          actionText="Add New Shop"
+          action={() => goto("new-shop")}
+        />
+      )}
     </div>
   );
 }
 
-export const ShopCard = ({ children }) => {
+const mapStateToProps = (state) => {
+  return { shops: state.userShops };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({}, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SeeAllShops);
+
+export const ShopCard = ({ children, name, image }) => {
   return (
     <div className="shop-card flex">
       <ImageThumbnail className="shop-image" />
       <div className="shop-mid-part">
-        <h4>The main shop</h4>
+        <h4>{name || "Shop Name..."}</h4>
         {children}
       </div>
       <div style={{ marginLeft: "auto" }}>
@@ -68,5 +90,3 @@ export const ShopCard = ({ children }) => {
     </div>
   );
 };
-
-export default SeeAllShops;
