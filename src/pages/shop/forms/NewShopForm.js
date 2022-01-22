@@ -67,6 +67,7 @@ function NewShopForm({ shops, addShopToRedux }) {
     rest.splice(index, 0, data);
     addShopToRedux(rest);
     goto(PREVIOUS_PAGE);
+    localStorage.removeItem(SHOP_FORM);
   };
 
   const submit = (data, resetForm) => {
@@ -75,7 +76,7 @@ function NewShopForm({ shops, addShopToRedux }) {
   };
 
   const createShop = (data, resetForm) => {
-    addShopToRedux([{ id: Date.now(), ...data }, ...(shops || [])]);
+    addShopToRedux([{ id: Date.now()?.toString(), ...data }, ...(shops || [])]);
     resetForm && resetForm();
     localStorage.removeItem(SHOP_FORM);
     setOldFormContent({});

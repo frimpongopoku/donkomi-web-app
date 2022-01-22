@@ -21,11 +21,19 @@ function ShopManagement() {
     setDeleteConfirmation(del);
     setDeleteProps(delProps);
   };
+
+  const doDelete = (id, arr, reduxFxn) => {
+    const rest = arr?.filter((item) => item?.id !== id);
+    reduxFxn(rest);
+    setDeleteConfirmation(false);
+  };
   const TABS = [
     {
       name: "Shops",
       id: "shop-listing",
-      component: <SeeAllShops confirmDelete={confirmDelete} />,
+      component: (
+        <SeeAllShops confirmDelete={confirmDelete} doDelete={doDelete} />
+      ),
     },
     {
       name: "Products",
@@ -39,8 +47,6 @@ function ShopManagement() {
     },
   ];
 
-  // const onConfirm = deleteProps[deleteProps?.page]?.onConfirm;
-  // const onCancel = deleteProps[deleteProps?.page]?.onCancel;
   return (
     <>
       {deleteConfirmation && (

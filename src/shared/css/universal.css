@@ -79,6 +79,7 @@ body {
 .page-content {
   overflow-y: scroll;
   max-height: 100vh;
+  overflow-x: hidden;
 }
 
 .le-toast {

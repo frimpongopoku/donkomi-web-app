@@ -7,8 +7,10 @@ import { useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import NotFound from "../../../components/not found/NotFound";
-function SeeAllShops({ shops, confirmDelete }) {
+import { reduxAddNewShop } from "../../../redux/actions/actions";
+function SeeAllShops({ shops, confirmDelete, addToShops, doDelete }) {
   const goto = useNavigate();
+
   return (
     <div className="all-shops-container">
       <p
@@ -37,7 +39,7 @@ function SeeAllShops({ shops, confirmDelete }) {
                   onEdit={() => goto("edit-shop/" + shop?.id)}
                   onDelete={() =>
                     confirmDelete(true, {
-                      onConfirm: () => console.log("Hurray, you don delete am"),
+                      onConfirm: () => doDelete(shop?.id, shops, addToShops),
                       children: (
                         <div style={{ padding: 20 }}>
                           {`Would you like to delete '${name}'?`}
@@ -68,7 +70,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({}, dispatch);
+  return bindActionCreators({ addToShops: reduxAddNewShop }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SeeAllShops);
