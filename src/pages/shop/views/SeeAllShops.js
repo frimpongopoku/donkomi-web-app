@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import NotFound from "../../../components/not found/NotFound";
-function SeeAllShops({ shops }) {
+function SeeAllShops({ shops, confirmDelete }) {
   const goto = useNavigate();
   return (
     <div className="all-shops-container">
@@ -29,15 +29,29 @@ function SeeAllShops({ shops }) {
       {shops && (
         <div style={{ marginTop: 20 }}>
           {shops?.map((shop, i) => {
+            const name = shop?.shop_name;
             return (
               <React.Fragment key={i?.toString()}>
-                <ShopCard name={shop?.name} />
+                <ShopCard
+                  name={name}
+                  onEdit={() => goto("edit-shop/" + shop?.id)}
+                  onDelete={() =>
+                    confirmDelete(true, {
+                      onConfirm: () => console.log("Hurray, you don delete am"),
+                      children: (
+                        <div style={{ padding: 20 }}>
+                          {`Would you like to delete '${name}'?`}
+                        </div>
+                      ),
+                    })
+                  }
+                />
               </React.Fragment>
             );
           })}
         </div>
       )}
- 
+
       {(!shops || !shops?.length) && (
         <NotFound
           label="Create your shop and start selling right away!"
@@ -59,7 +73,7 @@ const mapDispatchToProps = (dispatch) => {
 
 export default connect(mapStateToProps, mapDispatchToProps)(SeeAllShops);
 
-export const ShopCard = ({ children, name, image }) => {
+export const ShopCard = ({ children, name, image, onEdit, onDelete }) => {
   return (
     <div className="shop-card flex">
       <ImageThumbnail className="shop-image" />
@@ -70,12 +84,14 @@ export const ShopCard = ({ children, name, image }) => {
       <div style={{ marginLeft: "auto" }}>
         <div className="right-items" style={{ padding: "0px 10px" }}>
           <small
+            onClick={() => onEdit && onEdit()}
             className="touchable-opacity"
             style={{ fontWeight: "bold", color: "var(--app-accent-color-2)" }}
           >
             Edit
           </small>
           <span
+            onClick={() => onDelete && onDelete()}
             className="touchable-opacity"
             style={{
               fontWeight: "bold",

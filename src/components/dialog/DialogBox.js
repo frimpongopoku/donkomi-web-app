@@ -15,13 +15,6 @@ function DialogBox({
         <div style={{ width: "100%", height: "100%" }}>
           <div>{children}</div>
           <div className="dialog-footer">
-            {/* <div
-              style={{
-                marginLeft: "auto",
-                display: "flex",
-                flexDirection: "row",
-              }}
-            > */}
             <div
               className="dialog-btn"
               style={{ background: "var(--app-color-darkest)" }}
@@ -34,9 +27,8 @@ function DialogBox({
               className="dialog-btn"
               style={{ background: "green" }}
             >
-              {okText || "Ok"}
+              {okText || "OK"}
             </div>
-            {/* </div> */}
           </div>
         </div>
       </Modal>

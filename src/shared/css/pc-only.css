@@ -5,6 +5,9 @@
     cursor: pointer;
     background: var(--app-color-darkest);
   }
+  .m-content-wrapper {
+    min-width: 300px;
+  }
   .order-full-phone-header > span {
     color: white !important;
   }

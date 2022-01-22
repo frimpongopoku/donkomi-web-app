@@ -61,7 +61,17 @@ const ProtectedRoutes = () => {
         element={<NewShopForm />}
       />
       <Route
+        path="/user/manage/:page/:tab/edit-shop/:id"
+        exact
+        element={<NewShopForm />}
+      />
+      <Route
         path="/user/manage/:page/:tab/new-product"
+        exact
+        element={<NewProductForm />}
+      />
+       <Route
+        path="/user/manage/:page/:tab/edit-product/:id"
         exact
         element={<NewProductForm />}
       />

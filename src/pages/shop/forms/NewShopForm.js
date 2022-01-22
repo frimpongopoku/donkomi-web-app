@@ -1,18 +1,30 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { connect } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import FormGenerator from "../../../components/form generator";
+import { pop } from "../../../components/form generator/shared/utils/utils";
 import PageTitle from "../../../components/page title/PageTitle";
 import {
   reduxAddNewShop,
   reduxUpdateFormHolder,
 } from "../../../redux/actions/actions";
+import { PREVIOUS_PAGE } from "../../../redux/ReduxConstants";
 import PageWrapper from "../../wrapper/PageWrapper";
 
 const SHOP_FORM = "shop_form";
 function NewShopForm({ shops, addShopToRedux }) {
   const [old, setOldFormContent] = useState({});
+  const [itemToEdit, setItemToEdit] = useState({});
+  const { id } = useParams();
+  const isInEditMode = id;
+  const goto = useNavigate();
+
+  const getValue = (key) => {
+    if (isInEditMode) return (itemToEdit || [])[key];
+    return old[key];
+  };
   const fields = [
     {
       name: "shop name",
@@ -22,7 +34,7 @@ function NewShopForm({ shops, addShopToRedux }) {
       placeholder: "Enter the name of your shop....",
       maxLength: 20,
       required: true,
-      value: old["shop_name"] || "",
+      value: getValue("shop_name"),
     },
     {
       name: "shop description",
@@ -33,7 +45,7 @@ function NewShopForm({ shops, addShopToRedux }) {
       placeholder: "Enter a brief description of the kind of items you sell...",
       maxLength: 300,
       required: true,
-      value: old["about_shop"] || "",
+      value: getValue("about_shop"),
     },
     {
       name: "cover photo",
@@ -42,12 +54,28 @@ function NewShopForm({ shops, addShopToRedux }) {
       label: "Add a photo that best represents your shop",
       maxLength: 300,
       required: true,
+      value: getValue("image"),
     },
   ];
 
+  const updateShop = (data, resetForm) => {
+    const { rest, index, found } = pop(
+      shops,
+      (item) => item?.id?.toString() === id?.toString()
+    );
+    if (!found) return;
+    rest.splice(index, 0, data);
+    addShopToRedux(rest);
+    goto(PREVIOUS_PAGE);
+  };
+
   const submit = (data, resetForm) => {
-    console.log("I am teh submitted data", data);
-    addShopToRedux([data, ...(shops || [])]);
+    if (isInEditMode) return updateShop(data, resetForm);
+    createShop(data, resetForm);
+  };
+
+  const createShop = (data, resetForm) => {
+    addShopToRedux([{ id: Date.now(), ...data }, ...(shops || [])]);
     resetForm && resetForm();
     localStorage.removeItem(SHOP_FORM);
     setOldFormContent({});
@@ -65,17 +93,31 @@ function NewShopForm({ shops, addShopToRedux }) {
     setOldFormContent(content);
   }, []);
 
+  useEffect(() => {
+    if (isInEditMode) {
+      const found = shops?.find(
+        (item) => item.id?.toString() === id.toString()
+      );
+      console.log("AND NOW I AM FOUND", found, id, shops);
+      setItemToEdit(found || {});
+    }
+  }, []);
+
   return (
     <PageWrapper>
       <PageTitle
-        title="Create New Shop"
-        subtitle="Use the form below to add a new shop. All the cool sellers dont sell burgers and TVs in the same shop, they create new shops for each kind of product!"
+        title={isInEditMode ? "Edit Your Shop" : "Create New Shop"}
+        subtitle={
+          isInEditMode
+            ? "Make changes to your shop with the form below"
+            : "Use the form below to add a new shop. All the cool sellers dont sell burgers and TVs in the same shop, they create new shops for each kind of product!"
+        }
       />
       <FormGenerator
         fields={fields}
         onSubmit={submit}
-        actionText="Submit New Shop"
-        formWillUnMount={(data) => saveFormProgress(data)}
+        actionText={isInEditMode ? "Update Shop" : "Submit New Shop"}
+        formWillUnMount={(data) => !isInEditMode && saveFormProgress(data)}
       />
     </PageWrapper>
   );
