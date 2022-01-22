@@ -46,8 +46,11 @@ function FormGenerator(props) {
     setFormState(obj);
   };
 
+  const getStateValue = (field) => {
+    return (state?.form || {})[field.dbName || field.name];
+  };
   const requiredFieldIsEmpty = (field) => {
-    const stateValue = (state?.form || {})[field.dbName || field.name];
+    const stateValue = getStateValue(field);
     if ((field.isRequired || field.required) && !stateValue)
       return [
         true,
@@ -65,6 +68,17 @@ function FormGenerator(props) {
       if (empty) {
         failed[name] = message;
         count++;
+      }
+      if (field.validator) {
+        // all field items can have a validator field that takes in the state value of the field
+        // in the form,
+        // the validator function must return an array whose first item is the status of validation, and the second
+        //item is the error message if validation failed
+        const [passed, msg] = field.validator(getStateValue(field));
+        if (!passed) {
+          failed[name] = msg;
+          count++;
+        }
       }
     });
     return [count, failed];

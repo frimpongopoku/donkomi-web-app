@@ -50,6 +50,7 @@ function NewShopForm({ shops, addShopToRedux }) {
     addShopToRedux([data, ...(shops || [])]);
     resetForm && resetForm();
     localStorage.removeItem(SHOP_FORM);
+    setOldFormContent({});
   };
 
   const saveFormProgress = (formState) => {
@@ -63,7 +64,6 @@ function NewShopForm({ shops, addShopToRedux }) {
     const content = JSON.parse(localStorage.getItem(SHOP_FORM) || "{}");
     setOldFormContent(content);
   }, []);
-
 
   return (
     <PageWrapper>

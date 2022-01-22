@@ -138,7 +138,7 @@ export default class Dropdown extends Component {
     if (isOpen)
       return (
         <div
-          className={`${cx(ghostCurtainCss)} ghost-curtain`}
+          className={`${cx(ghostCurtainCss)}`}
           onClick={() => this.setState({ isOpen: !this.state.isOpen })}
         ></div>
       );
