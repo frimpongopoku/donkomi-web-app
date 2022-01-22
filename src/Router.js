@@ -5,7 +5,7 @@ import Cart from "./pages/cart/Cart";
 import Home from "./pages/home/Home";
 import News from "./pages/news/News";
 import CreateShop from "./pages/shop/CreateShop";
-import NewProductShop from "./pages/shop/forms/NewProductShop";
+import NewProductForm from "./pages/shop/forms/NewProductForm";
 import NewShopForm from "./pages/shop/forms/NewShopForm";
 import MarketPlace from "./pages/shop/MarketPlace";
 import ShopManagement from "./pages/shop/ShopManagement";
@@ -63,7 +63,7 @@ const ProtectedRoutes = () => {
       <Route
         path="/user/manage/:page/:tab/new-product"
         exact
-        element={<NewProductShop />}
+        element={<NewProductForm />}
       />
       {/* <Route path="/shop/create/item" exact element={<CreateShopItem />} /> */}
       <Route path="/user/control/:page" exact element={<UserProfile />} />

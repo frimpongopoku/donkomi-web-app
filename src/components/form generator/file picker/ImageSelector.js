@@ -438,7 +438,7 @@ ImageSlector.propTypes = {
   /** Will include a compressed version of the selected image if selected to true */
   compress: PropTypes.bool,
   /** A link, or an object that should prefil the uploader on start */
-  defaultValue: PropTypes.string,
+  defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   /** Width of aspect ratio */
   ratioWidth: PropTypes.number,
   /** Height of aspect ratio */

@@ -1,14 +1,27 @@
-import React, { useCallback, useEffect, useReducer } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useReducer,
+} from "react";
 import { ACTIONS, FieldTypes, formStateReducer } from "./reducer";
 import MultiStepForm from "./MultiStepForm";
 import VerticalForm from "./VerticalForm";
 import Notification from "./notification/Notification";
+import { useRef } from "react";
 
 const initialFormState = { form: {}, resetors: [] };
 function FormGenerator(props) {
-  const { multiStep = false, onSubmit, notification, fields, onChange } = props;
+  const {
+    multiStep = false,
+    onSubmit,
+    notification,
+    fields,
+    onChange,
+    formWillUnMount,
+  } = props;
   const [state, dispatch] = useReducer(formStateReducer, initialFormState);
-
+  const stateRef = useRef({});
   const setState = (payload = {}) => {
     dispatch({ type: ACTIONS.UPDATE, payload });
   };
@@ -34,7 +47,7 @@ function FormGenerator(props) {
   };
 
   const requiredFieldIsEmpty = (field) => {
-    const stateValue = (state || {})[field.dbName || field.name];
+    const stateValue = (state?.form || {})[field.dbName || field.name];
     if ((field.isRequired || field.required) && !stateValue)
       return [
         true,
@@ -63,7 +76,7 @@ function FormGenerator(props) {
     setState({ errors: null });
     const [failed, info] = requirementsFailed();
     if (failed) return setState({ errors: info });
-    onSubmit(state, resetForm);
+    onSubmit(state?.form, resetForm);
   };
 
   const resetForm = () => {
@@ -71,6 +84,7 @@ function FormGenerator(props) {
     if (state.resetors) state.resetors.forEach((reset) => reset());
   };
 
+  // ------------------------------- EFFECTS ---------------------------------------
   useEffect(() => setDefaults(), [fields]);
 
   useEffect(
@@ -79,11 +93,19 @@ function FormGenerator(props) {
   );
 
   useEffect(() => {
-    if (onChange) {
-      onChange(state);
-      console.log("I ma the state bruh, I have changed buda");
-    }
+    stateRef.current = state;
   }, [state]);
+
+  useLayoutEffect(
+    () => () => formWillUnMount && formWillUnMount(stateRef.current),
+    []
+  );
+
+  useEffect(() => {
+    if (!onChange) return;
+    onChange(state);
+  }, [state]);
+  // ------------------------------------- END EFFECTS ----------------------------------
 
   if (!fields || !fields?.length)
     return (

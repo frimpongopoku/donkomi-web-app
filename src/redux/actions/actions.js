@@ -1,4 +1,10 @@
-import { DO_NOTHING, UPDATE_CART, PUT_CONTENT_IN_FORM_HOLDER } from "../ReduxConstants";
+import {
+  DO_NOTHING,
+  UPDATE_CART,
+  PUT_CONTENT_IN_FORM_HOLDER,
+  ADD_NEW_SHOP,
+  ADD_NEW_PRODUCT,
+} from "../ReduxConstants";
 
 export const testReduxAction = (someValue) => {
   return { type: DO_NOTHING, payload: someValue };
@@ -14,4 +20,10 @@ export const reduxAddToShoppingBasket = (basket) => {
 };
 export const reduxUpdateCart = (cart = {}) => {
   return { type: UPDATE_CART, payload: cart };
+};
+export const reduxAddNewShop = (shops = []) => {
+  return { type: ADD_NEW_SHOP, payload: shops };
+};
+export const reduxAddNewProduct = (products = []) => {
+  return { type: ADD_NEW_PRODUCT, payload: products };
 };

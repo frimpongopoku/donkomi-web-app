@@ -2,7 +2,7 @@ import React from "react";
 import PageWrapper from "../../wrapper/PageWrapper";
 import FormGenerator from "../../../components/form generator";
 import PageTitle from "../../../components/page title/PageTitle";
-function NewProductShop() {
+function NewProductForm() {
   const fields = [
     {
       fieldType: FormGenerator.FieldTypes.INPUT,
@@ -64,9 +64,13 @@ function NewProductShop() {
         subtitle="Choose a shop, add an item you sell -- its that easy!"
       />
 
-      <FormGenerator fields={fields} />
+      <FormGenerator
+        onSubmit={(form) => console.log("This is from onsubmit togh", form)}
+        fields={fields}
+        actionText="Submit New Product"
+      />
     </PageWrapper>
   );
 }
 
-export default NewProductShop;
+export default NewProductForm;

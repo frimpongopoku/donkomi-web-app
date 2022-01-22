@@ -1,4 +1,6 @@
 import {
+  ADD_NEW_PRODUCT,
+  ADD_NEW_SHOP,
   DO_NOTHING,
   PUT_CONTENT_IN_FORM_HOLDER,
   UPDATE_CART,
@@ -19,6 +21,18 @@ export const reducerForUpdatingCart = (state = {}, action) => {
 };
 export const reducerForHoldingFormContent = (state = {}, action) => {
   if (action.type === PUT_CONTENT_IN_FORM_HOLDER) {
+    return action.payload;
+  }
+  return state;
+};
+export const reducerForAddingNewShop = (state = [], action) => {
+  if (action.type === ADD_NEW_SHOP) {
+    return action.payload;
+  }
+  return state;
+};
+export const reducerForAddingNewProduct = (state = [], action) => {
+  if (action.type === ADD_NEW_PRODUCT) {
     return action.payload;
   }
   return state;
