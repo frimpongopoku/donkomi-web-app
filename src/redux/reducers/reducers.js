@@ -3,6 +3,7 @@ import {
   ADD_NEW_SHOP,
   DO_NOTHING,
   PUT_CONTENT_IN_FORM_HOLDER,
+  SET_ACTIVE_SHOP,
   UPDATE_CART,
 } from "../ReduxConstants";
 
@@ -13,6 +14,12 @@ export const doNothingReducer = (state = [], action = {}) => {
   return state;
 };
 
+export const reducerForSettingActiveShop = (state = {}, action) => {
+  if (action.type === SET_ACTIVE_SHOP) {
+    return action.payload;
+  }
+  return state;
+};
 export const reducerForUpdatingCart = (state = {}, action) => {
   if (action.type === UPDATE_CART) {
     return action.payload;

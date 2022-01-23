@@ -4,6 +4,7 @@ import {
   reducerForAddingNewProduct,
   reducerForAddingNewShop,
   reducerForHoldingFormContent,
+  reducerForSettingActiveShop,
   reducerForUpdatingCart,
 } from "./reducers";
 
@@ -13,4 +14,5 @@ export default combineReducers({
   form: reducerForHoldingFormContent,
   userShops: reducerForAddingNewShop,
   userProducts: reducerForAddingNewProduct,
+  activeShop: reducerForSettingActiveShop,
 });

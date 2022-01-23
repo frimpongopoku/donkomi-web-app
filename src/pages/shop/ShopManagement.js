@@ -14,10 +14,10 @@ import SeeAllShops from "./views/SeeAllShops";
 // const dummyShops = makeShops();
 function ShopManagement() {
   const pageParams = useParams();
-
   const [itemToView, setShowFullView] = useState(null);
   const [deleteConfirmation, setDeleteConfirmation] = useState(false);
   const [deleteProps, setDeleteProps] = useState({});
+  // const [activeShop, setActiveShop] = useState(null);
 
   const confirmDelete = (del, delProps) => {
     setDeleteConfirmation(del);
@@ -34,22 +34,14 @@ function ShopManagement() {
       name: "Shops",
       id: "shop-listing",
       component: (
-        <SeeAllShops
-          confirmDelete={confirmDelete}
-          doDelete={doDelete}
-          // shops={dummyShops}
-        />
+        <SeeAllShops confirmDelete={confirmDelete} doDelete={doDelete} />
       ),
     },
     {
       name: "Products",
       id: "item-listing",
       component: (
-        <SeeAllShopItems
-          confirmDelete={confirmDelete}
-          doDelete={doDelete}
-          // shops={dummyShops}
-        />
+        <SeeAllShopItems confirmDelete={confirmDelete} doDelete={doDelete} />
       ),
     },
     {

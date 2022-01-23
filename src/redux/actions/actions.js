@@ -4,6 +4,7 @@ import {
   PUT_CONTENT_IN_FORM_HOLDER,
   ADD_NEW_SHOP,
   ADD_NEW_PRODUCT,
+  SET_ACTIVE_SHOP,
 } from "../ReduxConstants";
 
 export const testReduxAction = (someValue) => {
@@ -17,6 +18,9 @@ export const reduxAddToShoppingBasket = (basket) => {
   return (dispatch) => {
     dispatch(reduxUpdateCart({ shop: basket }));
   };
+};
+export const reduxSetActiveShop = (shop = null) => {
+  return { type: SET_ACTIVE_SHOP, payload: shop };
 };
 export const reduxUpdateCart = (cart = {}) => {
   return { type: UPDATE_CART, payload: cart };

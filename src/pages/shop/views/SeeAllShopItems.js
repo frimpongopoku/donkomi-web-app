@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./../ShopManagement.css";
 import { ShopCard } from "./SeeAllShops";
 import Dropdown from "./../../../components/form generator/dropdown/Dropdown";
@@ -8,7 +8,10 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { reduxAddNewProduct } from "../../../redux/actions/actions";
+import {
+  reduxAddNewProduct,
+  reduxSetActiveShop,
+} from "../../../redux/actions/actions";
 
 function SeeAllShopItems({
   products,
@@ -16,8 +19,47 @@ function SeeAllShopItems({
   confirmDelete,
   addToProducts,
   shops,
+  activeShop,
+  setActiveShop,
 }) {
   const goto = useNavigate();
+
+  const getShopItems = () => {
+    const shop = activeShop || (shops && shops[0]);
+    if (!shop) return [];
+    const items = products?.filter((p) => p.shop?.id === shop.id);
+    if (items?.length) return items;
+    return products;
+  };
+
+  var shopItems = getShopItems();
+
+  useEffect(() => {}, [activeShop]);
+
+  const renderNoItems = () => {
+    const items = getShopItems();
+    const productsDey = products && products.length;
+    if (!productsDey)
+      return (
+        <NotFound
+          label="What would you like to sell in your shops? Add a product!"
+          actionText="Add New Product"
+          action={() => goto("new-product")}
+        />
+      );
+      
+    if ((!items || !items.length) && activeShop)
+      return (
+        <NotFound
+          label={`You have not created any product for "${
+            activeShop?.name || "..."
+          }"`}
+          actionText="Add New Product"
+          action={() => goto("new-product")}
+        />
+      );
+  };
+
   return (
     <div className="all-shop-items-container">
       <p
@@ -34,8 +76,13 @@ function SeeAllShopItems({
         <span style={{ marginLeft: 15 }}>Add New Product</span>
       </p>
       <p>
-        Use the dropdown to go through your shops. The items in your chosen shop
-        will be shown below
+        {activeShop ? (
+          <span>
+            Showing products for <b>{activeShop?.name}</b>
+          </span>
+        ) : (
+          "Use the dropdown to go through your shops. The items in your chosen shop will be shown below"
+        )}
       </p>
       <div className="drop-area">
         <Dropdown
@@ -43,12 +90,14 @@ function SeeAllShopItems({
           placeholder="Choose a shop to view items"
           data={shops || []}
           labelExtractor={(shop) => shop?.name}
-          valueFieldName={(shop) => shop?.id}
+          valueExtractor={(shop) => shop?.id}
+          defaultValue={activeShop}
+          onItemSelected={(shop) => setActiveShop(shop)}
         />
       </div>
       {products && (
         <div style={{ marginTop: 20 }}>
-          {products?.map((product, i) => {
+          {shopItems?.map((product, i) => {
             return (
               <React.Fragment key={i?.toString()}>
                 <ShopCard
@@ -76,22 +125,23 @@ function SeeAllShopItems({
         </div>
       )}
 
-      {(!products || !products?.length) && (
-        <NotFound
-          label="You cant just make an empty shop, add products you sell!"
-          actionText="Add New Product"
-          action={() => goto("new-product")}
-        />
-      )}
+      {renderNoItems()}
     </div>
   );
 }
 const mapStateToProps = (state) => {
-  return { products: state.userProducts, shops: state.userShops };
+  return {
+    products: state.userProducts,
+    shops: state.userShops,
+    activeShop: state.activeShop,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ addToProducts: reduxAddNewProduct }, dispatch);
+  return bindActionCreators(
+    { addToProducts: reduxAddNewProduct, setActiveShop: reduxSetActiveShop },
+    dispatch
+  );
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SeeAllShopItems);
