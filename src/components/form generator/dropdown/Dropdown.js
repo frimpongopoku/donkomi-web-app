@@ -87,9 +87,14 @@ export default class Dropdown extends Component {
       return;
     }
     selected_value = selected_value || [];
-    const isAlreadyIn = selected_value.filter((itm) => itm === value)[0];
+    const isAlreadyIn = selected_value.filter(
+      (itm) => this.getValue(itm) === this.getValue(value)
+    )[0];
     var data;
-    if (isAlreadyIn) data = selected_value.filter((itm) => itm !== value);
+    if (isAlreadyIn)
+      data = selected_value.filter(
+        (itm) => this.getValue(itm) !== this.getValue(value)
+      );
     else data = [...selected_value, value];
     this.setState({ selected_value: data });
     if (onItemSelected) onItemSelected(data);
@@ -99,11 +104,11 @@ export default class Dropdown extends Component {
     var { selected_value } = this.state;
     if (this.props.multiple) {
       selected_value = selected_value || [];
-      var s = selected_value.join(",");
+      var s = selected_value?.map((itm) => this.getLabel(itm)).join(",");
       s = s.length > 40 ? s.slice(0, 40) + "..." : s;
       return s || this.props.placeholder;
     }
-    return selected_value || this.props.placeholder;
+    return this.getLabel(selected_value) || this.props.placeholder;
   }
 
   showThatItemIsSelected(value) {
@@ -143,24 +148,23 @@ export default class Dropdown extends Component {
         ></div>
       );
   }
+
+  getValue(item) {
+    const { valueExtractor } = this.props;
+    if (valueExtractor) return valueExtractor(item);
+    return item;
+  }
+  getLabel(item) {
+    const { labelExtractor } = this.props;
+    if (labelExtractor) return labelExtractor(item);
+    return item?.toString();
+  }
   ejectChildren() {
-    const {
-      data,
-      dropItemStyle,
-      dropItemClassName,
-      labelFieldName,
-      valueFieldName,
-    } = this.props;
-    const dealingWithObjs = isArrayOfObjects(data);
+    const { data, dropItemStyle, dropItemClassName } = this.props;
     return (data || []).map((item, index) => {
-      var label, value;
-      if (dealingWithObjs) {
-        label = item[labelFieldName];
-        value = item[valueFieldName || labelFieldName];
-      } else {
-        label = item;
-        value = item;
-      }
+      var label = this.getLabel(item);
+      var value = this.getValue(item);
+
       return (
         <div
           className={`${cx(dropdownItemCss)} ${cx(
@@ -168,7 +172,7 @@ export default class Dropdown extends Component {
           )} ${dropItemClassName}`}
           key={index.toString()}
           style={dropItemStyle}
-          onClick={() => this.handleOnItemSelected(value)}
+          onClick={() => this.handleOnItemSelected(item)}
         >
           {" "}
           {label}
@@ -258,13 +262,13 @@ Dropdown.propTypes = {
   /** Classes for each individual dropdown item */
   dropItemClassName: PropTypes.string,
   /** Needed field if a an array of jsons/objects is passed instead of an array of strings.
-   * Used to extract which text representation should be used as dropdown text from the objects passed
+   * Used to extract which text representation that should be used as dropdown text from the objects passed
    */
-  labelFieldName: PropTypes.string,
+  labelExtractor: PropTypes.func,
   /** This field is also required when an array of objects is passed.
    * It is used to extract the needed value that should be presented on click from each of the objects in the data array.
    */
-  valueFieldName: PropTypes.string,
+  valueExtractor: PropTypes.func,
   /** Indicates whether or not multiple items should be able to be selected on the dropdown  */
   multiple: PropTypes.bool,
 
@@ -286,8 +290,6 @@ Dropdown.defaultProps = {
   dropBlanketClassName: "",
   dropItemStyle: {},
   dropItemClassName: "",
-  labelFieldName: "",
-  valueFieldName: "",
   multiple: false,
   defaultValue: null,
   value: null,

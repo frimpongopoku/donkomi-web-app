@@ -19,6 +19,7 @@ function SeeAllShops({ shops, confirmDelete, addToShops, doDelete }) {
           color: "var(--app-color-darker)",
           padding: 10,
           fontWeight: "bold",
+          display: "inline-block",
         }}
         onClick={() => goto("new-shop")}
       >
@@ -31,7 +32,7 @@ function SeeAllShops({ shops, confirmDelete, addToShops, doDelete }) {
       {shops && (
         <div style={{ marginTop: 20 }}>
           {shops?.map((shop, i) => {
-            const name = shop?.shop_name;
+            const name = shop?.name;
             return (
               <React.Fragment key={i?.toString()}>
                 <ShopCard

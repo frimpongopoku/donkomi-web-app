@@ -10,6 +10,8 @@ import TabView from "./../../components/TabView/TabView";
 import "./ShopManagement.css";
 import SeeAllShopItems from "./views/SeeAllShopItems";
 import SeeAllShops from "./views/SeeAllShops";
+
+// const dummyShops = makeShops();
 function ShopManagement() {
   const pageParams = useParams();
 
@@ -32,14 +34,22 @@ function ShopManagement() {
       name: "Shops",
       id: "shop-listing",
       component: (
-        <SeeAllShops confirmDelete={confirmDelete} doDelete={doDelete} />
+        <SeeAllShops
+          confirmDelete={confirmDelete}
+          doDelete={doDelete}
+          // shops={dummyShops}
+        />
       ),
     },
     {
       name: "Products",
       id: "item-listing",
       component: (
-        <SeeAllShopItems confirmDelete={confirmDelete} doDelete={doDelete} />
+        <SeeAllShopItems
+          confirmDelete={confirmDelete}
+          doDelete={doDelete}
+          // shops={dummyShops}
+        />
       ),
     },
     {

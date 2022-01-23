@@ -10,7 +10,13 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { reduxAddNewProduct } from "../../../redux/actions/actions";
 
-function SeeAllShopItems({ products, doDelete, confirmDelete, addToProducts }) {
+function SeeAllShopItems({
+  products,
+  doDelete,
+  confirmDelete,
+  addToProducts,
+  shops,
+}) {
   const goto = useNavigate();
   return (
     <div className="all-shop-items-container">
@@ -20,6 +26,7 @@ function SeeAllShopItems({ products, doDelete, confirmDelete, addToProducts }) {
           color: "var(--app-color-darker)",
           padding: 10,
           fontWeight: "bold",
+          display: "inline-block",
         }}
         onClick={() => goto("new-product")}
       >
@@ -31,7 +38,13 @@ function SeeAllShopItems({ products, doDelete, confirmDelete, addToProducts }) {
         will be shown below
       </p>
       <div className="drop-area">
-        <Dropdown type="full" placeholder="Choose a shop to view items" />
+        <Dropdown
+          type="full"
+          placeholder="Choose a shop to view items"
+          data={shops || []}
+          labelExtractor={(shop) => shop?.name}
+          valueFieldName={(shop) => shop?.id}
+        />
       </div>
       {products && (
         <div style={{ marginTop: 20 }}>
@@ -74,7 +87,7 @@ function SeeAllShopItems({ products, doDelete, confirmDelete, addToProducts }) {
   );
 }
 const mapStateToProps = (state) => {
-  return { products: state.userProducts };
+  return { products: state.userProducts, shops: state.userShops };
 };
 
 const mapDispatchToProps = (dispatch) => {

@@ -1,22 +1,22 @@
 export const NAME = "____name____";
 export const OBJECT_OBJECT = "[object Object]";
 export const lowKeyValidation = (props) => {
-  const { data, labelFieldName, valueFieldName } = props;
+  const { data, labelExtractor, valueExtractor } = props;
   if (!data)
     console.error(
       "You have not provided any 'data'. 'data' should be an array of [string || object]"
     );
   const anyElem = data[0];
 
-  const elemExistsAndIsObj = anyElem && anyElem.toString() === OBJECT_OBJECT;
-  if (elemExistsAndIsObj && !labelFieldName)
+  const elemExistsAndIsObj = anyElem && typeof anyElem === "object";
+  if (elemExistsAndIsObj && !labelExtractor)
     console.error(
-      "Provide the 'labeldFieldName' and field if you pass an array of Objects into 'data' "
+      "Provide the 'lableExtractor' function if you pass an array of Objects into 'data' "
     );
 
-  if (elemExistsAndIsObj && !valueFieldName)
+  if (elemExistsAndIsObj && !valueExtractor)
     console.warn(
-      "You did not provide a 'valueFieldName', so your 'labelFieldName' will be used... "
+      "Provide the 'valueExtractor' function if you pass an array of Objects into 'data' "
     );
 };
 
@@ -24,7 +24,7 @@ export const isArrayOfObjects = (data) => {
   if (!data) return false;
   const one = data[0];
   // Assumption: any json.toString() returns "OBJECT_OBJECT"
-  if (one.toString() === OBJECT_OBJECT) return true;
+  if (typeof one === "object") return true;
   return false;
 };
 

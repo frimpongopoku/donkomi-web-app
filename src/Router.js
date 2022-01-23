@@ -1,10 +1,8 @@
 import React from "react";
 import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
-import App from "./App";
 import Cart from "./pages/cart/Cart";
 import Home from "./pages/home/Home";
 import News from "./pages/news/News";
-import CreateShop from "./pages/shop/CreateShop";
 import NewProductForm from "./pages/shop/forms/NewProductForm";
 import NewShopForm from "./pages/shop/forms/NewShopForm";
 import MarketPlace from "./pages/shop/MarketPlace";
@@ -49,7 +47,7 @@ const ProtectedRoutes = () => {
       <Route path="/browse/:page" exact element={<MarketPlace />} />
       <Route path="/user/control/:page/show" exact element={<Cart />} />
       <Route path="/news" exact element={<News />} />
-      <Route path="/shop/create" exact element={<CreateShop />} />
+
       <Route
         path="/user/manage/:page/:tab"
         exact
@@ -70,7 +68,7 @@ const ProtectedRoutes = () => {
         exact
         element={<NewProductForm />}
       />
-       <Route
+      <Route
         path="/user/manage/:page/:tab/edit-product/:id"
         exact
         element={<NewProductForm />}

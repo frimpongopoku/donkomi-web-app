@@ -28,24 +28,24 @@ function NewShopForm({ shops, addShopToRedux }) {
   const fields = [
     {
       name: "shop name",
-      dbName: "shop_name",
+      dbName: "name",
       fieldType: FormGenerator.FieldTypes.INPUT,
       label: "This is where you give your shop a cool name!",
       placeholder: "Enter the name of your shop....",
       maxLength: 20,
       required: true,
-      value: getValue("shop_name"),
+      value: getValue("name"),
     },
     {
       name: "shop description",
-      dbName: "about_shop",
+      dbName: "description",
       fieldType: FormGenerator.FieldTypes.TEXTAREA,
       label:
         "People need to know the kind of items you sell in this shop. Use the textbox to tell them...",
       placeholder: "Enter a brief description of the kind of items you sell...",
       maxLength: 300,
       required: true,
-      value: getValue("about_shop"),
+      value: getValue("description"),
     },
     {
       name: "cover photo",

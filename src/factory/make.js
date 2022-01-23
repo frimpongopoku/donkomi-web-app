@@ -90,3 +90,7 @@ const makeCheckoutOrder = () => {
 export const generateOrders = () => {
   return [1, 2, 3, 4, 5, 6, 5, 4, 34, 6, 7, 8].map((_) => makeCheckoutOrder());
 };
+
+export const makeShops = () => {
+  return [1, 3, 4, 5, 6, 7, 7, 54].map((_) => makeShop());
+};
