@@ -13,6 +13,7 @@ html body {
   overscroll-behavior: none;
 }
 :root {
+  --app-color-maroon: maroon;
   --app-color: #e5176e;
   --app-color-darker: #d42265;
   --app-color-whiter: #ffc6db;
@@ -21,6 +22,7 @@ html body {
   --app-accent-color-2: green;
   --app-color-darkest: #bc1a57;
   --app-accent-color-3: #033a7b;
+  --app-color-dim: #781339;
 }
 
 h1,

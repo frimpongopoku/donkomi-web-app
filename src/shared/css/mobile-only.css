@@ -7,7 +7,7 @@
   }
   .page-content {
     padding-top: 70px;
-    padding-bottom: 100px;
+    padding-bottom: 180px;
   }
 
   .page-wrapper {
@@ -31,8 +31,8 @@
   }
 
   .profile-container {
-    padding-bottom: 100px;
-    width: 100vw;
+    /* padding-bottom: 200px; */
+    /* width: 100vw; */
   }
 
   .profile-img {

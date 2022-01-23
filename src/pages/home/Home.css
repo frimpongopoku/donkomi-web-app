@@ -23,7 +23,6 @@
 }
 
 .top-half h1 {
- 
   color: white;
 }
 
@@ -34,4 +33,137 @@
   color: var(--app-color-darker);
   margin-top: 15px;
   font-family: Nunito;
+}
+
+.home-back-image {
+  background-image: url(./market-low.jpeg);
+  height: 100vh;
+  width: 100%;
+}
+
+.home-floating-container {
+  background: var(--app-color-dim);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  opacity: 1;
+}
+
+.home-content-div h1 {
+  font-weight: bold;
+  font-family: Nunito;
+  color: white;
+}
+
+.home-content-div {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.home-content-div h3 {
+  color: white;
+  font-family: Nunito;
+}
+
+.home-get-in-there {
+  margin-top: 20px;
+  background: #ae1d53;
+  border-radius: 55px;
+  color: white;
+  font-weight: bold;
+}
+
+.home-get-in-there span {
+  font-family: Nunito;
+}
+
+.home-footer {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  /* padding: 15px; */
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  background-color: navajowhite;
+  z-index: 5;
+}
+
+.join-dev-team {
+  margin-left: auto;
+  padding: 15px 30px;
+  background: var(--app-color-darkest);
+  color: white;
+  font-weight: bold;
+}
+
+.join-info-board {
+  opacity: 0;
+  position: fixed;
+  bottom: 50px;
+  padding: 20px;
+  z-index: 5;
+  background: antiquewhite;
+}
+
+@keyframes come-up {
+  from {
+    opacity: 0;
+    transform: translateY(400px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+.anime-come-up {
+  animation: come-up 0.2s forwards;
+}
+/* --------------------------------------- */
+@media only screen and (max-width: 767px) {
+  .home-content-div h1 {
+    font-size: 40px;
+  }
+  .home-content-div h3 {
+    font-size: 22px;
+    padding: 0px 15px;
+  }
+
+  .home-get-in-there {
+    padding: 12px 50px;
+    font-size: 14px;
+  }
+  .join-info-board {
+    width: 100%;
+  }
+}
+
+/* ------- PC EXCLUSIVE --------- */
+@media only screen and (min-width: 768px) {
+  .home-content-div h1 {
+    font-size: 70px;
+  }
+  .home-content-div h3 {
+    font-size: 40px;
+  }
+
+  .home-get-in-there {
+    padding: 15px 50px;
+  }
+  .join-info-board {
+    right: 0px;
+    width: 400px;
+  }
 }
