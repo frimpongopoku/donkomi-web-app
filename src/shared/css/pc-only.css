@@ -245,4 +245,11 @@
   .le-toast {
     padding: 20px;
   }
+
+  .toolbar-back {
+    top: 55px;
+    margin-left: 300px;
+    padding: 10px 50px;
+    background-color: transparent;
+  }
 }

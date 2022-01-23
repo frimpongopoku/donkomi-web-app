@@ -23,13 +23,11 @@ function SeeAllShopItems({
   setActiveShop,
 }) {
   const goto = useNavigate();
-
   const getShopItems = () => {
     const shop = activeShop || (shops && shops[0]);
     if (!shop) return [];
     const items = products?.filter((p) => p.shop?.id === shop.id);
-    if (items?.length) return items;
-    return products;
+    return items;
   };
 
   var shopItems = getShopItems();
@@ -47,11 +45,13 @@ function SeeAllShopItems({
           action={() => goto("new-product")}
         />
       );
-      
+    if ((!items || !items.length) && !activeShop)
+      return <p>Choose a shop to view it's products</p>;
+
     if ((!items || !items.length) && activeShop)
       return (
         <NotFound
-          label={`You have not created any product for "${
+          label={`You have not created any products for "${
             activeShop?.name || "..."
           }"`}
           actionText="Add New Product"

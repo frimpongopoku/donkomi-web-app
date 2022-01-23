@@ -139,7 +139,7 @@ function NewProductForm({ products, shops, addProductToShop }) {
   };
 
   return (
-    <PageWrapper>
+    <PageWrapper showBack>
       <PageTitle
         title={isInEditMode ? "Update Your Product" : "Create New Product"}
         subtitle={

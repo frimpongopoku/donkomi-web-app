@@ -104,7 +104,7 @@ function NewShopForm({ shops, addShopToRedux }) {
   }, []);
 
   return (
-    <PageWrapper>
+    <PageWrapper showBack={true}>
       <PageTitle
         title={isInEditMode ? "Edit Your Shop" : "Create New Shop"}
         subtitle={

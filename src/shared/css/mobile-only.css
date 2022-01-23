@@ -228,4 +228,10 @@
   .le-toast {
     padding: 15px 10px;
   }
+
+  .toolbar-back {
+    top: 58px;
+    background: white;
+    padding: 10px 20px;
+  }
 }

@@ -50,3 +50,12 @@
   opacity: 0.4;
   transition: 0.2s ease-out;
 }
+
+.toolbar-back {
+  position: fixed;
+  width: 100%;
+  left: 0px;
+  z-index: 5;
+
+  /* background: #fffbf6; */
+}
