@@ -1,16 +1,19 @@
 import { faPenAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Notification from "../../../components/form generator/notification/Notification";
 import "./../auth.css";
 function Login() {
   const goto = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
     <div className="auth-wrapper">
       <div className="auth-container">
         <h2>DONKOMI</h2>
-        <p>Who are you please? Remind me...</p>
+        <p>Who are you please? Remind Us...</p>
         <div className="auth-content-box">
           <div>
             <small>
@@ -20,6 +23,7 @@ function Login() {
               className="auth-textbox"
               placeholder="Enter your email"
               name="email"
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <br />
@@ -30,6 +34,7 @@ function Login() {
               placeholder="Enter your password"
               type="password"
               name="password"
+              onCHange={(e) => setPassword(e.target.value)}
             />
           </div>
           <br />
