@@ -1,1 +1,8 @@
 export const DO_NOTHING = "DO_NOTHING";
+
+export const UPDATE_CART = "ADD TO BASKET";
+export const PUT_CONTENT_IN_FORM_HOLDER = "PUT_CONTENT_IN_FORM_HOLDER";
+export const ADD_NEW_SHOP = "ADD_NEW_SHOP";
+export const ADD_NEW_PRODUCT = "ADD_NEW_PRODUCT";
+export const PREVIOUS_PAGE = -1;
+export const SET_ACTIVE_SHOP = "SET_ACTIVE_SHOP";

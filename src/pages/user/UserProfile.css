@@ -9,13 +9,13 @@
   height: 100vh;
 
   /* padding-bottom: 100px; */
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
 }
 
 .one-control-option {
   /* background: red; */
   flex-direction: row;
- 
+
   padding: 15px 25px;
   border: solid 0px var(--app-color-grey);
   border-bottom-width: 2px;

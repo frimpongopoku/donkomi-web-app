@@ -13,6 +13,7 @@ html body {
   overscroll-behavior: none;
 }
 :root {
+  --app-color-maroon: maroon;
   --app-color: #e5176e;
   --app-color-darker: #d42265;
   --app-color-whiter: #ffc6db;
@@ -21,6 +22,7 @@ html body {
   --app-accent-color-2: green;
   --app-color-darkest: #bc1a57;
   --app-accent-color-3: #033a7b;
+  --app-color-dim: #781339;
 }
 
 h1,
@@ -52,7 +54,7 @@ body {
 }
 
 .back-hover-interaction:hover p,
-small {
+.back-hover-interaction small {
   color: white;
 }
 .app-bold-text {
@@ -60,7 +62,33 @@ small {
   font-weight: bold;
 }
 
+.touchable-opacity {
+  cursor: pointer;
+}
 .touchable-opacity:hover {
   opacity: 0.6;
   transition: 0.2s ease-out;
+}
+
+.subtitle {
+  margin-top: 15;
+  border: solid 0px var(--app-color-grey);
+  border-bottom-width: 1px;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+}
+
+.page-content {
+  overflow-y: scroll;
+  max-height: 100vh;
+  overflow-x: hidden;
+}
+
+.le-toast {
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.le-toast p {
+  font-size: 15px;
 }

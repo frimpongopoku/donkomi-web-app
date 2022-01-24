@@ -1,0 +1,32 @@
+.cart-container {
+  height: 100vh;
+  padding-bottom: 150px;
+}
+
+.my-frame-right {
+  justify-content: center;
+  align-items: center;
+}
+.my-frame-right svg {
+  margin: 0px 10px;
+  font-size: 21px;
+  font-weight: bold;
+}
+
+.cart-item-container h3 {
+  color: var(--app-color-darker);
+  font-weight: 300;
+}
+
+.cart-item-container h5 {
+  color: var(--app-color-darkest);
+}
+
+.cart-total h2 {
+  font-weight: 300;
+  color: var(--app-color-grey);
+}
+
+.cart-total h2 span {
+  font-weight: bold;
+}

@@ -1,4 +1,16 @@
 @media only screen and (min-width: 768px) {
+  .order-full-phone-header {
+    padding: 10px 20px;
+    box-shadow: 0 0 0 !important;
+    cursor: pointer;
+    background: var(--app-color-darkest);
+  }
+  .m-content-wrapper {
+    min-width: 300px;
+  }
+  .order-full-phone-header > span {
+    color: white !important;
+  }
   .pc-sidebar {
     position: fixed;
     left: 0px;
@@ -81,6 +93,11 @@
 
   .bottom-nav-container {
     box-shadow: 0 0 0;
+    pointer-events: none;
+  }
+
+  .bottom-nav-container .tab-item {
+    pointer-events: auto;
   }
 
   .tab-item {
@@ -92,6 +109,10 @@
   .page-content {
     padding-left: 300px;
     padding-top: 70px;
+    padding-bottom: 160px;
+  }
+  .page-inner-wrapper {
+    padding: 20px 50px;
   }
 
   .profile-container {
@@ -134,5 +155,101 @@
   .setting-toggles h3 {
     font-size: 23px;
     margin-bottom: 25px;
+  }
+  .create-shop-container {
+    padding: 0px 20px;
+  }
+  /* .management-content-area {
+    padding: 20px;
+  } */
+
+  .drop-area {
+    padding: 20px 0px;
+  }
+
+  .shop-image {
+    height: 80px;
+    width: 80px;
+  }
+
+  .shop-card h4 {
+    font-size: 18px;
+  }
+
+  /* .shop-management-container, */
+  .management-content-area {
+    padding-top: 20px;
+  }
+
+  .item-full-container {
+    box-shadow: var(--elevate-float);
+    margin: 0px 20px;
+    height: 100vh;
+    width: 300px;
+    z-index: 30;
+    right: -20px;
+    top: 57px;
+    background-color: white;
+  }
+
+  .full-view-img {
+    height: 300px;
+    width: 300px;
+    display: inline-block;
+  }
+  .item-full-footer {
+    text-align: center;
+    cursor: pointer;
+    /* padding: 15px; */
+    width: 100%;
+    display: flex;
+    flex: 3;
+    box-shadow: var(--elevate-float);
+  }
+
+  .right-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .cart-wrapper {
+    padding: 50px;
+  }
+  /* .cart-content {
+    padding: 50px;
+  } */
+
+  .cart-total h2 span {
+    font-size: 36px;
+    font-weight: bold;
+  }
+
+  .order-full-container {
+    /* padding: 15px; */
+    /* padding-top: 60px; */
+    padding: 10px 20px;
+  }
+
+  .order-content {
+    margin: 15px 0px;
+  }
+  .bottom-half h3 {
+    font-size: 26px;
+  }
+
+  .top-half h1 {
+    font-size: 60px;
+  }
+
+  .le-toast {
+    padding: 20px;
+  }
+
+  .toolbar-back {
+    top: 55px;
+    margin-left: 300px;
+    padding: 10px 50px;
+    background-color: transparent;
   }
 }

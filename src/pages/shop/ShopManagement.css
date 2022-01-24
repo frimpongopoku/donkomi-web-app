@@ -1,0 +1,28 @@
+
+.all-shops-container {
+}
+.shop-mid-part {
+  margin-right: 15px;
+  margin-left: 15px;
+}
+
+.shop-image {
+  border-radius: 6px;
+}
+.shop-card {
+  border: solid 0px var(--app-color-grey);
+  border-bottom-width: 1px;
+  margin-bottom: 10px;
+}
+
+.shop-mid-part h5 {
+  font-size: 17px;
+}
+
+.right-items small,
+.right-items span {
+  font-size: 17px;
+  cursor: pointer;
+}
+
+
