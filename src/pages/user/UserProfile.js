@@ -1,4 +1,8 @@
-import { faCaretRight, faUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCaretRight,
+  faHammer,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import PageWrapper from "../wrapper/PageWrapper";
@@ -65,7 +69,18 @@ function UserProfile() {
                   icon={c?.icon}
                   style={{ marginRight: 20, color: "var(--app-color)" }}
                 />
-                <p>{c?.name}</p>
+                <p>
+                  {c?.name}{" "}
+                  {c.underConstruction && (
+                    <FontAwesomeIcon
+                      icon={faHammer}
+                      style={{
+                        color: "var(--app-color-grey)",
+                        marginLeft: 10,
+                      }}
+                    />
+                  )}{" "}
+                </p>
                 <span style={{ marginLeft: "auto" }}>
                   <FontAwesomeIcon
                     icon={faCaretRight}

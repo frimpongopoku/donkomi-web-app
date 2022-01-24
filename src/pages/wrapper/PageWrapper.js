@@ -5,7 +5,7 @@ import Sidebar from "../../components/sidebar/";
 import Toolbar from "../../components/toolbar/Toolbar";
 
 function PageWrapper(props) {
-  const { children } = props;
+  const { children, showBack } = props;
   const [showSidebar, setShowSidebar] = useState(null);
 
   useEffect(() => {}, [showSidebar]);
@@ -16,9 +16,14 @@ function PageWrapper(props) {
           <Sidebar onMount={(func) => setShowSidebar(() => func)} />
         </div>
         <div>
-          <Toolbar showSidebar={showSidebar} />
+          <Toolbar showSidebar={showSidebar} showBack={showBack} />
           <div className="page-content">
-            <div className="page-inner-wrapper">{children}</div>
+            <div
+              className="page-inner-wrapper"
+              style={{ marginTop: showBack ? 40 : 0 }}
+            >
+              {children}
+            </div>
           </div>
         </div>
         <BottomNavigation />

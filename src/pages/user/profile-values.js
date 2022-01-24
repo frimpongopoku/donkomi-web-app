@@ -7,7 +7,11 @@ import NotificationConstants from "../../shared/classes/NotificationConstants";
 
 export const CONTROLS = [
   { name: "Edit Profile", icon: faUserAlt },
-  { name: "Apply To Earn On Donkomi", icon: faHandshake },
+  {
+    name: "Apply To Earn On Donkomi",
+    icon: faHandshake,
+    underConstruction: true,
+  },
   { name: "Sign Out", icon: faSignOutAlt },
 ];
 
@@ -45,7 +49,7 @@ export const TOGGLES = [
   {
     key: "other-sub",
     title: "Other Non Categorised Notifications",
-    desc: "Receive notifications hot deals, and promotions and new changes about the application",
+    desc: "Receive notifications on hot deals, promotions and new changes about the application",
     topic: NotificationConstants.Topics.MiscellaneousActivity,
   },
 ];

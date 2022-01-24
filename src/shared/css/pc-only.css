@@ -1,4 +1,16 @@
 @media only screen and (min-width: 768px) {
+  .order-full-phone-header {
+    padding: 10px 20px;
+    box-shadow: 0 0 0 !important;
+    cursor: pointer;
+    background: var(--app-color-darkest);
+  }
+  .m-content-wrapper {
+    min-width: 300px;
+  }
+  .order-full-phone-header > span {
+    color: white !important;
+  }
   .pc-sidebar {
     position: fixed;
     left: 0px;
@@ -81,6 +93,11 @@
 
   .bottom-nav-container {
     box-shadow: 0 0 0;
+    pointer-events: none;
+  }
+
+  .bottom-nav-container .tab-item {
+    pointer-events: auto;
   }
 
   .tab-item {
@@ -216,5 +233,23 @@
 
   .order-content {
     margin: 15px 0px;
+  }
+  .bottom-half h3 {
+    font-size: 26px;
+  }
+
+  .top-half h1 {
+    font-size: 60px;
+  }
+
+  .le-toast {
+    padding: 20px;
+  }
+
+  .toolbar-back {
+    top: 55px;
+    margin-left: 300px;
+    padding: 10px 50px;
+    background-color: transparent;
   }
 }

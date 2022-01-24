@@ -11,7 +11,7 @@ export function pop(array, pred) {
     } else rest.push(item);
   }
 
-  return { found, index, rest };
+  return { found, index, rest: rest || [] };
 }
 
 export const NAME = "____name____";

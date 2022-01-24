@@ -1,0 +1,36 @@
+.dialog-footer {
+  display: flex;
+  flex-direction: row;
+  flex: 2;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #f7f7f7;
+}
+
+.dialog-btn {
+  flex: 1;
+  padding: 15px;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 100px;
+}
+
+.dialog-btn:hover {
+  opacity: 0.9;
+  transition: 0.2s ease-out;
+}
+
+@media only screen and (max-width: 767px) {
+  .dialog-btn {
+    padding: 10px;
+    font-size: 14px;
+  }
+}

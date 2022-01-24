@@ -1,6 +1,7 @@
 import React from "react";
+import { getDetailsFromProductOrders } from "../../shared/js/utils";
 import OrderItem from "./OrderItem";
-function OrdersForShop() {
+function OrdersForShop({ showFullView, orders }) {
   return (
     <div>
       <p style={{ marginTop: 20, marginBottom: 20 }}>
@@ -9,10 +10,19 @@ function OrdersForShop() {
       </p>
 
       <div>
-        {[1, 2, 3, 4, 4, 55].map((x, i) => {
+        {orders?.map((order, i) => {
+          const { totalPrice, quantity, shopString } =
+            getDetailsFromProductOrders(order.product_orders);
+
           return (
             <React.Fragment key={i.toString()}>
-              <OrderItem />
+              <OrderItem
+                onClick={() =>
+                  showFullView({ ...order, totalPrice, quantity, shopString })
+                }
+                {...order}
+                {...{ totalPrice, quantity, shopString }}
+              />
             </React.Fragment>
           );
         })}

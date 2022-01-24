@@ -1,14 +1,27 @@
-import React, { useCallback, useEffect, useReducer } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useReducer,
+} from "react";
 import { ACTIONS, FieldTypes, formStateReducer } from "./reducer";
 import MultiStepForm from "./MultiStepForm";
 import VerticalForm from "./VerticalForm";
 import Notification from "./notification/Notification";
+import { useRef } from "react";
 
 const initialFormState = { form: {}, resetors: [] };
 function FormGenerator(props) {
-  const { multiStep = false, onSubmit, notification, fields } = props;
+  const {
+    multiStep = false,
+    onSubmit,
+    notification,
+    fields,
+    onChange,
+    formWillUnMount,
+  } = props;
   const [state, dispatch] = useReducer(formStateReducer, initialFormState);
-
+  const stateRef = useRef({});
   const setState = (payload = {}) => {
     dispatch({ type: ACTIONS.UPDATE, payload });
   };
@@ -33,8 +46,11 @@ function FormGenerator(props) {
     setFormState(obj);
   };
 
+  const getStateValue = (field) => {
+    return (state?.form || {})[field.dbName || field.name];
+  };
   const requiredFieldIsEmpty = (field) => {
-    const stateValue = (state || {})[field.dbName || field.name];
+    const stateValue = getStateValue(field);
     if ((field.isRequired || field.required) && !stateValue)
       return [
         true,
@@ -53,6 +69,17 @@ function FormGenerator(props) {
         failed[name] = message;
         count++;
       }
+      if (field.validator) {
+        // all field items can have a validator field that takes in the state value of the field
+        // in the form,
+        // the validator function must return an array whose first item is the status of validation, and the second
+        //item is the error message if validation failed
+        const [passed, msg] = field.validator(getStateValue(field));
+        if (!passed) {
+          failed[name] = msg;
+          count++;
+        }
+      }
     });
     return [count, failed];
   };
@@ -63,7 +90,7 @@ function FormGenerator(props) {
     setState({ errors: null });
     const [failed, info] = requirementsFailed();
     if (failed) return setState({ errors: info });
-    onSubmit(state, resetForm);
+    onSubmit(state?.form, resetForm);
   };
 
   const resetForm = () => {
@@ -71,12 +98,28 @@ function FormGenerator(props) {
     if (state.resetors) state.resetors.forEach((reset) => reset());
   };
 
+  // ------------------------------- EFFECTS ---------------------------------------
   useEffect(() => setDefaults(), [fields]);
 
   useEffect(
     () => setState({ notification: notification || null }),
     [notification]
   );
+
+  useEffect(() => {
+    stateRef.current = state;
+  }, [state]);
+
+  useLayoutEffect(
+    () => () => formWillUnMount && formWillUnMount(stateRef.current),
+    []
+  );
+
+  useEffect(() => {
+    if (!onChange) return;
+    onChange(state);
+  }, [state]);
+  // ------------------------------------- END EFFECTS ----------------------------------
 
   if (!fields || !fields?.length)
     return (
