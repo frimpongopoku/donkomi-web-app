@@ -12,7 +12,7 @@ import Login from "./pages/auth/login/Login";
 import Register from "./pages/auth/registration/Register";
 import Notice from "./components/notice/Notice";
 function Router() {
-  const authorised = true;
+  const authorised = false;
   return (
     <BrowserRouter>
       {authorised ? <ProtectedRoutes /> : <FreeRoutes />}
