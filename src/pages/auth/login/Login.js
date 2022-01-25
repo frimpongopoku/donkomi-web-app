@@ -1,19 +1,32 @@
 import { faPenAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { bindActionCreators } from "redux";
 import Notification from "../../../components/form generator/notification/Notification";
+import {
+  reduxSetDonkomiAuth,
+  reduxSetFirebaseAUth,
+} from "../../../redux/actions/actions";
 import "./../auth.css";
-function Login() {
+function Login({ putFirebaseAuthInRedux, putUserInRedux }) {
   const goto = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [notification, setNotification] = useState(null);
+  const authenticate = () => {};
+
+  const makeNotification = (message, good) => {
+    setNotification({ type: good ? "good" : "bad", msg: message });
+  };
 
   return (
     <div className="auth-wrapper">
       <div className="auth-container">
         <h2>DONKOMI</h2>
-        <p>Who are you please? Remind Us...</p>
+        <p>Who are you please? Remind Us...</p> <br />
         <div className="auth-content-box">
           <div>
             <small>
@@ -44,18 +57,16 @@ function Login() {
             className="touchable-opacity"
             onClick={() => goto("/register")}
           >
-            <FontAwesomeIcon icon={faPenAlt} />{" "}
-            <i>I want to register instead</i>
+            <FontAwesomeIcon icon={faPenAlt} /> I have not been here before, I
+            need an account
           </p>
           <Link to="/reset-password" style={{ color: "green", marginLeft: 24 }}>
-            <i>Reset Password</i>
+            Reset Password
           </Link>
         </div>
-
         <div style={{ padding: 15, width: "100%" }}>
           <Notification />
         </div>
-
         <div className="auth-bottom-div">
           <div
             className="flat-btn touchable-opacity"
@@ -70,4 +81,13 @@ function Login() {
   );
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      putFirebaseAuthInRedux: reduxSetFirebaseAUth,
+      putUserInRedux: reduxSetDonkomiAuth,
+    },
+    dispatch
+  );
+};
+export default connect(null, mapDispatchToProps)(Login);

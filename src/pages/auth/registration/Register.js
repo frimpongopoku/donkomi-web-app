@@ -1,14 +1,11 @@
-import { faPenAlt } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import FlatButton from "../../../components/flat button/FlatButton";
 import Notification from "../../../components/form generator/notification/Notification";
 import AuthLoader from "../AuthLoader";
-// import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import "./../auth.css";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+
 import {
   reduxSetDonkomiAuth,
   reduxSetFirebaseAUth,
@@ -17,9 +14,7 @@ import {
   registerUserWithEmailAndPassword,
   signOut,
 } from "../../../firebase/config";
-// import app from "./../../../firebase/config";
 
-// const AUTH = getAuth();
 const EMPTY = { empty: true };
 const fields = [
   {
@@ -50,7 +45,7 @@ const fields = [
     name: "password",
     placeholder: "Enter password",
     label:
-      "This isnt mean't to be bae's name. Enter a secure code only you will remember!",
+      "We want to make sure no one orders food on your behalf, so add a password.",
     contentType: "password",
   },
   {
@@ -71,8 +66,9 @@ function Register({ putAuthInRedux, putUserInRedux }) {
     return { ..._err, [key]: error, empty: false };
   };
   const makeNotification = (message, good) => {
-    setNotification({ type: good ? "good" : "bad", message });
+    setNotification({ type: good ? "good" : "bad", msg: message });
   };
+
   const formHasRightValues = () => {
     setErrors(EMPTY);
     var err = {};
@@ -107,6 +103,7 @@ function Register({ putAuthInRedux, putUserInRedux }) {
   const submitForm = () => {
     setLoading(true);
     setErrors({ empty: true });
+    setNotification(null);
     const [yes, err] = formHasRightValues();
     if (!yes) {
       setLoading(false);
@@ -120,12 +117,11 @@ function Register({ putAuthInRedux, putUserInRedux }) {
     registerUserWithEmailAndPassword(
       data,
       (authenticationInformation, error) => {
-        if (error) console.log("I had a big error bro", error);
-        else
-          console.log(
-            "this is the authentcation information",
-            authenticationInformation
-          );
+        if (error) makeNotification(error?.toString(), false);
+        else {
+          putAuthInRedux(authenticationInformation?.user);
+          setForm({});
+        }
         setLoading(false);
       }
     );
@@ -186,11 +182,11 @@ function Register({ putAuthInRedux, putUserInRedux }) {
           <div
             onClick={() => submitForm()}
             className="flat-btn touchable-opacity"
-            style={{ background: "green", color: "white" }}
+            style={{ background: "green", color: "white", marginBottom: 0 }}
           >
             Done, Sign Me Up!
           </div>
-          <button onClick={() => signOut()}>Sign out bruh</button>
+          {/* <button onClick={() => signOut()}>Sign out bruh</button> */}
           {/* <div className="flat-btn">Use Google Instead</div> */}
         </div>
       </div>
