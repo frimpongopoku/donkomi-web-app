@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
 import Cart from "./pages/cart/Cart";
 import Home from "./pages/home/Home";
@@ -11,12 +11,18 @@ import UserProfile from "./pages/user/UserProfile";
 import Login from "./pages/auth/login/Login";
 import Register from "./pages/auth/registration/Register";
 import Notice from "./components/notice/Notice";
-function Router() {
-  const authorised = false;
+import { checkAuthenticationState } from "./firebase/config";
+// import app from "./firebase/config";
+// import { getAuth, onAuthStateChanged } from "firebase/auth";
+
+function Router({ user }) {
+  useEffect(() => {
+    checkAuthenticationState((user) => {
+      console.log("I AM STILL THE USER BANA", user);
+    });
+  });
   return (
-    <BrowserRouter>
-      {authorised ? <ProtectedRoutes /> : <FreeRoutes />}
-    </BrowserRouter>
+    <BrowserRouter>{user ? <ProtectedRoutes /> : <FreeRoutes />}</BrowserRouter>
   );
 }
 
@@ -26,7 +32,7 @@ const FreeRoutes = () => {
       <Route exact path="/" element={<Navigate to="/browse/market-place" />} />
       <Route path="/login" exact element={<Login />} />
       <Route path="/register" exact element={<Register />} />
-      <Route path="/" exact element={<Navigate to="/login" />} />
+      {/* <Route path="/" exact element={<Navigate to="/login" />} /> */}
       <Route path="/browse/:page" exact element={<MarketPlace />} />
       <Route
         path="*"

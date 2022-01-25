@@ -5,97 +5,131 @@ import { Link } from "react-router-dom";
 import FlatButton from "../../../components/flat button/FlatButton";
 import Notification from "../../../components/form generator/notification/Notification";
 import AuthLoader from "../AuthLoader";
+// import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import "./../auth.css";
-function Register() {
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import {
+  reduxSetDonkomiAuth,
+  reduxSetFirebaseAUth,
+} from "../../../redux/actions/actions";
+import {
+  registerUserWithEmailAndPassword,
+  signOut,
+} from "../../../firebase/config";
+// import app from "./../../../firebase/config";
+
+// const AUTH = getAuth();
+const EMPTY = { empty: true };
+const fields = [
+  {
+    type: "input",
+    name: "preferred_name",
+    placeholder: "Enter preferred name",
+    max: 20,
+    label:
+      "What do you want people to know you by? 'Nation Seller', 'apuskeleke Shop', 'Native Shlong' are all valid usernames. Get creative, be proffessional!  ",
+  },
+  {
+    type: "input",
+    name: "email",
+    contentType: "email",
+    label:
+      "Preferrably one that belongs to you, and is very close to heart. We will keep it safe!",
+    placeholder: "Enter you email",
+  },
+  {
+    type: "input",
+    name: "phone",
+    placeholder: "Enter phone number",
+    label: "Enter a working phone number",
+    max: 12,
+  },
+  {
+    type: "input",
+    name: "password",
+    placeholder: "Enter password",
+    label:
+      "This isnt mean't to be bae's name. Enter a secure code only you will remember!",
+    contentType: "password",
+  },
+  {
+    type: "input",
+    name: "confirm_password",
+    placeholder: "Confirm Password",
+    label: "Enter the password again, just in case!",
+    contentType: "password",
+  },
+];
+function Register({ putAuthInRedux, putUserInRedux }) {
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [notification, setNotification] = useState({});
-  const makeError = (key, error) => {
-    setErrors({ ...errors, [key]: error, empty: false });
+
+  const makeError = (key, error, _err) => {
+    return { ..._err, [key]: error, empty: false };
+  };
+  const makeNotification = (message, good) => {
+    setNotification({ type: good ? "good" : "bad", message });
   };
   const formHasRightValues = () => {
-    const items = Object.entries(form);
-    if (!items?.length) {
-      setNotification({
-        type: "bad",
-        msg: "Please fill out the form, thanks.",
-      });
-    }
-    console.log("I amt h eitems'< ", items);
-    items.forEach(([key, value]) => {
+    setErrors(EMPTY);
+    var err = {};
+    var valid = true;
+    fields.forEach((field) => {
+      const key = field.name;
+      const value = form[key];
       if (!value) {
-        makeError(key, `You did not provide '${key}'`);
-        console.log("NONSENSE", key);
-        return false;
-       
-      }
-
-      if (key === "password" && value.length < 6) {
-        makeError(key, "Your password is too weak, at least use 6 characters!");
-        return false;
-      }
-      if (key === "password" && value !== form["confirm_password"]) {
-        makeError(
-          key,
-          "Do you now see why you were asked to confirm? Your passwords do not match please try again..."
-        );
-        return false;
+        err = makeError(key, `You did not provide '${key}'`, err);
+        valid = false;
+      } else {
+        if (key === "password" && value < 6) {
+          err = makeError(
+            key,
+            "Your password is too weak, at least use 6 characters!",
+            err
+          );
+          valid = false;
+        } else if (key === "password" && value !== form["confirm_password"]) {
+          err = makeError(
+            key,
+            "See why you were asked to confirm? Your passwords do not match please try again...",
+            err
+          );
+          valid = false;
+        }
       }
     });
-    return true;
+    return [valid, err];
   };
 
   const submitForm = () => {
     setLoading(true);
     setErrors({ empty: true });
-    if (!formHasRightValues()) {
+    const [yes, err] = formHasRightValues();
+    if (!yes) {
       setLoading(false);
-      return false;
+      setErrors(err);
+      return;
     }
-    console.log("NOW YOU FILLED THE FORM QUITE NICELY, WELL DONE");
-    setLoading(false);
+    authenticate(form);
   };
-  const fields = [
-    {
-      type: "input",
-      name: "preferred_name",
-      placeholder: "Enter preferred name",
-      max: 20,
-      label:
-        "What do you want people to know you by? 'Nation Seller', 'apuskeleke Shop', 'Native Shlong' are all valid usernames. Get creative, be proffessional!  ",
-    },
-    {
-      type: "input",
-      name: "email",
-      contentType: "email",
-      label:
-        "Preferrably one that belongs to you, and is very close to heart. We will keep it safe!",
-      placeholder: "Enter you email",
-    },
-    {
-      type: "input",
-      name: "phone",
-      placeholder: "Enter phone number",
-      label: "Enter a working phone number",
-      max: 12,
-    },
-    {
-      type: "input",
-      name: "password",
-      placeholder: "Enter password",
-      label:
-        "This isnt mean't to be bae's name. Enter a secure code only you will remember!",
-      contentType: "password",
-    },
-    {
-      type: "input",
-      name: "password",
-      placeholder: "Confirm Password",
-      label: "Enter the password again, just in case!",
-      contentType: "password",
-    },
-  ];
+
+  const authenticate = (data) => {
+    registerUserWithEmailAndPassword(
+      data,
+      (authenticationInformation, error) => {
+        if (error) console.log("I had a big error bro", error);
+        else
+          console.log(
+            "this is the authentcation information",
+            authenticationInformation
+          );
+        setLoading(false);
+      }
+    );
+  };
 
   return (
     <div className="auth-wrapper">
@@ -111,9 +145,12 @@ function Register() {
             return (
               <React.Fragment key={i?.toString()}>
                 <small>{field.label}</small>
+                <br />
                 {!errors?.empty && (
-                  <small style={{ color: "maroon" }}>
-                    {errors[field.name]}
+                  <small
+                    style={{ color: "maroon", marginLeft: 5, fontSize: 13 }}
+                  >
+                    <i>{errors[field.name]}</i>
                   </small>
                 )}
                 <input
@@ -153,6 +190,7 @@ function Register() {
           >
             Done, Sign Me Up!
           </div>
+          <button onClick={() => signOut()}>Sign out bruh</button>
           {/* <div className="flat-btn">Use Google Instead</div> */}
         </div>
       </div>
@@ -160,4 +198,13 @@ function Register() {
   );
 }
 
-export default Register;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      putAuthInRedux: reduxSetFirebaseAUth,
+      putUserInRedux: reduxSetDonkomiAuth,
+    },
+    dispatch
+  );
+};
+export default connect(null, mapDispatchToProps)(Register);

@@ -5,6 +5,8 @@ import {
   reducerForAddingNewShop,
   reducerForHoldingFormContent,
   reducerForSettingActiveShop,
+  reducerForSettingDonkomiAuth,
+  reducerForSettingFirebaseAuth,
   reducerForUpdatingCart,
 } from "./reducers";
 
@@ -15,4 +17,6 @@ export default combineReducers({
   userShops: reducerForAddingNewShop,
   userProducts: reducerForAddingNewProduct,
   activeShop: reducerForSettingActiveShop,
+  fireAuth: reducerForSettingFirebaseAuth,
+  user: reducerForSettingDonkomiAuth,
 });
