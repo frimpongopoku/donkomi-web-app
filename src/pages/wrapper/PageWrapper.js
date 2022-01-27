@@ -13,7 +13,7 @@ import {
 } from "../../redux/actions/actions";
 
 function PageWrapper(props) {
-  const { children, showBack, fireAuth, user } = props;
+  const { children, showBack, fireAuth } = props;
   const [showSidebar, setShowSidebar] = useState(null);
   const goTo = useNavigate();
 

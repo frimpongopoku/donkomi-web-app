@@ -40,7 +40,7 @@ export default function VerifyEmail({ fireAuth }) {
         <br />
         <br />
         <small
-          onClick={() => window.location.reload()}
+          onClick={() => (window.location = "/browse/market-place")}
           style={{ textDecoration: "underline", color: "green" }}
           className="touchable-opacity"
         >

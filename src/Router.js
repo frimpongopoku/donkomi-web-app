@@ -1,11 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  Routes,
-  Route,
-  BrowserRouter,
-  Navigate,
-  useNavigate,
-} from "react-router-dom";
+import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
 import Cart from "./pages/cart/Cart";
 import Home from "./pages/home/Home";
 import News from "./pages/news/News";
@@ -17,31 +11,32 @@ import UserProfile from "./pages/user/UserProfile";
 import Login from "./pages/auth/login/Login";
 import Register from "./pages/auth/registration/Register";
 import Notice from "./components/notice/Notice";
-import { checkAuthenticationState } from "./firebase/config";
 import { bindActionCreators } from "redux";
-import { reduxSetFirebaseAUth } from "./redux/actions/actions";
+import {
+  fetchAuthencationInformation,
+  reduxSetDonkomiAuth,
+  reduxSetFirebaseAUth,
+} from "./redux/actions/actions";
 import { connect } from "react-redux";
 import VerifyEmail from "./pages/auth/verify/VerifyEmail";
-import InternetExplorer from "./shared/classes/InternetExplorer";
-import { GET_REGISTERED_USER } from "./api/urls";
+import CoverLoader from "./components/cover loader/CoverLoader";
+import Merchant from "./pages/merchant/Merchant";
+import Taxi from "./pages/taxi/Taxi";
 
-function Router({ fireAuth, user, putFirebaseAuthInRedux }) {
+function Router({ fireAuth, user, fetchUserInfo }) {
   useEffect(() => {
-    checkAuthenticationState((auth) => {
-      if (auth) putFirebaseAuthInRedux(auth);
-      console.log("I AM STILL THE USER BANA", auth);
-    });
-  });
-
-  useEffect(() => {}, [fireAuth]);
-  InternetExplorer.roamAndFind(GET_REGISTERED_USER, "POST", {
-    user_id: "dzRKpfV8trMG48gkyhSPvQDJPff1",
-  }).then((user) => {
-    console.log("this is the DONKOMI bro", user);
-  });
+    fetchUserInfo();
+  }, []);
 
   if (fireAuth?.email && !fireAuth?.emailVerified)
     return <VerifyEmail fireAuth={fireAuth} />;
+  // When the user is authenticated with firebase and verified but we are trying to find his/her profile
+  //from donkomi backend
+  if (fireAuth && !user)
+    return (
+      <CoverLoader label="Almost there, we are just keeping the place tidy for you :)" />
+    );
+
   return (
     <BrowserRouter>
       {fireAuth ? <ProtectedRoutes /> : <FreeRoutes />}
@@ -52,6 +47,8 @@ function Router({ fireAuth, user, putFirebaseAuthInRedux }) {
 const FreeRoutes = () => {
   return (
     <Routes>
+      <Route path="/app/services/:page/main" exact element={<Merchant />} />
+      <Route path="/app/services/:page/book" exact element={<Taxi />} />
       <Route exact path="/" element={<Navigate to="/browse/market-place" />} />
       <Route path="/login" exact element={<Login />} />
       <Route path="/register" exact element={<Register />} />
@@ -73,7 +70,10 @@ const ProtectedRoutes = () => {
     <Routes>
       <Route path="/login" exact element={<Navigate to="/home" />} />
       <Route path="/register" exact element={<Navigate to="/home" />} />
+      {/* <Route path="/register" exact element={<Register />} /> */}
       {/* ------------------------------------------------------------- */}
+      <Route path="/app/services/:page/main" exact element={<Merchant />} />
+      <Route path="/app/services/:page/book" exact element={<Taxi />} />
       <Route path="/home" exact element={<Home />} />
       <Route path="/browse/:page" exact element={<MarketPlace />} />
       <Route path="/user/control/:page/show" exact element={<Cart />} />
@@ -117,11 +117,15 @@ const ProtectedRoutes = () => {
 };
 
 const mapStateToProps = (state) => {
-  return { fireAuth: state.fireAuth };
+  return { fireAuth: state.fireAuth, user: state.user };
 };
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
-    { putFirebaseAuthInRedux: reduxSetFirebaseAUth },
+    {
+      putFirebaseAuthInRedux: reduxSetFirebaseAUth,
+      putUserInFirebase: reduxSetDonkomiAuth,
+      fetchUserInfo: fetchAuthencationInformation,
+    },
     dispatch
   );
 };

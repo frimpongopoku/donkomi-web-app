@@ -5,16 +5,18 @@ import AuthLoader from "../AuthLoader";
 import "./../auth.css";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-
+import InternetExplorer from "./../../../shared/classes/InternetExplorer";
 import {
   reduxSetDonkomiAuth,
   reduxSetFirebaseAUth,
 } from "../../../redux/actions/actions";
 import {
+  deleteUserFromFirebase,
   registerUserWithEmailAndPassword,
   signOut,
 } from "../../../firebase/config";
 import { sendEmailVerification } from "firebase/auth";
+import { REGISTER_USER } from "../../../api/urls";
 
 const EMPTY = { empty: true };
 const fields = [
@@ -119,16 +121,39 @@ function Register({ putAuthInRedux, putUserInRedux }) {
     registerUserWithEmailAndPassword(
       data,
       (authenticationInformation, error) => {
-        if (error) makeNotification(error?.toString(), false);
-        else {
+        if (error) {
+          makeNotification(error?.toString(), false);
+          setLoading(false);
+        } else {
           const fireUser = authenticationInformation?.user;
-          putAuthInRedux(fireUser);
+          createDonkomiUser({
+            body: { ...data, user_id: fireUser?.uid, organization_id: 1 },
+            fireAuth: fireUser,
+          });
           sendEmailVerification(fireUser);
-          setForm({});
         }
-        setLoading(false);
       }
     );
+  };
+
+  const createDonkomiUser = (data) => {
+    InternetExplorer.roamAndFind(REGISTER_USER, "POST", data.body)
+      .then((response) => {
+        setLoading(false);
+        if (!response.success) {
+          makeNotification(response?.error?.message, false);
+          //Delete user from firebase auth system, if donkomi BE refuses to create profile for user
+          deleteUserFromFirebase(data.fireAuth);
+          return;
+        }
+        putUserInRedux(response.data);
+        putAuthInRedux(data.fireAuth);
+        setForm({});
+      })
+      .catch((e) => {
+        console.log("Sorry something happend : ", e?.toString());
+        setLoading(false);
+      });
   };
 
   return (

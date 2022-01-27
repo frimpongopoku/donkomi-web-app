@@ -1,3 +1,6 @@
+import { GET_REGISTERED_USER } from "../../api/urls";
+import { checkAuthenticationState } from "../../firebase/config";
+import InternetExplorer from "../../shared/classes/InternetExplorer";
 import {
   DO_NOTHING,
   UPDATE_CART,
@@ -8,6 +11,25 @@ import {
   SET_FIREBASE_AUTH,
   SET_DONKOMI_AUTH,
 } from "../ReduxConstants";
+
+export const fetchAuthencationInformation = () => {
+  return (dispatch) =>
+    checkAuthenticationState((auth) => {
+      console.log("I am the auth what are you saying", auth);
+      if (!auth) return;
+      dispatch(reduxSetFirebaseAUth(auth));
+      InternetExplorer.roamAndFind(GET_REGISTERED_USER, "POST", {
+        user_id: auth?.uid,
+      }).then((response) => {
+        if (!response?.success)
+          return console.log(
+            "Sorry, we could not retrieve your profile from our system!",
+            response?.error?.message
+          );
+        dispatch(reduxSetDonkomiAuth(response?.data));
+      });
+    });
+};
 
 export const testReduxAction = (someValue) => {
   return { type: DO_NOTHING, payload: someValue };

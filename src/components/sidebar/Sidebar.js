@@ -6,11 +6,10 @@ import { MENU } from "./values";
 import { useNavigate, useParams } from "react-router-dom";
 
 function Sidebar(props) {
-  const { animate, updateFireState, updateUserState } = props;
+  const { animate, updateFireState, updateUserState, user } = props;
   const params = useParams();
 
   const signOutOfRedux = () => {
-    console.log("THIS SIGNOUT WORKED LIKE A FUCKING CHARM");
     updateFireState(null);
     updateUserState(null);
   };
@@ -42,7 +41,7 @@ function Sidebar(props) {
                 {...menu}
                 label={menu.name}
                 icon={menu.icon}
-                locked={menu.locked}
+                locked={!user && menu.locked}
                 active={params.page === menu.key}
                 {...signOutClick}
               />
