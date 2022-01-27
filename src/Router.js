@@ -22,8 +22,8 @@ import { bindActionCreators } from "redux";
 import { reduxSetFirebaseAUth } from "./redux/actions/actions";
 import { connect } from "react-redux";
 import VerifyEmail from "./pages/auth/verify/VerifyEmail";
-// import app from "./firebase/config";
-// import { getAuth, onAuthStateChanged } from "firebase/auth";
+import InternetExplorer from "./shared/classes/InternetExplorer";
+import { GET_REGISTERED_USER } from "./api/urls";
 
 function Router({ fireAuth, user, putFirebaseAuthInRedux }) {
   useEffect(() => {
@@ -34,6 +34,11 @@ function Router({ fireAuth, user, putFirebaseAuthInRedux }) {
   });
 
   useEffect(() => {}, [fireAuth]);
+  InternetExplorer.roamAndFind(GET_REGISTERED_USER, "POST", {
+    user_id: "dzRKpfV8trMG48gkyhSPvQDJPff1",
+  }).then((user) => {
+    console.log("this is the DONKOMI bro", user);
+  });
 
   if (fireAuth?.email && !fireAuth?.emailVerified)
     return <VerifyEmail fireAuth={fireAuth} />;
