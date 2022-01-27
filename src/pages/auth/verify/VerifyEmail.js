@@ -1,3 +1,4 @@
+import { sendEmailVerification } from "firebase/auth";
 import React from "react";
 
 export default function VerifyEmail({ fireAuth }) {
@@ -30,14 +31,16 @@ export default function VerifyEmail({ fireAuth }) {
         </h3>
 
         <small
+          onClick={() => sendEmailVerification(fireAuth)}
           style={{ textDecoration: "underline", color: "green" }}
           className="touchable-opacity"
         >
-          Send Verification Email
+          Send Verification Email Again
         </small>
         <br />
         <br />
         <small
+          onClick={() => window.location.reload()}
           style={{ textDecoration: "underline", color: "green" }}
           className="touchable-opacity"
         >

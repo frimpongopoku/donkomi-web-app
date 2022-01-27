@@ -28,14 +28,19 @@ import VerifyEmail from "./pages/auth/verify/VerifyEmail";
 function Router({ fireAuth, user, putFirebaseAuthInRedux }) {
   useEffect(() => {
     checkAuthenticationState((auth) => {
+      if (auth) putFirebaseAuthInRedux(auth);
       console.log("I AM STILL THE USER BANA", auth);
-      putFirebaseAuthInRedux(auth);
     });
   });
-  if (fireAuth && !fireAuth?.emailVerified)
+
+  useEffect(() => {}, [fireAuth]);
+
+  if (fireAuth?.email && !fireAuth?.emailVerified)
     return <VerifyEmail fireAuth={fireAuth} />;
   return (
-    <BrowserRouter>{user ? <ProtectedRoutes /> : <FreeRoutes />}</BrowserRouter>
+    <BrowserRouter>
+      {fireAuth ? <ProtectedRoutes /> : <FreeRoutes />}
+    </BrowserRouter>
   );
 }
 
@@ -45,7 +50,9 @@ const FreeRoutes = () => {
       <Route exact path="/" element={<Navigate to="/browse/market-place" />} />
       <Route path="/login" exact element={<Login />} />
       <Route path="/register" exact element={<Register />} />
+      <Route path="/user/control/:page/show" exact element={<Cart />} />
       {/* <Route path="/" exact element={<Navigate to="/login" />} /> */}
+      <Route path="/home" exact element={<Home />} />
       <Route path="/browse/:page" exact element={<MarketPlace />} />
       <Route
         path="*"

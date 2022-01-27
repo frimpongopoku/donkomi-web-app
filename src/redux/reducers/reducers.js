@@ -16,13 +16,13 @@ export const doNothingReducer = (state = [], action = {}) => {
   return state;
 };
 
-export const reducerForSettingFirebaseAuth = (state = {}, action) => {
+export const reducerForSettingFirebaseAuth = (state = null, action) => {
   if (action.type === SET_FIREBASE_AUTH) {
     return action.payload;
   }
   return state;
 };
-export const reducerForSettingDonkomiAuth = (state = {}, action) => {
+export const reducerForSettingDonkomiAuth = (state = null, action) => {
   if (action.type === SET_DONKOMI_AUTH) {
     return action.payload;
   }

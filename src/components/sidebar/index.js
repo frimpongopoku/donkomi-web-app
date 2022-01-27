@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 
-export default function SidebarWrapper({ onMount }) {
+export default function SidebarWrapper(props) {
+  const { onMount } = props;
   const [show, setShow] = useState(false);
 
   useEffect(() => {
@@ -15,14 +16,14 @@ export default function SidebarWrapper({ onMount }) {
           <>
             <div className="side-overlay" onClick={() => setShow(false)}></div>
             <div className=" mobile-sidebar">
-              <Sidebar animate />
+              <Sidebar {...props} animate />
             </div>
           </>
         )}
       </div>
       <div className="phone-vanish">
         <div className="pc-sidebar">
-          <Sidebar />
+          <Sidebar {...props} />
         </div>
       </div>
     </div>

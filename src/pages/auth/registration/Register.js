@@ -14,6 +14,7 @@ import {
   registerUserWithEmailAndPassword,
   signOut,
 } from "../../../firebase/config";
+import { sendEmailVerification } from "firebase/auth";
 
 const EMPTY = { empty: true };
 const fields = [
@@ -110,6 +111,7 @@ function Register({ putAuthInRedux, putUserInRedux }) {
       setErrors(err);
       return;
     }
+
     authenticate(form);
   };
 
@@ -119,7 +121,9 @@ function Register({ putAuthInRedux, putUserInRedux }) {
       (authenticationInformation, error) => {
         if (error) makeNotification(error?.toString(), false);
         else {
-          putAuthInRedux(authenticationInformation?.user);
+          const fireUser = authenticationInformation?.user;
+          putAuthInRedux(fireUser);
+          sendEmailVerification(fireUser);
           setForm({});
         }
         setLoading(false);
@@ -166,7 +170,7 @@ function Register({ putAuthInRedux, putUserInRedux }) {
 
           <Link to="/login" style={{ color: "green" }}>
             <br />
-            <i>Already have an account, I want to login instead</i>
+            Already have an account, I want to login instead
           </Link>
           {loading && <AuthLoader />}
           <div style={{ padding: 10, width: "100%" }}>
