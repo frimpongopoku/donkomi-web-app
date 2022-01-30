@@ -18,14 +18,15 @@ import {
 
 export const fetchMarketNews = (requestObj, cb) => {
   var body = {};
-  if (requestObj) body = { ...body, requestObj };
+  if (requestObj) body = { ...body, ...requestObj };
   return async (dispatch, getState) => {
     var feed = getState().marketNews;
     feed = feed === LOADING ? [] : feed;
     try {
       const response = await InternetExplorer.roamAndFind(
         GET_MARKET_NEWS,
-        "POST"
+        "POST",
+        body
       );
       if (!response.success) {
         console.log(

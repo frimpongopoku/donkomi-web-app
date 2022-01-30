@@ -30,6 +30,7 @@ class InternetExplorer {
       method,
       body: JSON.stringify(body),
     };
+
     const res = await fetch(URL, requestParams);
     return res.json();
   }

@@ -134,14 +134,17 @@ const Market = ({ add, remove, cart, news }) => {
   );
 };
 
-const ShopItem = ({ name, price, created_at, add, remove, qty }) => {
+const ShopItem = ({ name, price, created_at, add, remove, qty, image }) => {
   return (
     <div className="shop-item">
       <div style={{ position: "relative" }}>
         <div className="add-btn elevate-1" onClick={() => add()}>
           <FontAwesomeIcon icon={faPlus} />
         </div>
-        <ImageThumbnail />
+        <ImageThumbnail
+          style={{ height: 150, objectFit: "cover", objectPosition: "top" }}
+          src={image}
+        />
         {qty && (
           <small className="s-badge" onClick={() => remove()}>
             {qty}
