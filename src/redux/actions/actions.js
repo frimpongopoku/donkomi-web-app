@@ -1,6 +1,7 @@
-import { GET_REGISTERED_USER } from "../../api/urls";
+import { GET_MARKET_NEWS, GET_REGISTERED_USER } from "../../api/urls";
 import { checkAuthenticationState } from "../../firebase/config";
 import InternetExplorer from "../../shared/classes/InternetExplorer";
+import { LOADING } from "../reducers/reducers";
 import {
   DO_NOTHING,
   UPDATE_CART,
@@ -10,12 +11,61 @@ import {
   SET_ACTIVE_SHOP,
   SET_FIREBASE_AUTH,
   SET_DONKOMI_AUTH,
+  SET_MARKET_NEWS,
+  SET_MARKET_NEWS_DETAILS,
+  INSTANTIATE_EXPLORER,
 } from "../ReduxConstants";
+
+export const fetchMarketNews = (requestObj, cb) => {
+  var body = {};
+  if (requestObj) body = { ...body, requestObj };
+  return async (dispatch, getState) => {
+    var feed = getState().marketNews;
+    feed = feed === LOADING ? [] : feed;
+    try {
+      const response = await InternetExplorer.roamAndFind(
+        GET_MARKET_NEWS,
+        "POST"
+      );
+      if (!response.success) {
+        console.log(
+          "Sorry, something happened we could not load your news feed..."
+        );
+        if (cb) cb();
+        return;
+      }
+      const data = response?.data || {};
+      if (cb) cb(data);
+      dispatch(reduxSetMarketNews([...feed, ...(response?.data?.feed || [])]));
+      dispatch(
+        reduxSetMarketDetails({
+          count: data?.count,
+          max: data?.max,
+          min: data?.min,
+        })
+      );
+    } catch (e) {
+      if (cb) cb();
+      console.log("NEWS_FETCH_ERROR : ", e?.toString());
+    }
+  };
+};
+
+export const setInternetExplorer = (exp) => {
+  return { type: INSTANTIATE_EXPLORER, payload: exp };
+};
+
+export const reduxSetMarketDetails = (dets) => {
+  return { type: SET_MARKET_NEWS_DETAILS, payload: dets };
+};
+
+export const reduxSetMarketNews = (news) => {
+  return { type: SET_MARKET_NEWS, payload: news };
+};
 
 export const fetchAuthencationInformation = () => {
   return (dispatch) =>
     checkAuthenticationState((auth) => {
-      console.log("I am the auth what are you saying", auth);
       if (!auth) return;
       dispatch(reduxSetFirebaseAUth(auth));
       InternetExplorer.roamAndFind(GET_REGISTERED_USER, "POST", {
@@ -26,6 +76,7 @@ export const fetchAuthencationInformation = () => {
             "Sorry, we could not retrieve your profile from our system!",
             response?.error?.message
           );
+        dispatch(setInternetExplorer(InternetExplorer.newInstance(auth?.uid)));
         dispatch(reduxSetDonkomiAuth(response?.data));
       });
     });
