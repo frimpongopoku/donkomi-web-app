@@ -14,6 +14,7 @@ import Notice from "./components/notice/Notice";
 import { bindActionCreators } from "redux";
 import {
   fetchAuthencationInformation,
+  fetchMarketNews,
   reduxSetDonkomiAuth,
   reduxSetFirebaseAUth,
 } from "./redux/actions/actions";
@@ -23,9 +24,10 @@ import CoverLoader from "./components/cover loader/CoverLoader";
 import Merchant from "./pages/merchant/Merchant";
 import Taxi from "./pages/taxi/Taxi";
 
-function Router({ fireAuth, user, fetchUserInfo }) {
+function Router({ fireAuth, user, fetchUserInfo, fetchMarketNews }) {
   useEffect(() => {
     fetchUserInfo();
+    fetchMarketNews();
   }, []);
 
   if (fireAuth?.email && !fireAuth?.emailVerified)
@@ -53,7 +55,6 @@ const FreeRoutes = () => {
       <Route path="/login" exact element={<Login />} />
       <Route path="/register" exact element={<Register />} />
       <Route path="/user/control/:page/show" exact element={<Cart />} />
-      {/* <Route path="/" exact element={<Navigate to="/login" />} /> */}
       <Route path="/home" exact element={<Home />} />
       <Route path="/browse/:page" exact element={<MarketPlace />} />
       <Route
@@ -125,6 +126,7 @@ const mapDispatchToProps = (dispatch) => {
       putFirebaseAuthInRedux: reduxSetFirebaseAUth,
       putUserInFirebase: reduxSetDonkomiAuth,
       fetchUserInfo: fetchAuthencationInformation,
+      fetchMarketNews,
     },
     dispatch
   );

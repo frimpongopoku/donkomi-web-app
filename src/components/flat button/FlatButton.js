@@ -2,7 +2,14 @@ import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import "./FlatButton.css";
-function FlatButton({ children, loading, style, className, onClick }) {
+function FlatButton({
+  children,
+  loading,
+  style,
+  className,
+  onClick,
+  textStyle,
+}) {
   return (
     <div
       onClick={() => onClick && onClick()}
@@ -10,11 +17,11 @@ function FlatButton({ children, loading, style, className, onClick }) {
       style={{ ...(style || {}) }}
     >
       {loading && (
-        <span style={{ marginRight: 6 }}>
+        <span style={{ marginRight: 6, ...(textStyle || {}) }}>
           <FontAwesomeIcon icon={faSpinner} className="spin" />
         </span>
       )}
-      <span>{children || "Clicke Me"}</span>
+      <span style={textStyle || {}}>{children || "Clicke Me"}</span>
     </div>
   );
 }

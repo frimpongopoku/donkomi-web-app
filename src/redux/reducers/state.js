@@ -4,6 +4,9 @@ import {
   reducerForAddingNewProduct,
   reducerForAddingNewShop,
   reducerForHoldingFormContent,
+  reducerForInternetExplorer,
+  reducerForMarketDetails,
+  reducerForMarketNews,
   reducerForSettingActiveShop,
   reducerForSettingDonkomiAuth,
   reducerForSettingFirebaseAuth,
@@ -11,6 +14,7 @@ import {
 } from "./reducers";
 
 export default combineReducers({
+  explorer: reducerForInternetExplorer, // The internet explorer API object instatiated with the authenticated user ID
   testStore: doNothingReducer,
   cart: reducerForUpdatingCart,
   form: reducerForHoldingFormContent,
@@ -19,4 +23,6 @@ export default combineReducers({
   activeShop: reducerForSettingActiveShop,
   fireAuth: reducerForSettingFirebaseAuth,
   user: reducerForSettingDonkomiAuth,
+  marketNews: reducerForMarketNews, // contains news items for market place ( array)
+  marketDetails: reducerForMarketDetails, // contains response details for the last market news response // (obj)
 });

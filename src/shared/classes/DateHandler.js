@@ -1,9 +1,6 @@
 import { formatDistanceToNow, formatRelative } from "date-fns";
 // https://date-fns.org/
 
-
-
-
 export default class DateHandler {
   static makeRelativeDate(date) {
     if (!date) return "...";
@@ -11,7 +8,8 @@ export default class DateHandler {
   }
 
   static makeTimeAgo(date) {
-    if (!date) return "..."; 
+    if (!date) return "...";
+    if (typeof date === "string") date = new Date(date);
     return formatDistanceToNow(date, { addSuffix: true });
   }
 }

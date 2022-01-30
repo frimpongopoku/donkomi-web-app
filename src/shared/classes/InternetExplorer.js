@@ -5,6 +5,7 @@ const DEFAULT_HEADER = {
 };
 export const POST = "POST";
 export const GET = "GET";
+export const AUTH_KEY_NAME = "user_id"; //change this to any value when you move this class around in different applicaitons
 /**
  * A class that handles all api calls outside of firestore
  *
@@ -95,7 +96,7 @@ class InternetExplorer {
   async roamAndFind(URL, method, body) {
     if (!URL || !method || !body) return null;
     const bodyWithToken = {
-      _token: this.userToken,
+      [AUTH_KEY_NAME]: this.userToken,
       ...body,
     };
 
