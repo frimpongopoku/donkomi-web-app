@@ -1,12 +1,9 @@
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
-import BottomNavigation from "../../components/bottom navigation/BottomNavigation";
-import Toolbar from "../../components/toolbar/Toolbar";
 import PageWrapper from "../wrapper/PageWrapper";
 import ImageThumbnail from "../../components/thumbnail/ImageThumbnail";
 import "./MarketPlace.css";
-import ItemFullView from "./views/ItemFullView";
 import PageTitle from "../../components/page title/PageTitle";
 import { generateMarketContent } from "../../factory/make";
 import DateHandler from "../../shared/classes/DateHandler";

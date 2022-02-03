@@ -3,6 +3,7 @@ import { useState } from "react";
 import { connect } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { bindActionCreators } from "redux";
+import { CREATE_A_SHOP } from "../../../api/urls";
 import FormGenerator from "../../../components/form generator";
 import { pop } from "../../../components/form generator/shared/utils/utils";
 import PageTitle from "../../../components/page title/PageTitle";
@@ -11,12 +12,15 @@ import {
   reduxUpdateFormHolder,
 } from "../../../redux/actions/actions";
 import { PREVIOUS_PAGE } from "../../../redux/ReduxConstants";
+import InternetExplorer from "../../../shared/classes/InternetExplorer";
 import PageWrapper from "../../wrapper/PageWrapper";
+import FirebaseImageUploader from "./../../../shared/classes/ImageUploader";
 
 const SHOP_FORM = "shop_form";
-function NewShopForm({ shops, addShopToRedux }) {
+function NewShopForm({ shops, addShopToRedux, explorer }) {
   const [old, setOldFormContent] = useState({});
   const [itemToEdit, setItemToEdit] = useState({});
+  const [notification, setNotification] = useState(null);
   const { id } = useParams();
   const isInEditMode = id;
   const goto = useNavigate();
@@ -76,10 +80,32 @@ function NewShopForm({ shops, addShopToRedux }) {
   };
 
   const createShop = (data, resetForm) => {
+    console.log("I am the shop data", data);
     addShopToRedux([{ id: Date.now()?.toString(), ...data }, ...(shops || [])]);
     resetForm && resetForm();
     localStorage.removeItem(SHOP_FORM);
     setOldFormContent({});
+  };
+
+  const uploadShopCoverPhoto = (image, cb) => {
+    FirebaseImageUploader.uploadImageToFirebase(
+      FirebaseImageUploader.SHOP_PHOTO_BUCKET,
+      image,
+      () => cb && cb(),
+      (error) => {
+        console.log("this error happened while uploading shop image", error);
+      }
+    );
+  };
+
+  const createBackendShop = (data) => {
+    uploadShopCoverPhoto(data.image, (error) => {
+      if (error)
+        return setNotification({ type: "bad", message: error?.toString() });
+      explorer.send(CREATE_A_SHOP, "POST", data).then((response) => {
+        console.log(" I AM AFTER CREATING THE SHOP", response);
+      });
+    });
   };
 
   const saveFormProgress = (formState) => {
@@ -127,6 +153,7 @@ const mapStateToProps = (state) => {
   return {
     formHolder: state.form,
     shops: state.userShops,
+    explorer: state.explorer,
   };
 };
 const mapDispatchToProps = (dispatch) => {
