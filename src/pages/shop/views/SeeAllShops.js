@@ -36,6 +36,7 @@ function SeeAllShops({ shops, confirmDelete, addToShops, doDelete }) {
             return (
               <React.Fragment key={i?.toString()}>
                 <ShopCard
+                  image={shop.image}
                   name={name}
                   onEdit={() => goto("edit-shop/" + shop?.id)}
                   onDelete={() =>
@@ -79,7 +80,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(SeeAllShops);
 export const ShopCard = ({ children, name, image, onEdit, onDelete }) => {
   return (
     <div className="shop-card flex">
-      <ImageThumbnail className="shop-image" />
+      <ImageThumbnail
+        className="shop-image"
+        src={image}
+        style={{ objectFit: "cover" }}
+      />
       <div className="shop-mid-part">
         <h4>{name || "Shop Name..."}</h4>
         {children}

@@ -1,4 +1,4 @@
-import { GET_MARKET_NEWS, GET_REGISTERED_USER } from "../../api/urls";
+import { GET_MARKET_NEWS, GET_REGISTERED_USER, WHO_AM_I } from "../../api/urls";
 import { checkAuthenticationState } from "../../firebase/config";
 import InternetExplorer from "../../shared/classes/InternetExplorer";
 import { LOADING } from "../reducers/reducers";
@@ -69,7 +69,7 @@ export const fetchAuthencationInformation = () => {
     checkAuthenticationState((auth) => {
       if (!auth) return;
       dispatch(reduxSetFirebaseAUth(auth));
-      InternetExplorer.roamAndFind(GET_REGISTERED_USER, "POST", {
+      InternetExplorer.roamAndFind(WHO_AM_I, "POST", {
         user_id: auth?.uid,
       }).then((response) => {
         if (!response?.success)
@@ -77,8 +77,10 @@ export const fetchAuthencationInformation = () => {
             "Sorry, we could not retrieve your profile from our system!",
             response?.error?.message
           );
+        const content = response.data;
         dispatch(setInternetExplorer(InternetExplorer.newInstance(auth?.uid)));
-        dispatch(reduxSetDonkomiAuth(response?.data));
+        dispatch(reduxSetDonkomiAuth(content.user));
+        dispatch(reduxAddNewShop(content.shops));
       });
     });
 };
