@@ -51,7 +51,7 @@ export const reducerForSettingDonkomiAuth = (state = null, action) => {
   }
   return state;
 };
-export const reducerForSettingActiveShop = (state = {}, action) => {
+export const reducerForSettingActiveShop = (state = null, action) => {
   if (action.type === SET_ACTIVE_SHOP) {
     return action.payload;
   }

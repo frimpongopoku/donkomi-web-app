@@ -30,14 +30,15 @@ function SeeAllShopItems({
   };
   const getShopItems = () => {
     const shop = activeShop || (shops && shops[0]);
+    if (!activeShop) setActiveShop(shop); // no active shop, so take the first shop, and make it the active shop
     if (!shop) return [];
     const items = products?.filter((p) => isInShop(p.shops, shop.id));
     return items;
   };
 
-  var shopItems = getShopItems();
-
   useEffect(() => {}, [activeShop]);
+
+  var shopItems = getShopItems();
 
   const renderNoItems = () => {
     const items = getShopItems();

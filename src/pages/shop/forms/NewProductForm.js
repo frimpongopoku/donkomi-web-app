@@ -12,7 +12,8 @@ import { pop } from "../../../components/form generator/shared/utils/utils";
 import Notification from "../../../components/form generator/notification/Notification";
 import Loader from "../../../components/cover loader/Loader";
 import FirebaseImageUploader from "../../../shared/classes/ImageUploader";
-import { CREATE_A_PRODUCT } from "../../../api/urls";
+import { CREATE_A_PRODUCT, UPDATE_A_PRODUCT } from "../../../api/urls";
+import { contentHasChanged } from "../../../shared/js/utils";
 
 const PRODUCT_FORM = "product_form";
 function NewProductForm({ products, shops, addProductToShop, explorer }) {
@@ -25,13 +26,21 @@ function NewProductForm({ products, shops, addProductToShop, explorer }) {
   const isInEditMode = id;
   const goto = useNavigate();
 
-  const getValue = (key) => {
-    if (isInEditMode) return (itemToEdit || [])[key];
-    return old[key] || "";
+  const getValue = (key, cb) => {
+    var value;
+    if (isInEditMode) {
+      value = (itemToEdit || [])[key];
+      if (cb) return cb(value);
+      return value;
+    }
+
+    value = old[key] || "";
+    if (cb) return cb(value);
+    return value;
   };
 
   const fields = [
-    {
+    !isInEditMode && {
       fieldType: FormGenerator.FieldTypes.DROPDOWN,
       placeholder: "Choose shop the item should be in...",
       label: "Which shop should this product be in?",
@@ -42,7 +51,7 @@ function NewProductForm({ products, shops, addProductToShop, explorer }) {
       dbName: "shop",
       type: "full",
       required: true,
-      value: getValue("shop"),
+      value: getValue("shops", (shops) => (shops || [])[0]),
     },
     {
       fieldType: FormGenerator.FieldTypes.INPUT,
@@ -97,16 +106,59 @@ function NewProductForm({ products, shops, addProductToShop, explorer }) {
     },
   ];
 
+  const sendUpdatesToApi = (data, cb) => {
+    explorer
+      .send(UPDATE_A_PRODUCT, "POST", data)
+      .then((response) => {
+        setLoading(false);
+        if (!response.success)
+          return setNotification({ message: response.error.message });
+        cb && cb(response.data);
+      })
+      .catch((e) => {
+        setLoading(false);
+        setNotification({ message: e.toString() });
+      });
+  };
+
+  const userHasChangedImage = (data) => {
+    const old = itemToEdit?.image;
+    const current = data?.image;
+    if (old !== current) return true;
+    return false;
+  };
+
+  const updateProductInBackend = (data, cb) => {
+    if (!contentHasChanged(data, itemToEdit)) return goto(PREVIOUS_PAGE);
+    data.shop_id = data.shop?.id;
+    delete data.shop;
+    const apiBody = { product_id: itemToEdit?.id, data }; // put id back in
+    console.log("I am the api body bro", apiBody);
+    if (!userHasChangedImage(data)) return sendUpdatesToApi(apiBody, cb);
+    // -------- User has changed image so upload new image and delete other one, then save changes--------
+    uploadShopCoverPhoto(data.image.file, (url, error) => {
+      if (error) {
+        setLoading(false);
+        return setNotification({ type: "bad", message: error?.toString() });
+      }
+      apiBody.data.image = url;
+      sendUpdatesToApi(apiBody, cb);
+    });
+  };
+
   const updateProduct = (data) => {
     const { rest, index, found } = pop(
       products,
       (item) => item?.id?.toString() === id?.toString()
     );
     if (!found) return;
-    rest.splice(index, 0, data);
-    addProductToShop(rest);
-    goto(PREVIOUS_PAGE);
-    localStorage.removeItem(PRODUCT_FORM);
+    setLoading(true);
+    updateProductInBackend(data, (newProduct) => {
+      rest.splice(index, 0, newProduct);
+      addProductToShop(rest);
+      goto(PREVIOUS_PAGE);
+      localStorage.removeItem(PRODUCT_FORM);
+    });
   };
 
   const submit = (data, resetForm) => {
