@@ -12,6 +12,8 @@ import {
   reduxAddNewProduct,
   reduxSetActiveShop,
 } from "../../../redux/actions/actions";
+import { DELETE_A_PRODUCT } from "../../../api/urls";
+import FirebaseImageUploader from "../../../shared/classes/ImageUploader";
 
 function SeeAllShopItems({
   products,
@@ -21,6 +23,7 @@ function SeeAllShopItems({
   shops,
   activeShop,
   setActiveShop,
+  explorer,
 }) {
   const goto = useNavigate();
   const isInShop = (shops, shopId) => {
@@ -34,6 +37,17 @@ function SeeAllShopItems({
     if (!shop) return [];
     const items = products?.filter((p) => isInShop(p.shops, shop.id));
     return items;
+  };
+
+  const deleteProductFromBackend = (prod) => {
+    if (!prod.id) return;
+    explorer
+      .send(DELETE_A_PRODUCT, "POST", { product_id: prod.id })
+      .then((response) => {
+        if (response.success)
+          FirebaseImageUploader.deleteImageFromStorage(prod?.image);
+      })
+      .catch((e) => console.log("SHOP_DELETION_ERROR:", e.toString()));
   };
 
   useEffect(() => {}, [activeShop]);
@@ -112,8 +126,10 @@ function SeeAllShopItems({
                   onEdit={() => goto("edit-product/" + product?.id)}
                   onDelete={() =>
                     confirmDelete(true, {
-                      onConfirm: () =>
-                        doDelete(product?.id, products, addToProducts),
+                      onConfirm: () => {
+                        doDelete(product?.id, products, addToProducts);
+                        deleteProductFromBackend(product);
+                      },
                       children: (
                         <div style={{ padding: 20 }}>
                           Would you like to delete '{product?.name}'
@@ -141,6 +157,7 @@ const mapStateToProps = (state) => {
     products: state.userProducts,
     shops: state.userShops,
     activeShop: state.activeShop,
+    explorer: state.explorer,
   };
 };
 

@@ -92,12 +92,12 @@ function NewShopForm({ shops, addShopToRedux, explorer }) {
     const apiBody = { shop_id: itemToEdit?.id, data }; // put id back in
     if (!userHasChangedImage(data)) return sendUpdatesToApi(apiBody, cb);
     // -------- User has changed image so upload new image and delete other one, then save changes--------
-
     uploadShopCoverPhoto(data.image.file, (url, error) => {
       if (error) {
         setLoading(false);
         return setNotification({ type: "bad", message: error?.toString() });
       }
+      FirebaseImageUploader.deleteImageFromStorage(itemToEdit.image);
       apiBody.data.image = url;
       sendUpdatesToApi(apiBody, cb);
     });

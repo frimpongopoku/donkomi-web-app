@@ -141,6 +141,7 @@ function NewProductForm({ products, shops, addProductToShop, explorer }) {
         setLoading(false);
         return setNotification({ type: "bad", message: error?.toString() });
       }
+      FirebaseImageUploader.deleteImageFromStorage(itemToEdit?.image);
       apiBody.data.image = url;
       sendUpdatesToApi(apiBody, cb);
     });
