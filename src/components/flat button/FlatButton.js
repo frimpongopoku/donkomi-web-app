@@ -9,10 +9,11 @@ function FlatButton({
   className,
   onClick,
   textStyle,
+  disabled,
 }) {
   return (
     <div
-      onClick={() => onClick && onClick()}
+      onClick={() => !disabled && onClick && onClick()}
       className={`flat-btn touchable-opacity ${className}`}
       style={{ ...(style || {}) }}
     >

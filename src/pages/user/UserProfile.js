@@ -14,10 +14,19 @@ import { CONTROLS, TOGGLES } from "./profile-values";
 import "./UserProfile.css";
 import ImageSelector from "./../../components/form generator/file picker/ImageSelector";
 import FlatButton from "../../components/flat button/FlatButton";
-function UserProfile({ user, explorer }) {
+import Loader from "../../components/cover loader/Loader";
+import Notification from "../../components/form generator/notification/Notification";
+import { UPDATE_USER_PROFILE } from "../../api/urls";
+import FirebaseImageUploader from "../../shared/classes/ImageUploader";
+import { reduxSetDonkomiAuth } from "../../redux/actions/actions";
+function UserProfile({ user, explorer, setUserInRedux }) {
   const [userImage, setUserImage] = useState(null);
-  const [changeImage, setChangeImage] = useState(true);
+  const [changeImage, setChangeImage] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
   const selectNewImage = (e) => {};
+
   const goto = useNavigate();
   const pcUserImageBtnStyles = {
     flex: 1,
@@ -28,8 +37,46 @@ function UserProfile({ user, explorer }) {
     cursor: "pointer",
   };
 
+  const updateUserInBackend = (data) => {
+    explorer
+      .send(UPDATE_USER_PROFILE, "POST", data)
+      .then((response) => {
+        setLoading(false);
+        if (!response.success)
+          return setError({ message: response.error.message });
+        setUserInRedux(response.data);
+        setChangeImage(false);
+      })
+      .catch((e) => {
+        setLoading(false);
+        setError({ message: e?.toString() });
+        console.log("PROFILE_UPLOAD_ERROR:", e?.toString());
+      });
+  };
+
+  const updateProfile = () => {
+    const oldPicture = user?.profilePicture;
+    setLoading(true);
+    setError(null);
+    FirebaseImageUploader.uploadProfilePhoto(
+      userImage,
+      (url) => {
+        if (oldPicture)
+          FirebaseImageUploader.deleteImageFromStorage(oldPicture);
+        updateUserInBackend({
+          user_id: user?.user_id,
+          data: { profilePicture: url },
+        });
+      },
+      (error) => {
+        setError(error);
+        setLoading(false);
+      }
+    );
+  };
+
   const onNewImageSelected = (data, reset) => {
-    console.log("I am the image", data);
+    setUserImage(data?.file);
   };
   return (
     <PageWrapper>
@@ -37,7 +84,10 @@ function UserProfile({ user, explorer }) {
         {!changeImage && (
           <div className="user-details-div">
             <div>
-              <ImageThumbnail className="profile-img" />
+              <ImageThumbnail
+                src={user?.profilePicture}
+                className="profile-img"
+              />
               <div className="phone-vanish">
                 <div
                   className=" flex"
@@ -65,6 +115,7 @@ function UserProfile({ user, explorer }) {
                 <small
                   style={{ color: "maroon" }}
                   className="touchable-opacity"
+                  onClick={() => setChangeImage(true)}
                 >
                   Change
                 </small>
@@ -87,6 +138,7 @@ function UserProfile({ user, explorer }) {
             >
               Select an image from your device
             </p>
+            {error && <Notification type="bad" message={error?.message} />}
             <ImageSelector
               allowCrop
               onFileSelected={onNewImageSelected}
@@ -108,10 +160,19 @@ function UserProfile({ user, explorer }) {
             >
               <FlatButton
                 style={{ flex: "1", background: "var(--app-color-darkest)" }}
+                disabled={loading}
+                onClick={() => setChangeImage(true)}
               >
                 Cancel
               </FlatButton>
-              <FlatButton style={{ flex: "1" }}>Change Picture</FlatButton>
+              <FlatButton
+                onClick={() => updateProfile()}
+                loading={loading}
+                style={{ flex: "1" }}
+                disabled={loading}
+              >
+                {loading ? "Changing Picture" : " Change Picture"}
+              </FlatButton>
             </div>
           </div>
         )}
@@ -178,7 +239,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({}, dispatch);
+  return bindActionCreators({ setUserInRedux: reduxSetDonkomiAuth }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);
