@@ -174,6 +174,7 @@ function NewProductForm({ products, shops, addProductToShop, explorer }) {
     data.shop_id = data.shop.id;
     delete data.shop;
     createBackendProduct(data, (newProduct) => {
+      setLoading(false);
       addProductToShop([newProduct, ...(products || [])]);
       resetForm && resetForm();
       localStorage.removeItem(PRODUCT_FORM);
@@ -259,7 +260,7 @@ function NewProductForm({ products, shops, addProductToShop, explorer }) {
         formWillUnMount={(data) => !isInEditMode && saveFormProgress(data)}
       />
 
-      {loading && <Loader label="We are creating your shop..." />}
+      {loading && <Loader label="We are creating your product..." />}
     </PageWrapper>
   );
 }

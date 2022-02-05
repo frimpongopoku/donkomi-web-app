@@ -128,6 +128,7 @@ function NewShopForm({ shops, addShopToRedux, explorer }) {
     data.image = data.image.file;
     setLoading(true);
     createBackendShop(data, (newShop) => {
+      setLoading(false);
       addShopToRedux([newShop, ...(shops || [])]);
       resetForm && resetForm();
       localStorage.removeItem(SHOP_FORM);
