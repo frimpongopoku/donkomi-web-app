@@ -120,7 +120,7 @@ function UpdateProfile({ explorer, user, setUserInRedux }) {
     data = { user_id: user?.user_id, data };
     updateUserInBackend(data, () => resetForm && resetForm());
   };
-  console.log("the notifiation ahd shit", notification, loading);
+
   return (
     <>
       <PageWrapper>

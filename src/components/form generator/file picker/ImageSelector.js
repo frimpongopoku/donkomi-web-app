@@ -132,6 +132,7 @@ export default class ImageSlector extends Component {
     const theFiles = e.target.files;
     if (!theFiles || theFiles.length < 1) return;
     const file = theFiles[0];
+    this.setState({ croppedSrc: null, cropMode: this.props.forceCrop });
     this.processSelectedFile(file);
   }
   /**
@@ -211,6 +212,7 @@ export default class ImageSlector extends Component {
       <>
         <center>
           <img
+            style={this.props.previewStyle || {}}
             src={this.state.croppedSrc || this.state.src}
             alt="selected media"
             className={cx(previewImageCss)}
@@ -330,6 +332,8 @@ export default class ImageSlector extends Component {
           onChange={(newCrop) => this.whenCropChanges(newCrop)}
           maxWidth={maxWidth}
           maxHeight={maxHeight}
+          circularCrop={this.props.circleCrop}
+          locked={this.props.locked}
         />
         <br />
         <Button onClick={this.finaliseCropping}>Crop</Button>
@@ -458,6 +462,12 @@ ImageSlector.propTypes = {
   accepts: PropTypes.arrayOf(PropTypes.string),
   /** Specifies the file size limit of the user's selected media in Megabytes */
   maxSize: PropTypes.number,
+  /**  Forces crop mode to be automatically activated on file change. So that the user is forced to crop */
+  forceCrop: PropTypes.bool,
+
+  circleProp: PropTypes.bool,
+  /** Inline style for preview image element */
+  previewStyle: PropTypes.object,
 };
 ImageSlector.defaultProps = {
   allowCrop: false,
@@ -469,4 +479,8 @@ ImageSlector.defaultProps = {
   maxWidth: 300,
   accept: [PNG, JPEG, JPG],
   maxSize: 2,
+  forceCrop: false,
+  circleCrop: false,
+  locked: false,
+  previewStyle: {},
 };

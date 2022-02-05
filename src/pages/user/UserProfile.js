@@ -12,9 +12,11 @@ import PageWrapper from "../wrapper/PageWrapper";
 import ImageThumbnail from "./../../components/thumbnail/ImageThumbnail";
 import { CONTROLS, TOGGLES } from "./profile-values";
 import "./UserProfile.css";
-
+import ImageSelector from "./../../components/form generator/file picker/ImageSelector";
+import FlatButton from "../../components/flat button/FlatButton";
 function UserProfile({ user, explorer }) {
   const [userImage, setUserImage] = useState(null);
+  const [changeImage, setChangeImage] = useState(true);
   const selectNewImage = (e) => {};
   const goto = useNavigate();
   const pcUserImageBtnStyles = {
@@ -25,45 +27,94 @@ function UserProfile({ user, explorer }) {
     textAlign: "center",
     cursor: "pointer",
   };
+
+  const onNewImageSelected = (data, reset) => {
+    console.log("I am the image", data);
+  };
   return (
     <PageWrapper>
       <div className="profile-container">
-        <div className="user-details-div">
-          <div>
-            <ImageThumbnail className="profile-img" />
-            <div className="phone-vanish">
-              <div
-                className=" flex"
-                style={{ flexDirection: "row", flex: "2" }}
-              >
+        {!changeImage && (
+          <div className="user-details-div">
+            <div>
+              <ImageThumbnail className="profile-img" />
+              <div className="phone-vanish">
+                <div
+                  className=" flex"
+                  style={{ flexDirection: "row", flex: "2" }}
+                >
+                  <small
+                    className="touchable-opacity"
+                    style={{ ...pcUserImageBtnStyles }}
+                    onClick={() => setChangeImage(true)}
+                  >
+                    Change
+                  </small>
+                  <small
+                    className="touchable-opacity"
+                    style={{ ...pcUserImageBtnStyles, background: "maroon" }}
+                  >
+                    Remove
+                  </small>
+                </div>
+              </div>
+            </div>
+            <div className="user-info-box">
+              <h3 className="user-name">Frimpong Opoku Agyemang</h3>
+              <div className="profile-small pc-vanish">
                 <small
+                  style={{ color: "maroon" }}
                   className="touchable-opacity"
-                  style={{ ...pcUserImageBtnStyles }}
                 >
                   Change
                 </small>
-                <small
-                  className="touchable-opacity"
-                  style={{ ...pcUserImageBtnStyles, background: "maroon" }}
-                >
+                <small className="touchable-opacity" style={{ color: "green" }}>
                   Remove
                 </small>
               </div>
+              <p className="profile-roles">@Delivery Guy, @Customer, @Seller</p>
             </div>
           </div>
-          <div className="user-info-box">
-            <h3 className="user-name">Frimpong Opoku Agyemang</h3>
-            <div className="profile-small pc-vanish">
-              <small style={{ color: "maroon" }} className="touchable-opacity">
-                Change
-              </small>
-              <small className="touchable-opacity" style={{ color: "green" }}>
-                Remove
-              </small>
+        )}
+        {changeImage && (
+          <div>
+            <p
+              style={{
+                fontWeight: "bold",
+                color: "var(--app-color-darker)",
+                margin: "15px 0px",
+              }}
+            >
+              Select an image from your device
+            </p>
+            <ImageSelector
+              allowCrop
+              onFileSelected={onNewImageSelected}
+              forceCrop
+              circleCrop
+              maxHeight={150}
+              maxWidth={150}
+              ratioWidth={1}
+              ratioHeight={1}
+              previewStyle={{ borderRadius: "100%" }}
+            />
+
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                margin: "15px 0px",
+              }}
+            >
+              <FlatButton
+                style={{ flex: "1", background: "var(--app-color-darkest)" }}
+              >
+                Cancel
+              </FlatButton>
+              <FlatButton style={{ flex: "1" }}>Change Picture</FlatButton>
             </div>
-            <p className="profile-roles">@Delivery Guy, @Customer, @Seller</p>
           </div>
-        </div>
+        )}
         <div className="controls-container">
           {CONTROLS.map((c, index) => {
             return (
