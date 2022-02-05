@@ -9,3 +9,6 @@ export const UPDATE_USER_PROFILE = HOST + "/user/update/";
 export const CHECKOUT_PRODUCTS = HOST + "/user/checkout.of.market/";
 export const GET_ORDER_HISTORY = HOST + "/user/get.order.history/";
 export const GET_MARKET_NEWS = HOST + "/get/market.feed/";
+export const CREATE_A_PRODUCT = HOST + "/product/create/";
+export const UPDATE_A_PRODUCT = HOST + "/product/update/";
+export const DELETE_A_PRODUCT = HOST + "/product/delete/";

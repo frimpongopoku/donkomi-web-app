@@ -83,12 +83,3 @@ export const contentHasChanged = (data, otherObj) => {
   }
   return false;
 };
-
-// export const isANullJson = (obj) => {
-//   if (!obj) return true;
-//   Object.entries(obj).forEach(([key, value]) => {
-//     if (value && value?.toString() && value.toString() !== "[object Object]")
-//       return false;
-//   });
-//   return true;
-// };

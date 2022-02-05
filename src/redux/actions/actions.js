@@ -81,6 +81,7 @@ export const fetchAuthencationInformation = () => {
         dispatch(setInternetExplorer(InternetExplorer.newInstance(auth?.uid)));
         dispatch(reduxSetDonkomiAuth(content.user));
         dispatch(reduxAddNewShop(content.shops));
+        dispatch(reduxAddNewProduct(content.products));
       });
     });
 };

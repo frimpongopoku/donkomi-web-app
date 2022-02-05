@@ -67,7 +67,7 @@ function NewShopForm({ shops, addShopToRedux, explorer }) {
 
   const userHasChangedImage = (data) => {
     const old = itemToEdit?.image;
-    const current = old?.image;
+    const current = data?.image;
     if (old !== current) return true;
     return false;
   };
@@ -76,31 +76,40 @@ function NewShopForm({ shops, addShopToRedux, explorer }) {
     explorer
       .send(UPDATE_A_SHOP, "POST", data)
       .then((response) => {
-        if (response.error.status)
-          return setNotification({ message: response.error.messsage });
+        setLoading(false);
+        if (!response.success)
+          return setNotification({ message: response.error.message });
         cb && cb(response.data);
       })
-      .catch((e) => setNotification({ message: e.toString() }));
+      .catch((e) => {
+        setLoading(false);
+        setNotification({ message: e.toString() });
+      });
   };
+
   const updateShopInBackend = (data, cb) => {
     if (!contentHasChanged(data, itemToEdit)) return goto(PREVIOUS_PAGE);
-    if (!userHasChangedImage(data)) sendUpdatesToApi(data, cb);
+    const apiBody = { shop_id: itemToEdit?.id, data }; // put id back in
+    if (!userHasChangedImage(data)) return sendUpdatesToApi(apiBody, cb);
     // -------- User has changed image so upload new image and delete other one, then save changes--------
-    uploadShopCoverPhoto(data.image, (url, error) => {
+
+    uploadShopCoverPhoto(data.image.file, (url, error) => {
       if (error) {
         setLoading(false);
         return setNotification({ type: "bad", message: error?.toString() });
       }
-      data.image = url;
-      sendUpdatesToApi(data, cb);
+      apiBody.data.image = url;
+      sendUpdatesToApi(apiBody, cb);
     });
   };
+
   const updateShop = (data) => {
     const { rest, index, found } = pop(
       shops,
       (item) => item?.id?.toString() === id?.toString()
     );
     if (!found) return;
+    setLoading(true);
     updateShopInBackend(data, (updatedShop) => {
       rest.splice(index, 0, updatedShop);
       addShopToRedux(rest);
@@ -110,6 +119,7 @@ function NewShopForm({ shops, addShopToRedux, explorer }) {
   };
 
   const submit = (data, resetForm) => {
+    setNotification(null);
     if (isInEditMode) return updateShop(data);
     createShop(data, resetForm);
   };
@@ -194,7 +204,7 @@ function NewShopForm({ shops, addShopToRedux, explorer }) {
         }
       />
       {notification && (
-        <Notification message="This is anotification bro" type="bad" />
+        <Notification message={notification.message} type="bad" />
       )}
       <FormGenerator
         fields={fields}

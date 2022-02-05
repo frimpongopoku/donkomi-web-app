@@ -60,6 +60,6 @@ Notification.propTypes = {};
 
 Notification.defaultProps = {
   type: "good",
-  msg: "This is your notification message",
+  // message: "This is your notification message",
 };
 export default Notification;

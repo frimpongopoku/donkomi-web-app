@@ -23,10 +23,15 @@ function SeeAllShopItems({
   setActiveShop,
 }) {
   const goto = useNavigate();
+  const isInShop = (shops, shopId) => {
+    const found = shops?.find((s) => s.id === shopId);
+    if (found) return true;
+    return false;
+  };
   const getShopItems = () => {
     const shop = activeShop || (shops && shops[0]);
     if (!shop) return [];
-    const items = products?.filter((p) => p.shop?.id === shop.id);
+    const items = products?.filter((p) => isInShop(p.shops, shop.id));
     return items;
   };
 
@@ -101,6 +106,7 @@ function SeeAllShopItems({
             return (
               <React.Fragment key={i?.toString()}>
                 <ShopCard
+                  image={product?.image}
                   name={product?.name}
                   onEdit={() => goto("edit-product/" + product?.id)}
                   onDelete={() =>

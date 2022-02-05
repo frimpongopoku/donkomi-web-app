@@ -9,11 +9,18 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { PREVIOUS_PAGE } from "../../../redux/ReduxConstants";
 import { pop } from "../../../components/form generator/shared/utils/utils";
+import Notification from "../../../components/form generator/notification/Notification";
+import Loader from "../../../components/cover loader/Loader";
+import FirebaseImageUploader from "../../../shared/classes/ImageUploader";
+import { CREATE_A_PRODUCT } from "../../../api/urls";
 
 const PRODUCT_FORM = "product_form";
-function NewProductForm({ products, shops, addProductToShop }) {
+function NewProductForm({ products, shops, addProductToShop, explorer }) {
   const [old, setOldFormContent] = useState({});
   const [itemToEdit, setItemToEdit] = useState({});
+  const [notification, setNotification] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const { id } = useParams();
   const isInEditMode = id;
   const goto = useNavigate();
@@ -103,18 +110,59 @@ function NewProductForm({ products, shops, addProductToShop }) {
   };
 
   const submit = (data, resetForm) => {
+    setNotification(null);
     if (isInEditMode) return updateProduct(data);
     createProduct(data, resetForm);
   };
 
   const createProduct = (data, resetForm) => {
-    addProductToShop([
-      { id: Date.now().toString(), ...data },
-      ...(products || []),
-    ]);
-    resetForm && resetForm();
-    localStorage.removeItem(PRODUCT_FORM);
-    setOldFormContent({});
+    setLoading(true);
+    data.image = data.image.file;
+    data.shop_id = data.shop.id;
+    delete data.shop;
+    createBackendProduct(data, (newProduct) => {
+      addProductToShop([newProduct, ...(products || [])]);
+      resetForm && resetForm();
+      localStorage.removeItem(PRODUCT_FORM);
+      setOldFormContent({});
+    });
+  };
+
+  const uploadShopCoverPhoto = (image, cb) => {
+    FirebaseImageUploader.uploadImageToFirebase(
+      FirebaseImageUploader.SHOP_PHOTO_BUCKET,
+      image,
+      (url) => cb && cb(url),
+      (error) => {
+        cb && cb(null, error);
+        console.log("IMAGE_UPLOAD_ERROR:", error);
+      }
+    );
+  };
+
+  const createBackendProduct = (data, cb) => {
+    uploadShopCoverPhoto(data.image, (url, error) => {
+      if (error) {
+        setLoading(false);
+        return setNotification({ type: "bad", message: error?.toString() });
+      }
+      console.log("This is the data to be sent", data);
+      data.image = url;
+      explorer
+        .send(CREATE_A_PRODUCT, "POST", data)
+        .then((response) => {
+          if (response.error.status)
+            return setNotification({
+              message: response?.error?.message,
+            });
+          setLoading(false);
+          cb && cb(response.data);
+        })
+        .catch((e) => {
+          setLoading(false);
+          console.log("BACKEND_SHOP_CREATING_ERROR", e.toString());
+        });
+    });
   };
 
   useEffect(() => {
@@ -148,13 +196,17 @@ function NewProductForm({ products, shops, addProductToShop }) {
             : "Select one of your shops, add an item you sell -- its that easy!"
         }
       />
-
+      {notification && (
+        <Notification message={notification.message} type="bad" />
+      )}
       <FormGenerator
         onSubmit={submit}
         fields={fields}
         actionText={isInEditMode ? "Update Product" : "Submit New Product"}
         formWillUnMount={(data) => !isInEditMode && saveFormProgress(data)}
       />
+
+      {loading && <Loader label="We are creating your shop..." />}
     </PageWrapper>
   );
 }
@@ -163,6 +215,7 @@ const mapStateToProps = (state) => {
   return {
     products: state.userProducts,
     shops: state.userShops,
+    explorer: state.explorer,
   };
 };
 const mapDispatchToProps = (dispatch) => {
