@@ -19,6 +19,7 @@ function ShopManagement() {
   const [deleteProps, setDeleteProps] = useState({});
   // const [activeShop, setActiveShop] = useState(null);
 
+  
   const confirmDelete = (del, delProps) => {
     setDeleteConfirmation(del);
     setDeleteProps(delProps);

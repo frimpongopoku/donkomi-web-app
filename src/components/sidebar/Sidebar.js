@@ -6,10 +6,13 @@ import { MENU } from "./values";
 import { useNavigate, useParams } from "react-router-dom";
 
 function Sidebar(props) {
-  const { animate } = props;
-
+  const { animate, updateFireState, updateUserState, user } = props;
   const params = useParams();
 
+  const signOutOfRedux = () => {
+    updateFireState(null);
+    updateUserState(null);
+  };
   return (
     <div
       className={`sidebar-wrapper elevate-float ${
@@ -23,14 +26,24 @@ function Sidebar(props) {
       </div>
       <div className="mid">
         {MENU.map((menu, index) => {
+          const signOutClick =
+            menu.key === "logout"
+              ? {
+                  onClick: () => {
+                    menu.onClick();
+                    signOutOfRedux();
+                  },
+                }
+              : {};
           return (
             <div key={index?.toString()}>
               <SideMenuItem
                 {...menu}
                 label={menu.name}
                 icon={menu.icon}
-                locked={menu.locked}
+                locked={!user && menu.locked}
                 active={params.page === menu.key}
+                {...signOutClick}
               />
             </div>
           );

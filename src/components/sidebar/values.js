@@ -6,9 +6,11 @@ import {
   faQuestion,
   faShoppingBag,
   faShoppingBasket,
+  faSignInAlt,
   faSignOutAlt,
   faTaxi,
 } from "@fortawesome/free-solid-svg-icons";
+import { signOut } from "../../firebase/config";
 
 export const MENU = [
   { name: "Home", icon: faHome, key: "home", url: "/home" },
@@ -31,8 +33,20 @@ export const MENU = [
     url: "/user/manage/shop-management/shop-listing",
     locked: true,
   },
-  { name: "Merchant", icon: faMotorcycle, key: "merchant", construction: true },
-  { name: "Taxi", icon: faTaxi, key: "taxi", construction: true },
+  {
+    name: "Merchant",
+    url: "/app/services/merchant/main",
+    icon: faMotorcycle,
+    key: "merchant",
+    construction: true,
+  },
+  {
+    name: "Taxi",
+    icon: faTaxi,
+    url: "/app/services/taxi/book",
+    key: "taxi",
+    construction: true,
+  },
   { name: "Help", icon: faQuestion, key: "help" },
   {
     name: "Settings",
@@ -45,6 +59,6 @@ export const MENU = [
     name: "Logout",
     icon: faSignOutAlt,
     key: "logout",
-    onClick: () => alert("Are you sure you want to signout?"),
+    onClick: () => signOut(),
   },
 ];

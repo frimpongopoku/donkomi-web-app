@@ -1,91 +1,221 @@
-import { faPenAlt } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import FlatButton from "../../../components/flat button/FlatButton";
 import Notification from "../../../components/form generator/notification/Notification";
 import AuthLoader from "../AuthLoader";
 import "./../auth.css";
-function Register() {
-  const fields = [
-    {
-      type: "input",
-      name: "preferred_name",
-      placeholder: "Enter preferred name",
-      max: 20,
-      label:
-        "What do you want people to know you by? 'Nation Seller', 'apuskeleke Shop', 'Native Shlong' are all valid usernames. Get creative, be proffessional!  ",
-    },
-    {
-      type: "input",
-      name: "email",
-      contentType: "email",
-      label:
-        "Preferrably one that belongs to you, and is very close to heart. We will keep it safe!",
-      placeholder: "Enter you email",
-    },
-    {
-      type: "input",
-      name: "phone",
-      placeholder: "Enter phone number",
-      label: "Enter a working phone number",
-    },
-    {
-      type: "input",
-      name: "password",
-      placeholder: "Enter password",
-      label:
-        "This isnt mean't to be bae's name. Enter a secure code only you will remember!",
-      contentType: "password",
-    },
-    {
-      type: "input",
-      name: "password",
-      placeholder: "Confirm Password",
-      label: "Enter the password again, just in case!",
-      contentType: "password",
-    },
-  ];
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import InternetExplorer from "./../../../shared/classes/InternetExplorer";
+import {
+  reduxSetDonkomiAuth,
+  reduxSetFirebaseAUth,
+} from "../../../redux/actions/actions";
+import {
+  deleteUserFromFirebase,
+  registerUserWithEmailAndPassword,
+  signOut,
+} from "../../../firebase/config";
+import { sendEmailVerification } from "firebase/auth";
+import { REGISTER_USER } from "../../../api/urls";
+
+const EMPTY = { empty: true };
+const fields = [
+  {
+    type: "input",
+    name: "preferred_name",
+    placeholder: "Enter preferred name",
+    max: 20,
+    label:
+      "What do you want people to know you by? 'Nation Seller', 'apuskeleke Shop', 'Native Shlong' are all valid usernames. Get creative, be proffessional!  ",
+  },
+  {
+    type: "input",
+    name: "email",
+    contentType: "email",
+    label:
+      "Preferrably one that belongs to you, and is very close to heart. We will keep it safe!",
+    placeholder: "Enter you email",
+  },
+  {
+    type: "input",
+    name: "phone",
+    placeholder: "Enter phone number",
+    label: "Enter a working phone number",
+    max: 12,
+  },
+  {
+    type: "input",
+    name: "password",
+    placeholder: "Enter password",
+    label:
+      "We want to make sure no one orders food on your behalf, so add a password.",
+    contentType: "password",
+  },
+  {
+    type: "input",
+    name: "confirm_password",
+    placeholder: "Confirm Password",
+    label: "Enter the password again, just in case!",
+    contentType: "password",
+  },
+];
+function Register({ putAuthInRedux, putUserInRedux }) {
+  const [form, setForm] = useState({});
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [notification, setNotification] = useState({});
+
+  const makeError = (key, error, _err) => {
+    return { ..._err, [key]: error, empty: false };
+  };
+  const makeNotification = (message, good) => {
+    setNotification({ type: good ? "good" : "bad", msg: message });
+  };
+
+  const formHasRightValues = () => {
+    setErrors(EMPTY);
+    var err = {};
+    var valid = true;
+    fields.forEach((field) => {
+      const key = field.name;
+      const value = form[key];
+      if (!value) {
+        err = makeError(key, `You did not provide '${key}'`, err);
+        valid = false;
+      } else {
+        if (key === "password" && value < 6) {
+          err = makeError(
+            key,
+            "Your password is too weak, at least use 6 characters!",
+            err
+          );
+          valid = false;
+        } else if (key === "password" && value !== form["confirm_password"]) {
+          err = makeError(
+            key,
+            "See why you were asked to confirm? Your passwords do not match please try again...",
+            err
+          );
+          valid = false;
+        }
+      }
+    });
+    return [valid, err];
+  };
+
+  const submitForm = () => {
+    setLoading(true);
+    setErrors({ empty: true });
+    setNotification(null);
+    const [yes, err] = formHasRightValues();
+    if (!yes) {
+      setLoading(false);
+      setErrors(err);
+      return;
+    }
+
+    authenticate(form);
+  };
+
+  const authenticate = (data) => {
+    registerUserWithEmailAndPassword(
+      data,
+      (authenticationInformation, error) => {
+        if (error) {
+          makeNotification(error?.toString(), false);
+          setLoading(false);
+        } else {
+          const fireUser = authenticationInformation?.user;
+          createDonkomiUser({
+            body: { ...data, user_id: fireUser?.uid, organization_id: 1 },
+            fireAuth: fireUser,
+          });
+          sendEmailVerification(fireUser);
+        }
+      }
+    );
+  };
+
+  const createDonkomiUser = (data) => {
+    InternetExplorer.roamAndFind(REGISTER_USER, "POST", data.body)
+      .then((response) => {
+        setLoading(false);
+        if (!response.success) {
+          makeNotification(response?.error?.message, false);
+          //Delete user from firebase auth system, if donkomi BE refuses to create profile for user
+          deleteUserFromFirebase(data.fireAuth);
+          return;
+        }
+        putUserInRedux(response.data);
+        putAuthInRedux(data.fireAuth);
+        setForm({});
+      })
+      .catch((e) => {
+        console.log("Sorry something happend : ", e?.toString());
+        setLoading(false);
+      });
+  };
+
   return (
     <div className="auth-wrapper">
       <div className="auth-container">
         <h2>DONKOMI</h2>
         <p>
-          It just takes a minute! Pro the following, and get started right away!
+          It just takes a minute! Provide the following, and get started right
+          away!
         </p>
+        <br />
         <div className="auth-content-box">
           {fields.map((field, i) => {
             return (
-              <div>
+              <React.Fragment key={i?.toString()}>
                 <small>{field.label}</small>
+                <br />
+                {!errors?.empty && (
+                  <small
+                    style={{ color: "maroon", marginLeft: 5, fontSize: 13 }}
+                  >
+                    <i>{errors[field.name]}</i>
+                  </small>
+                )}
                 <input
                   className="auth-textbox"
                   placeholder={field.placeholder}
                   name={field.name}
                   type={field.contentType || "text"}
                   {...(field.max ? { maxLength: field.max } : {})}
+                  onChange={(e) =>
+                    setForm({ ...form, [field.name]: e.target.value })
+                  }
                 />
                 <br />
-              </div>
+              </React.Fragment>
             );
           })}
 
-          <Link to="/" style={{ color: "green" }}>
+          <Link to="/login" style={{ color: "green" }}>
             <br />
-            <i>Already have an account, I want to login instead</i>
+            Already have an account, I want to login instead
           </Link>
-          <AuthLoader />
+          {loading && <AuthLoader />}
           <div style={{ padding: 10, width: "100%" }}>
-            <Notification />
+            {notification?.msg && (
+              <Notification
+                {...notification}
+                close={() => setNotification(null)}
+              />
+            )}
           </div>
         </div>
-        <div className="auth-bottom-div">
+        <div className="auth-bottom-div" style={{ marginTop: 20 }}>
           <div
+            onClick={() => submitForm()}
             className="flat-btn touchable-opacity"
-            style={{ background: "green", color: "white" }}
+            style={{ background: "green", color: "white", marginBottom: 0 }}
           >
             Done, Sign Me Up!
           </div>
+          {/* <button onClick={() => signOut()}>Sign out bruh</button> */}
           {/* <div className="flat-btn">Use Google Instead</div> */}
         </div>
       </div>
@@ -93,4 +223,13 @@ function Register() {
   );
 }
 
-export default Register;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      putAuthInRedux: reduxSetFirebaseAUth,
+      putUserInRedux: reduxSetDonkomiAuth,
+    },
+    dispatch
+  );
+};
+export default connect(null, mapDispatchToProps)(Register);

@@ -8,9 +8,21 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import NotFound from "../../../components/not found/NotFound";
 import { reduxAddNewShop } from "../../../redux/actions/actions";
-function SeeAllShops({ shops, confirmDelete, addToShops, doDelete }) {
+import { DELETE_A_SHOP } from "../../../api/urls";
+import FirebaseImageUploader from "../../../shared/classes/ImageUploader";
+function SeeAllShops({ shops, confirmDelete, addToShops, doDelete, explorer }) {
   const goto = useNavigate();
 
+  const deleteShopFromBackend = (shop) => {
+    if (!shop?.id) return;
+    explorer
+      .send(DELETE_A_SHOP, "POST", { shop_id: shop?.id })
+      .then((response) => {
+        if (response.success)
+          FirebaseImageUploader.deleteImageFromStorage(shop?.image);
+      })
+      .catch((e) => console.log("SHOP_DELETION_ERROR:", e.toString()));
+  };
   return (
     <div className="all-shops-container">
       <p
@@ -36,11 +48,15 @@ function SeeAllShops({ shops, confirmDelete, addToShops, doDelete }) {
             return (
               <React.Fragment key={i?.toString()}>
                 <ShopCard
+                  image={shop.image}
                   name={name}
                   onEdit={() => goto("edit-shop/" + shop?.id)}
                   onDelete={() =>
                     confirmDelete(true, {
-                      onConfirm: () => doDelete(shop?.id, shops, addToShops),
+                      onConfirm: () => {
+                        doDelete(shop?.id, shops, addToShops);
+                        deleteShopFromBackend(shop);
+                      },
                       children: (
                         <div style={{ padding: 20 }}>
                           {`Would you like to delete '${name}'?`}
@@ -67,7 +83,7 @@ function SeeAllShops({ shops, confirmDelete, addToShops, doDelete }) {
 }
 
 const mapStateToProps = (state) => {
-  return { shops: state.userShops };
+  return { shops: state.userShops, explorer: state.explorer };
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -79,7 +95,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(SeeAllShops);
 export const ShopCard = ({ children, name, image, onEdit, onDelete }) => {
   return (
     <div className="shop-card flex">
-      <ImageThumbnail className="shop-image" />
+      <ImageThumbnail
+        className="shop-image"
+        src={image}
+        style={{ objectFit: "cover" }}
+      />
       <div className="shop-mid-part">
         <h4>{name || "Shop Name..."}</h4>
         {children}

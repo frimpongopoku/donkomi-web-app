@@ -30,7 +30,7 @@ function Home() {
           <h5>
             By now we are sure you've already figured out 4 million ways our
             landing page could be better? <br />
-            Join the team and come do it yourself.
+            Please join the team, and come implement all your ideas.
           </h5>
           <a href="mailto:donkomisales@gmail.com" target="_blank">
             Send us an email here

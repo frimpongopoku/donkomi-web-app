@@ -1,0 +1,14 @@
+export const HOST = "http://127.0.0.1:8100/api/donkomi";
+export const WHO_AM_I = HOST + "/user/whoami/";
+export const CREATE_A_SHOP = HOST + "/shop/create/";
+export const UPDATE_A_SHOP = HOST + "/shop/update/";
+export const DELETE_A_SHOP = HOST + "/shop/delete/";
+export const REGISTER_USER = HOST + "/user/create/";
+export const GET_REGISTERED_USER = HOST + "/user/get/";
+export const UPDATE_USER_PROFILE = HOST + "/user/update/";
+export const CHECKOUT_PRODUCTS = HOST + "/user/checkout.of.market/";
+export const GET_ORDER_HISTORY = HOST + "/user/get.order.history/";
+export const GET_MARKET_NEWS = HOST + "/get/market.feed/";
+export const CREATE_A_PRODUCT = HOST + "/product/create/";
+export const UPDATE_A_PRODUCT = HOST + "/product/update/";
+export const DELETE_A_PRODUCT = HOST + "/product/delete/";

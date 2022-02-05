@@ -12,6 +12,8 @@ import {
   reduxAddNewProduct,
   reduxSetActiveShop,
 } from "../../../redux/actions/actions";
+import { DELETE_A_PRODUCT } from "../../../api/urls";
+import FirebaseImageUploader from "../../../shared/classes/ImageUploader";
 
 function SeeAllShopItems({
   products,
@@ -21,18 +23,36 @@ function SeeAllShopItems({
   shops,
   activeShop,
   setActiveShop,
+  explorer,
 }) {
   const goto = useNavigate();
+  const isInShop = (shops, shopId) => {
+    const found = shops?.find((s) => s.id === shopId);
+    if (found) return true;
+    return false;
+  };
   const getShopItems = () => {
     const shop = activeShop || (shops && shops[0]);
+    if (!activeShop) setActiveShop(shop); // no active shop, so take the first shop, and make it the active shop
     if (!shop) return [];
-    const items = products?.filter((p) => p.shop?.id === shop.id);
+    const items = products?.filter((p) => isInShop(p.shops, shop.id));
     return items;
   };
 
-  var shopItems = getShopItems();
+  const deleteProductFromBackend = (prod) => {
+    if (!prod.id) return;
+    explorer
+      .send(DELETE_A_PRODUCT, "POST", { product_id: prod.id })
+      .then((response) => {
+        if (response.success)
+          FirebaseImageUploader.deleteImageFromStorage(prod?.image);
+      })
+      .catch((e) => console.log("SHOP_DELETION_ERROR:", e.toString()));
+  };
 
   useEffect(() => {}, [activeShop]);
+
+  var shopItems = getShopItems();
 
   const renderNoItems = () => {
     const items = getShopItems();
@@ -101,12 +121,15 @@ function SeeAllShopItems({
             return (
               <React.Fragment key={i?.toString()}>
                 <ShopCard
+                  image={product?.image}
                   name={product?.name}
                   onEdit={() => goto("edit-product/" + product?.id)}
                   onDelete={() =>
                     confirmDelete(true, {
-                      onConfirm: () =>
-                        doDelete(product?.id, products, addToProducts),
+                      onConfirm: () => {
+                        doDelete(product?.id, products, addToProducts);
+                        deleteProductFromBackend(product);
+                      },
                       children: (
                         <div style={{ padding: 20 }}>
                           Would you like to delete '{product?.name}'
@@ -134,6 +157,7 @@ const mapStateToProps = (state) => {
     products: state.userProducts,
     shops: state.userShops,
     activeShop: state.activeShop,
+    explorer: state.explorer,
   };
 };
 

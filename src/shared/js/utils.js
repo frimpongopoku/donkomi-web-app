@@ -71,11 +71,15 @@ export const getDetailsFromMerchantOrders = (arr) => {
   return { vendorString, image, campaignName, campaignId, totalEstimated };
 };
 
-// export const isANullJson = (obj) => {
-//   if (!obj) return true;
-//   Object.entries(obj).forEach(([key, value]) => {
-//     if (value && value?.toString() && value.toString() !== "[object Object]")
-//       return false;
-//   });
-//   return true;
-// };
+export const contentHasChanged = (data, otherObj) => {
+  const oldObj = { ...otherObj };
+  delete oldObj.id;
+  const keys = Object.keys(oldObj || {});
+  for (let i = 0; i < keys.length; i++) {
+    const key = keys[i];
+    const old = oldObj[key];
+    const current = data[key];
+    if (old !== current) return true;
+  }
+  return false;
+};

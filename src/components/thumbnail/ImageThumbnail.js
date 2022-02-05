@@ -14,7 +14,7 @@ function ImageThumbnail({ onClick, imageSource, src, style = {}, className }) {
       {/*  This is what actually loads the image, but is always invisible */}
       <img
         src={imageSource || src}
-        style={{ width: 0, opacity: 0 }}
+        style={{ width: 0, opacity: 0, position: "absolute" }}
         onLoad={(e) => {
           setShowImage(true);
           setSrc(e.target.src);

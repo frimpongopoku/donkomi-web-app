@@ -1,7 +1,7 @@
 import React from "react";
 import { NotFoundImage } from "./exports";
 
-function Notice({ style, image, label }) {
+function Notice({ style, image, label, imageStyle }) {
   return (
     <div
       style={{
@@ -11,13 +11,12 @@ function Notice({ style, image, label }) {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        // backgroundColor: "floralwhite",
         ...(style || {}),
       }}
     >
       <img
         src={image || NotFoundImage}
-        style={{ height: 300, objectFit: "contain" }}
+        style={{ height: 300, objectFit: "contain", ...(imageStyle || {}) }}
       />
       <p style={{ color: "var(--app-color-darker)" }}>
         {label || "A notice is meant to be here..."}
