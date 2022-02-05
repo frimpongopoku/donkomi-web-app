@@ -6,7 +6,7 @@ import {
 import NotificationConstants from "../../shared/classes/NotificationConstants";
 
 export const CONTROLS = [
-  { name: "Edit Profile", icon: faUserAlt },
+  { name: "Edit Profile", icon: faUserAlt, url:"/update-my-profile" },
   {
     name: "Apply To Earn On Donkomi",
     icon: faHandshake,

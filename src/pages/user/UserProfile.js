@@ -4,13 +4,19 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useState } from "react";
+import { connect } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { bindActionCreators } from "redux";
 import PageWrapper from "../wrapper/PageWrapper";
 import ImageThumbnail from "./../../components/thumbnail/ImageThumbnail";
 import { CONTROLS, TOGGLES } from "./profile-values";
 import "./UserProfile.css";
 
-function UserProfile() {
+function UserProfile({ user, explorer }) {
+  const [userImage, setUserImage] = useState(null);
+  const selectNewImage = (e) => {};
+  const goto = useNavigate();
   const pcUserImageBtnStyles = {
     flex: 1,
     background: "green",
@@ -62,6 +68,7 @@ function UserProfile() {
           {CONTROLS.map((c, index) => {
             return (
               <div
+                onClick={() => c?.url && goto("update-my-profile")}
                 key={index.toString()}
                 className="one-control-option flex touchable-opacity"
               >
@@ -114,4 +121,13 @@ function UserProfile() {
   );
 }
 
-export default UserProfile;
+const mapStateToProps = (state) => ({
+  explorer: state.explorer,
+  user: state.user,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({}, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);

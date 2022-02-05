@@ -23,6 +23,7 @@ import VerifyEmail from "./pages/auth/verify/VerifyEmail";
 import CoverLoader from "./components/cover loader/CoverLoader";
 import Merchant from "./pages/merchant/Merchant";
 import Taxi from "./pages/taxi/Taxi";
+import UpdateProfile from "./pages/user/UpdateProfile";
 
 function Router({ fireAuth, user, fetchUserInfo, fetchMarketNews }) {
   useEffect(() => {
@@ -106,6 +107,11 @@ const ProtectedRoutes = () => {
         element={<NewProductForm />}
       />
       {/* <Route path="/shop/create/item" exact element={<CreateShopItem />} /> */}
+      <Route
+        path="/user/control/:page/update-my-profile"
+        exact
+        element={<UpdateProfile />}
+      />
       <Route path="/user/control/:page" exact element={<UserProfile />} />
       <Route
         path="*"

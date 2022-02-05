@@ -36,7 +36,14 @@ export default function VerticalForm(props) {
     if (field.label)
       return (
         <div style={{ marginTop: 6, marginBottom: 6 }}>
-          <small>{field.label}</small>
+          <small>
+            {field.label}
+            {(field.required || field.isRequired) && (
+              <span style={{ color: "red", marginLeft: 4, fontWeight: "bold" }}>
+                *
+              </span>
+            )}
+          </small>
           <br />
           {error && (
             <small style={{ color: "red", fontWeight: "bold" }}>{error}</small>
