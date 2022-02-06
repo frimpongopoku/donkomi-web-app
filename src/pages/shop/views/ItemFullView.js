@@ -8,26 +8,32 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import ImageThumbnail from "./../../../components/thumbnail/ImageThumbnail";
 
-function ItemFullView() {
+function ItemFullView({ content, setFullView }) {
+  const { product } = content || {};
   return (
     <div>
       <div className="item-full-container anime-show-from-left">
         <div style={{ position: "relative" }}>
           <div className="item-full-header pc-vanish">
-            <span style={{ padding: "15px" }}>
+            <span
+              style={{ padding: "15px" }}
+              className="touchable-opacity"
+              onClick={() => setFullView(null)}
+            >
               <FontAwesomeIcon icon={faLongArrowAltLeft} />
               <small style={{ marginLeft: 10 }}>Back</small>
             </span>
             <span style={{ marginLeft: "auto", padding: 15 }}>
-              <small>Rs 4589</small>
+              <small>Rs {product?.price || 0}</small>
             </span>
           </div>
 
           <div className="item-full-content">
-            <ImageThumbnail className="full-view-img" />
+            <ImageThumbnail className="full-view-img" src = {product?.image} />
 
             <div className="phone-vanish">
               <p
+                onClick={() => setFullView(null)}
                 className="touchable-opacity"
                 style={{
                   width: "100%",
@@ -37,6 +43,7 @@ function ItemFullView() {
                   color: "white",
                   fontWeight: "bold",
                   marginTop: -5,
+                  marginLeft: -0.5,
                 }}
               >
                 CLOSE
@@ -46,23 +53,25 @@ function ItemFullView() {
             <div className="full-details">
               <h3>First Item Here Bro</h3>
               <p className="f-det-item">
-                <span>Size:</span> Large, Medium
+                <span>Size:</span> {product?.size || "No size specified"}
               </p>
               <p className="f-det-item">
-                <span>Variant:</span> Omicron, Delta
+                <span>Variant:</span>{" "}
+                {product?.variant || "No variant specified"}
               </p>
               <p className="f-det-item">
                 <span>Price:</span>
                 <span style={{ color: "var(--app-color-darker)" }}>
                   {" "}
-                  Rs 4589
+                  Rs {product?.price || 0}
                 </span>
               </p>
               <p className="f-det-item">
-                <span>Shop:</span> Pongo's Thrift Shop
+                <span>Shop:</span> {product?.shops[0]?.name}
               </p>
               <p className="f-det-item">
-                <span>Shop Owner: </span> Pongo
+                <span>Shop Owner: </span>{" "}
+                {product?.creator?.preferred_name || "..."}
               </p>
               <small style={{ color: "green" }}>
                 <i>You have this item in your cart</i>

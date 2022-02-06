@@ -14,6 +14,7 @@ import {
   SET_MARKET_NEWS,
   SET_MARKET_NEWS_DETAILS,
   INSTANTIATE_EXPLORER,
+  ITEM_FULL_VIEW,
 } from "../ReduxConstants";
 
 export const fetchMarketNews = (requestObj, cb) => {
@@ -62,6 +63,9 @@ export const reduxSetMarketDetails = (dets) => {
 
 export const reduxSetMarketNews = (news) => {
   return { type: SET_MARKET_NEWS, payload: news };
+};
+export const reduxSetItemFullView = (content) => {
+  return { type: ITEM_FULL_VIEW, payload: content };
 };
 
 export const fetchAuthencationInformation = () => {

@@ -5,6 +5,7 @@ import {
   reducerForAddingNewShop,
   reducerForHoldingFormContent,
   reducerForInternetExplorer,
+  reducerForItemFullView,
   reducerForMarketDetails,
   reducerForMarketNews,
   reducerForSettingActiveShop,
@@ -25,4 +26,5 @@ export default combineReducers({
   user: reducerForSettingDonkomiAuth,
   marketNews: reducerForMarketNews, // contains news items for market place ( array)
   marketDetails: reducerForMarketDetails, // contains response details for the last market news response // (obj)
+  itemInView: reducerForItemFullView
 });

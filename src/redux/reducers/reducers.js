@@ -3,6 +3,7 @@ import {
   ADD_NEW_SHOP,
   DO_NOTHING,
   INSTANTIATE_EXPLORER,
+  ITEM_FULL_VIEW,
   PUT_CONTENT_IN_FORM_HOLDER,
   SET_ACTIVE_SHOP,
   SET_DONKOMI_AUTH,
@@ -14,6 +15,12 @@ import {
 
 export const LOADING = "LOADING";
 
+export const reducerForItemFullView = (state = null, action = {}) => {
+  if (action.type === ITEM_FULL_VIEW) {
+    return action.payload;
+  }
+  return state;
+};
 export const reducerForInternetExplorer = (state = null, action = {}) => {
   if (action.type === INSTANTIATE_EXPLORER) {
     return action.payload;

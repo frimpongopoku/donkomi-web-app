@@ -11,17 +11,25 @@ import { bindActionCreators } from "redux";
 import {
   fetchMarketNews,
   reduxAddToShoppingBasket,
+  reduxSetItemFullView,
 } from "../../redux/actions/actions";
 import { connect } from "react-redux";
 import { pop } from "../../components/form generator/shared/utils/utils";
 import Loader from "../../components/cover loader/Loader";
 import { LOADING } from "../../redux/reducers/reducers";
 import FlatButton from "./../../components/flat button/FlatButton";
+import ItemFullView from "./views/ItemFullView";
 const products = generateMarketContent();
 
 function MarketPlace(props) {
-  const { addToCart, cart, fetchMoreMarketNews, details } = props;
-
+  const {
+    addToCart,
+    cart,
+    fetchMoreMarketNews,
+    details,
+    itemToView,
+    putItemInFullView,
+  } = props;
   const [loading, setLoading] = useState(false);
 
   const add = (item) => {
@@ -68,6 +76,7 @@ function MarketPlace(props) {
         add={(product) => add(product, cart, addToCart)}
         remove={(itemId) => remove(itemId, false, cart, addToCart)}
         cart={cart}
+        fullView={putItemInFullView}
       />
       <FlatButton
         loading={loading}
@@ -80,7 +89,9 @@ function MarketPlace(props) {
       >
         Load More
       </FlatButton>
-      {/* <ItemFullView /> */}
+      {itemToView && (
+        <ItemFullView content={itemToView} setFullView={putItemInFullView} />
+      )}
     </PageWrapper>
   );
 }
@@ -90,6 +101,7 @@ const mapStateToProps = (state) => {
     cart: state.cart,
     news: state.marketNews,
     details: state.marketDetails,
+    itemToView: state.itemInView,
   };
 };
 
@@ -98,6 +110,7 @@ const mapDispatchToProps = (dispatch) => {
     {
       addToCart: reduxAddToShoppingBasket,
       fetchMoreMarketNews: fetchMarketNews,
+      putItemInFullView: reduxSetItemFullView,
     },
     dispatch
   );
@@ -105,7 +118,7 @@ const mapDispatchToProps = (dispatch) => {
 
 export default connect(mapStateToProps, mapDispatchToProps)(MarketPlace);
 // ---------------------------------------------------------------------------------------------------
-const Market = ({ add, remove, cart, news }) => {
+const Market = ({ add, remove, cart, news, fullView }) => {
   if (news === LOADING)
     return <Loader label="Fetching news..." color="var(--app-color-darker)" />;
   return (
@@ -122,6 +135,9 @@ const Market = ({ add, remove, cart, news }) => {
                 add={() => add(prod)}
                 remove={() => remove(prod.id)}
                 qty={inCart?.qty}
+                fullView={() =>
+                  fullView({ status: "set-locally", product: prod })
+                }
               />
             </React.Fragment>
           );
@@ -131,7 +147,16 @@ const Market = ({ add, remove, cart, news }) => {
   );
 };
 
-const ShopItem = ({ name, price, created_at, add, remove, qty, image }) => {
+const ShopItem = ({
+  name,
+  price,
+  created_at,
+  add,
+  remove,
+  qty,
+  image,
+  fullView,
+}) => {
   return (
     <div className="shop-item">
       <div style={{ position: "relative" }}>
@@ -148,7 +173,7 @@ const ShopItem = ({ name, price, created_at, add, remove, qty, image }) => {
           </small>
         )}
       </div>
-      <div className="s-dets">
+      <div className="s-dets" onClick={() => fullView()}>
         <small className="price">Rs {Number(price)}</small>
         <br />
         <small className="name">{name}</small>

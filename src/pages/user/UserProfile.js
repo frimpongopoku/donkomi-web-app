@@ -283,7 +283,6 @@ function UserProfile({ user, explorer, setUserInRedux }) {
                         updateUserSettings({ [key]: !settings[key] });
                       }}
                     />
-                    {/* <p className="t-desc">{t.desc}</p> */}
                   </div>
                 );
               })}
