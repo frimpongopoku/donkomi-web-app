@@ -8,8 +8,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import ImageThumbnail from "./../../../components/thumbnail/ImageThumbnail";
 
-function ItemFullView({ content, setFullView }) {
+function ItemFullView({ content, setFullView, add, remove, cart }) {
   const { product } = content || {};
+
+  const inCart = (cart?.shop || []).find((i) => i.product.id === product?.id);
   return (
     <div>
       <div className="item-full-container anime-show-from-left">
@@ -29,7 +31,7 @@ function ItemFullView({ content, setFullView }) {
           </div>
 
           <div className="item-full-content">
-            <ImageThumbnail className="full-view-img" src = {product?.image} />
+            <ImageThumbnail className="full-view-img" src={product?.image} />
 
             <div className="phone-vanish">
               <p
@@ -48,7 +50,11 @@ function ItemFullView({ content, setFullView }) {
               >
                 CLOSE
               </p>
-              <Footer />
+              <Footer
+                qty={inCart?.qty}
+                add={() => add(product)}
+                remove={() => remove(product?.id)}
+              />
             </div>
             <div className="full-details">
               <h3>First Item Here Bro</h3>
@@ -73,13 +79,21 @@ function ItemFullView({ content, setFullView }) {
                 <span>Shop Owner: </span>{" "}
                 {product?.creator?.preferred_name || "..."}
               </p>
-              <small style={{ color: "green" }}>
-                <i>You have this item in your cart</i>
-              </small>
+              {inCart && (
+                <small style={{ color: "green" }}>
+                  <i>
+                    You have <b>{inCart?.qty}</b> of this item in your cart
+                  </i>
+                </small>
+              )}
             </div>
           </div>
           <div className="pc-vanish">
-            <Footer />
+            <Footer
+              qty={inCart?.qty}
+              add={() => add(product)}
+              remove={() => remove(product?.id)}
+            />
           </div>
         </div>
       </div>
@@ -87,16 +101,24 @@ function ItemFullView({ content, setFullView }) {
   );
 }
 
-const Footer = () => {
+const Footer = ({ add, remove, qty }) => {
   return (
     <div className="item-full-footer">
-      <span style={{ flex: 1, color: "red" }} className="touchable-opacity">
+      <span
+        style={{ flex: 1, color: "red" }}
+        className="touchable-opacity"
+        onClick={() => remove()}
+      >
         <FontAwesomeIcon icon={faMinus} />
       </span>
       <span style={{ flex: 1 }}>
-        <small>3</small>
+        <small>{qty || 0}</small>
       </span>
-      <span style={{ flex: 1, color: "green" }} className="touchable-opacity">
+      <span
+        style={{ flex: 1, color: "green" }}
+        className="touchable-opacity"
+        onClick={() => add()}
+      >
         <FontAwesomeIcon icon={faPlus} />
       </span>
     </div>

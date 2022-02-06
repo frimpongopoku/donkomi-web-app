@@ -90,7 +90,13 @@ function MarketPlace(props) {
         Load More
       </FlatButton>
       {itemToView && (
-        <ItemFullView content={itemToView} setFullView={putItemInFullView} />
+        <ItemFullView
+          add={(product) => add(product, cart, addToCart)}
+          remove={(itemId) => remove(itemId, false, cart, addToCart)}
+          content={itemToView}
+          setFullView={putItemInFullView}
+          cart={cart}
+        />
       )}
     </PageWrapper>
   );

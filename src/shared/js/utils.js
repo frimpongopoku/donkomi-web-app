@@ -85,6 +85,7 @@ export const contentHasChanged = (data, otherObj) => {
 };
 
 export default function createImageFromInitials(color, name, size) {
+  if (!name) return;
   const canvas = document.createElement("canvas");
   const context = canvas.getContext("2d");
   canvas.width = canvas.height = size;
