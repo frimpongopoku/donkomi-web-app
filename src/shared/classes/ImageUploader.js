@@ -50,6 +50,7 @@ export default class FirebaseImageUploader {
   }
 
   static deleteImageFromStorage(imageURL, cb) {
+    if (!imageURL) return;
     const reference = ref(storage, imageURL);
     deleteObject(reference)
       .then(() => cb && cb(true))

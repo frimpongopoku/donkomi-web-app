@@ -7,6 +7,7 @@ import {
 const emptyBox = css`
   height: 15px;
   width: 15px;
+  padding: 8px;
   border: solid 4px ${THEME_COLOR};
   margin: 4px;
   border-radius: 2px;

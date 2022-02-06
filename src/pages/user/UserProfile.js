@@ -16,17 +16,18 @@ import ImageSelector from "./../../components/form generator/file picker/ImageSe
 import FlatButton from "../../components/flat button/FlatButton";
 import Loader from "../../components/cover loader/Loader";
 import Notification from "../../components/form generator/notification/Notification";
-import { UPDATE_USER_PROFILE } from "../../api/urls";
+import { UPDATE_SETTINGS, UPDATE_USER_PROFILE } from "../../api/urls";
 import FirebaseImageUploader from "../../shared/classes/ImageUploader";
 import { reduxSetDonkomiAuth } from "../../redux/actions/actions";
+import createImageFromInitials from "../../shared/js/utils";
+import DialogBox from "../../components/dialog/DialogBox";
+import CheckBox from "../../components/form generator/checkbox/CheckBox";
 function UserProfile({ user, explorer, setUserInRedux }) {
   const [userImage, setUserImage] = useState(null);
   const [changeImage, setChangeImage] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
-  const selectNewImage = (e) => {};
-
+  const [removeConfirmation, setRemoveConfirmation] = useState(false);
   const goto = useNavigate();
   const pcUserImageBtnStyles = {
     flex: 1,
@@ -37,9 +38,9 @@ function UserProfile({ user, explorer, setUserInRedux }) {
     cursor: "pointer",
   };
 
-  const updateUserInBackend = (data) => {
+  const updateUserInBackend = (data, url) => {
     explorer
-      .send(UPDATE_USER_PROFILE, "POST", data)
+      .send(url || UPDATE_USER_PROFILE, "POST", data)
       .then((response) => {
         setLoading(false);
         if (!response.success)
@@ -78,158 +79,219 @@ function UserProfile({ user, explorer, setUserInRedux }) {
   const onNewImageSelected = (data, reset) => {
     setUserImage(data?.file);
   };
+
+  const removeProfilePicture = () => {
+    FirebaseImageUploader.deleteImageFromStorage(user?.profilePicture);
+    updateUserInBackend({
+      user_id: user?.user_id,
+      data: { profilePicture: null },
+    });
+    setRemoveConfirmation(false);
+  };
+
+  const updateUserSettings = (data) => {
+    updateUserInBackend({ user_id: user?.user_id, data }, UPDATE_SETTINGS);
+  };
+  const userName = user?.preferred_name || "Unknown";
+  const settings = user?.settings || {};
+  console.log("I am the the settings my gee", settings);
   return (
-    <PageWrapper>
-      <div className="profile-container">
-        {!changeImage && (
-          <div className="user-details-div">
-            <div>
-              <ImageThumbnail
-                src={user?.profilePicture}
-                className="profile-img"
-              />
-              <div className="phone-vanish">
-                <div
-                  className=" flex"
-                  style={{ flexDirection: "row", flex: "2" }}
-                >
+    <>
+      {removeConfirmation && (
+        <DialogBox
+          close={() => setRemoveConfirmation(false)}
+          onCancel={() => setRemoveConfirmation(false)}
+          okText="Yes"
+          onConfirm={removeProfilePicture}
+        >
+          <p style={{ padding: 15 }}>
+            It helps if your customers know you by face.
+            <br /> Are you sure you want to remove your profile picture?
+          </p>
+        </DialogBox>
+      )}
+      <PageWrapper>
+        <div className="profile-container">
+          {!changeImage && (
+            <div className="user-details-div">
+              <div style={{ textAlign: "center" }}>
+                {user?.profilePicture ? (
+                  <ImageThumbnail
+                    src={user?.profilePicture}
+                    className="profile-img"
+                  />
+                ) : (
+                  <ImageThumbnail
+                    src={createImageFromInitials("red", userName, 2800)}
+                    style={{
+                      height: 80,
+                      width: 80,
+                      border: "dotted 4px red",
+                      borderRadius: "100%",
+                      marginBottom: 15,
+                    }}
+                  />
+                )}
+                <div className="phone-vanish">
+                  <div
+                    className=" flex"
+                    style={{ flexDirection: "row", flex: "2" }}
+                  >
+                    <small
+                      className="touchable-opacity"
+                      style={{ ...pcUserImageBtnStyles }}
+                      onClick={() => setChangeImage(true)}
+                    >
+                      Change
+                    </small>
+                    <small
+                      className="touchable-opacity"
+                      style={{ ...pcUserImageBtnStyles, background: "maroon" }}
+                      onClick={() => setRemoveConfirmation(true)}
+                    >
+                      Remove
+                    </small>
+                  </div>
+                </div>
+              </div>
+              <div className="user-info-box">
+                <h3 className="user-name">{userName || "..."}</h3>
+                <div className="profile-small pc-vanish">
                   <small
+                    style={{ color: "maroon" }}
                     className="touchable-opacity"
-                    style={{ ...pcUserImageBtnStyles }}
                     onClick={() => setChangeImage(true)}
                   >
                     Change
                   </small>
                   <small
                     className="touchable-opacity"
-                    style={{ ...pcUserImageBtnStyles, background: "maroon" }}
+                    style={{ color: "green" }}
                   >
                     Remove
                   </small>
                 </div>
+                <p className="profile-roles">@Customer, @Seller</p>
               </div>
             </div>
-            <div className="user-info-box">
-              <h3 className="user-name">Frimpong Opoku Agyemang</h3>
-              <div className="profile-small pc-vanish">
-                <small
-                  style={{ color: "maroon" }}
-                  className="touchable-opacity"
-                  onClick={() => setChangeImage(true)}
-                >
-                  Change
-                </small>
-                <small className="touchable-opacity" style={{ color: "green" }}>
-                  Remove
-                </small>
-              </div>
-              <p className="profile-roles">@Delivery Guy, @Customer, @Seller</p>
-            </div>
-          </div>
-        )}
-        {changeImage && (
-          <div>
-            <p
-              style={{
-                fontWeight: "bold",
-                color: "var(--app-color-darker)",
-                margin: "15px 0px",
-              }}
-            >
-              Select an image from your device
-            </p>
+          )}
+          <div style={{ padding: "15px 0px" }}>
             {error && <Notification type="bad" message={error?.message} />}
-            <ImageSelector
-              allowCrop
-              onFileSelected={onNewImageSelected}
-              forceCrop
-              circleCrop
-              maxHeight={150}
-              maxWidth={150}
-              ratioWidth={1}
-              ratioHeight={1}
-              previewStyle={{ borderRadius: "100%" }}
-            />
-
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                margin: "15px 0px",
-              }}
-            >
-              <FlatButton
-                style={{ flex: "1", background: "var(--app-color-darkest)" }}
-                disabled={loading}
-                onClick={() => setChangeImage(true)}
-              >
-                Cancel
-              </FlatButton>
-              <FlatButton
-                onClick={() => updateProfile()}
-                loading={loading}
-                style={{ flex: "1" }}
-                disabled={loading}
-              >
-                {loading ? "Changing Picture" : " Change Picture"}
-              </FlatButton>
-            </div>
           </div>
-        )}
-        <div className="controls-container">
-          {CONTROLS.map((c, index) => {
-            return (
-              <div
-                onClick={() => c?.url && goto("update-my-profile")}
-                key={index.toString()}
-                className="one-control-option flex touchable-opacity"
+          {changeImage && (
+            <div>
+              <p
+                style={{
+                  fontWeight: "bold",
+                  color: "var(--app-color-darker)",
+                  margin: "15px 0px",
+                }}
               >
-                <FontAwesomeIcon
-                  icon={c?.icon}
-                  style={{ marginRight: 20, color: "var(--app-color)" }}
-                />
-                <p>
-                  {c?.name}{" "}
-                  {c.underConstruction && (
-                    <FontAwesomeIcon
-                      icon={faHammer}
-                      style={{
-                        color: "var(--app-color-grey)",
-                        marginLeft: 10,
-                      }}
-                    />
-                  )}{" "}
-                </p>
-                <span style={{ marginLeft: "auto" }}>
-                  <FontAwesomeIcon
-                    icon={faCaretRight}
-                    style={{ color: "var(--app-color-grey)" }}
-                  />
-                </span>
+                Select an image from your device
+              </p>
+
+              <ImageSelector
+                allowCrop
+                onFileSelected={onNewImageSelected}
+                forceCrop
+                circleCrop
+                maxHeight={150}
+                maxWidth={150}
+                ratioWidth={1}
+                ratioHeight={1}
+                previewStyle={{ borderRadius: "100%" }}
+              />
+
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  margin: "15px 0px",
+                }}
+              >
+                <FlatButton
+                  style={{ flex: "1", background: "var(--app-color-darkest)" }}
+                  disabled={loading}
+                  onClick={() => setChangeImage(false)}
+                >
+                  Cancel
+                </FlatButton>
+                <FlatButton
+                  onClick={() => updateProfile()}
+                  loading={loading}
+                  style={{ flex: "1" }}
+                  disabled={loading}
+                >
+                  {loading ? "Changing Picture" : " Change Picture"}
+                </FlatButton>
               </div>
-            );
-          })}
-        </div>
-        <div style={{ width: "100%" }} className="setting-toggles">
-          <h3>Notification Settings</h3>
-          <div className="toggle-content">
-            {TOGGLES.map((t) => {
+            </div>
+          )}
+          <div className="controls-container">
+            {CONTROLS.map((c, index) => {
               return (
-                <div className="toggler" key={t.key}>
-                  <div className="flex" style={{ flexDirection: "row" }}>
-                    <p className="t-title">{t.title}</p>
-                    <span style={{ marginLeft: "auto" }}>
-                      <input type="Checkbox" />
-                    </span>
-                  </div>
-                  <p className="t-desc">{t.desc}</p>
+                <div
+                  onClick={() => c?.url && goto("update-my-profile")}
+                  key={index.toString()}
+                  className="one-control-option flex touchable-opacity"
+                >
+                  <FontAwesomeIcon
+                    icon={c?.icon}
+                    style={{ marginRight: 20, color: "var(--app-color)" }}
+                  />
+                  <p>
+                    {c?.name}{" "}
+                    {c.underConstruction && (
+                      <FontAwesomeIcon
+                        icon={faHammer}
+                        style={{
+                          color: "var(--app-color-grey)",
+                          marginLeft: 10,
+                        }}
+                      />
+                    )}{" "}
+                  </p>
+                  <span style={{ marginLeft: "auto" }}>
+                    <FontAwesomeIcon
+                      icon={faCaretRight}
+                      style={{ color: "var(--app-color-grey)" }}
+                    />
+                  </span>
                 </div>
               );
             })}
           </div>
+          <div style={{ width: "100%" }} className="setting-toggles">
+            <h3>Notification Settings</h3>
+            <div className="toggle-content">
+              {TOGGLES.map((t) => {
+                return (
+                  <div className="toggler" key={t.key}>
+                    <div className="flex" style={{ flexDirection: "row" }}>
+                      <p
+                        className="t-title"
+                        style={{ color: "var(--app-color-darker)" }}
+                      >
+                        {t.title}
+                      </p>
+                    </div>
+                    <CheckBox
+                      checked={settings[t.key]}
+                      label={t.desc}
+                      onItemSelected={() => {
+                        const key = t.key;
+                        updateUserSettings({ [key]: !settings[key] });
+                      }}
+                    />
+                    {/* <p className="t-desc">{t.desc}</p> */}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
-      </div>
-    </PageWrapper>
+      </PageWrapper>
+    </>
   );
 }
 

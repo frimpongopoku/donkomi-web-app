@@ -12,3 +12,4 @@ export const GET_MARKET_NEWS = HOST + "/get/market.feed/";
 export const CREATE_A_PRODUCT = HOST + "/product/create/";
 export const UPDATE_A_PRODUCT = HOST + "/product/update/";
 export const DELETE_A_PRODUCT = HOST + "/product/delete/";
+export const UPDATE_SETTINGS = HOST + "/user/settings.update/"
