@@ -88,8 +88,8 @@ export const fetchAuthencationInformation = () => {
         dispatch(reduxSetDonkomiAuth(content.user));
         dispatch(reduxAddNewShop(content.shops));
         dispatch(reduxAddNewProduct(content.products));
-        dispatch(reduxAddNewProduct(content.client_order_history));
-        dispatch(reduxAddNewProduct(content.seller_orders));
+        dispatch(reduxSetClientOrders(content.client_order_history));
+        dispatch(reduxSetSellerOrders(content.seller_orders));
         
       });
     });

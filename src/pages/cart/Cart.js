@@ -14,7 +14,7 @@ import DialogBox from "../../components/dialog/DialogBox";
 import Notification from "../../components/form generator/notification/Notification";
 import { CHECKOUT_PRODUCTS } from "../../api/urls";
 
-function Cart({ cart, addToCart, explorer }) {
+function Cart({ cart, addToCart, explorer, orders }) {
   const [showCheckoutConfirmation, setConfirmCheckout] = useState(false);
   const [notification, setNotification] = useState({});
   const basket = cart?.shop || [];
@@ -34,9 +34,9 @@ function Cart({ cart, addToCart, explorer }) {
       ),
     },
     {
-      name: "Order History",
+      name: `Order History`,
       id: "order-history",
-      component: <OrderHistory />,
+      component: <OrderHistory orders={orders} />,
     },
   ];
 
@@ -55,20 +55,27 @@ function Cart({ cart, addToCart, explorer }) {
         shop: shop?.id,
       };
       list.push(obj);
-      togo[creator.user_id] = list
+      togo[creator.user_id] = list;
     });
-    return togo
+    return togo;
   };
+
   const sendCartItemsToBackend = () => {
-    const basket = makeReadyForBackend(cart.shop);
-    console.log(" LE BASKET KORKO", basket)
-    return;
+    // const newCart = { ...cart };
+    const basket = makeReadyForBackend(cart?.shop);
+    const body = { cart: basket, order_type: "PRODUCT_ORDER" };
     setNotification({});
     explorer
-      .send(CHECKOUT_PRODUCTS, "POST", { order_type: "PRODUCT_ORDER" })
+      .send(CHECKOUT_PRODUCTS, "POST", body)
       .then((response) => {
-        if (!response.success)
+        if (!response.success) {
+          setConfirmCheckout(false);
           return setNotification({ message: response?.error?.message });
+        }
+
+        console.log("I am the response data", response.data);
+        // delete newCart.shop;
+        addToCart([]);
       })
       .catch((e) => {
         console.log("CHECKOUT_ERROR", e?.toString());
@@ -107,7 +114,11 @@ function Cart({ cart, addToCart, explorer }) {
           />
 
           {notification?.message && (
-            <Notification message={notification?.message} type="bad" />
+            <Notification
+              message={notification?.message}
+              type="bad"
+              close={() => setNotification({})}
+            />
           )}
           <div style={{ marginTop: 15 }}>
             <TabView data={TABS} />
@@ -122,6 +133,7 @@ const mapStateToProps = (state) => {
   return {
     cart: state.cart,
     explorer: state.explorer,
+    orders: state.orders,
   };
 };
 

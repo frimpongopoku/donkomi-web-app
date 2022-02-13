@@ -4,7 +4,6 @@ import "./Cart.css";
 import { CartItem } from "./CartItem";
 import { makeCartSummary } from "./../../shared/js/utils";
 import FlatButton from "../../components/flat button/FlatButton";
-import Modal from "../../components/modal/Modal";
 function Basket({ add, remove, reduce, basket, confirmCheckout }) {
   const { totalPrice } = makeCartSummary(basket);
   return (

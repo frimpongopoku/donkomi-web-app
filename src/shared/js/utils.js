@@ -1,17 +1,19 @@
 import { pop } from "../../components/form generator/shared/utils/utils";
 
 export const makeCartSummary = (basket) => {
+  if(!basket) return {}
   var items = 0;
   var price = 0;
   basket.forEach((item) => {
     items += item.qty || 0;
-    price =
-      Number(price) +
-        (Number(item.qty) * Number(item.product.price)).toFixed(2) || 0;
+    price = round(price) + item.qty * round(item.product.price) || 0;
   });
   return { numberOfItems: items, totalPrice: price };
 };
 
+export const round = (number, d = 2) => {
+  return Number(Number(number).toFixed(d));
+};
 export const add = (item, cart, redux) => {
   const old = cart?.shop || [];
   const { found, rest, index } = pop(old, (itm) => itm.product.id === item.id);
@@ -40,7 +42,7 @@ export const getDetailsFromProductOrders = (arr) => {
   var totalPrice = 0;
   if (!arr) return {};
   arr.forEach((item, index) => {
-    totalPrice += Number(item.total_price);
+    totalPrice += round(item.total_price);
     quantity += item.quantity;
     if (!shopString) shopString = shopString + item?.product?.name;
     else shopString = shopString + " , " + item?.product?.name;

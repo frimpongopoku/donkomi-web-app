@@ -5,12 +5,14 @@ export const CartItem = ({
   name,
   price,
   qty,
-  shop,
+  shops,
   image,
   add,
   remove,
   reduce,
 }) => {
+
+  const shop = (shops || [])[0]
   return (
     <ItemFrame
       imageSource={image}
@@ -56,6 +58,8 @@ export const CartItem = ({
 
 export const OrderViewItem = (props) => {
   const { quantity, product, total_price } = props;
+  const shop = (product.shops || [])[0]
+
   return (
     <ItemFrame
       right={
@@ -74,7 +78,7 @@ export const OrderViewItem = (props) => {
         <h5>
           Rs {product?.price || "0"} <span>X {quantity || "1"}</span>
         </h5>
-        <h6 style={{ color: "Green" }}>{product?.shop?.name || "..."}</h6>
+        <h6 style={{ color: "Green" }}>{shop?.name || "..."}</h6>
       </div>
     </ItemFrame>
   );

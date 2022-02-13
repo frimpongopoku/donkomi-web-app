@@ -14,14 +14,14 @@ function OrderItem({
       <ItemFrame
         right={
           <p style={{ color: "green", fontWeight: "bold", textAlign: "right" }}>
-            Rs {totalPrice}
+            Rs {totalPrice || 0}
           </p>
         }
         noImage
       >
         <div>
           <h3 style={{ color: "var(--app-color-darker)", fontWeight: "300" }}>
-            Order #{id}
+            Order #{id || "..."}
           </h3>
           <h5>{shopString || "..."}</h5>
           <h6>

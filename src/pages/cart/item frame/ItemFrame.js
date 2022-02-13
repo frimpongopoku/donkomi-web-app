@@ -7,7 +7,7 @@ function ItemFrame({ children, right, imageSource, noImage }) {
       {!noImage && (
         <ImageThumbnail
           src={imageSource}
-          style={{ flex: 1, height: 80, width: 80, borderRadius: 5 }}
+          style={{ flex: 1, height: 80, width: 80, borderRadius: 5, objectFit:"cover" }}
         />
       )}
       <div style={{ flex: 4, padding: "0px 10px" }}>{children}</div>
