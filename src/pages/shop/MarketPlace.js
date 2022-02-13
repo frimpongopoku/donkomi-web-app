@@ -108,6 +108,7 @@ const mapStateToProps = (state) => {
     news: state.marketNews,
     details: state.marketDetails,
     itemToView: state.itemInView,
+    user: state.user,
   };
 };
 
@@ -124,7 +125,7 @@ const mapDispatchToProps = (dispatch) => {
 
 export default connect(mapStateToProps, mapDispatchToProps)(MarketPlace);
 // ---------------------------------------------------------------------------------------------------
-const Market = ({ add, remove, cart, news, fullView }) => {
+const Market = ({ add, remove, cart, news, fullView, user }) => {
   if (news === LOADING)
     return <Loader label="Fetching news..." color="var(--app-color-darker)" />;
   return (
@@ -144,6 +145,7 @@ const Market = ({ add, remove, cart, news, fullView }) => {
                 fullView={() =>
                   fullView({ status: "set-locally", product: prod })
                 }
+                user={user}
               />
             </React.Fragment>
           );
@@ -162,13 +164,18 @@ const ShopItem = ({
   qty,
   image,
   fullView,
+  user,
+  creator,
 }) => {
+  const doesNotBelongToCurrentUser = user?.user_id !== creator?.user_id;
   return (
     <div className="shop-item">
       <div style={{ position: "relative" }}>
-        <div className="add-btn elevate-1" onClick={() => add()}>
-          <FontAwesomeIcon icon={faPlus} />
-        </div>
+        {doesNotBelongToCurrentUser && (
+          <div className="add-btn elevate-1" onClick={() => add()}>
+            <FontAwesomeIcon icon={faPlus} />
+          </div>
+        )}
         <ImageThumbnail
           style={{ height: 150, objectFit: "cover", objectPosition: "top" }}
           src={image}

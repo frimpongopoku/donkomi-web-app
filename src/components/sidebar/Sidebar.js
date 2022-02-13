@@ -33,7 +33,7 @@ function Sidebar(props) {
         />
 
         <h5>{user?.preferred_name || "..."}</h5>
-        <small>@Customer, @Seller</small>
+        <small>@Customer @Seller</small>
       </div>
       <div className="mid">
         {MENU.map((menu, index) => {

@@ -3,11 +3,13 @@ import {
   doNothingReducer,
   reducerForAddingNewProduct,
   reducerForAddingNewShop,
+  reducerForClientOrders,
   reducerForHoldingFormContent,
   reducerForInternetExplorer,
   reducerForItemFullView,
   reducerForMarketDetails,
   reducerForMarketNews,
+  reducerForSellerOrders,
   reducerForSettingActiveShop,
   reducerForSettingDonkomiAuth,
   reducerForSettingFirebaseAuth,
@@ -26,5 +28,7 @@ export default combineReducers({
   user: reducerForSettingDonkomiAuth,
   marketNews: reducerForMarketNews, // contains news items for market place ( array)
   marketDetails: reducerForMarketDetails, // contains response details for the last market news response // (obj)
-  itemInView: reducerForItemFullView
+  itemInView: reducerForItemFullView, 
+  orders: reducerForClientOrders, 
+  sellerOrders : reducerForSellerOrders
 });

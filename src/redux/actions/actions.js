@@ -1,4 +1,4 @@
-import { GET_MARKET_NEWS, GET_REGISTERED_USER, WHO_AM_I } from "../../api/urls";
+import { GET_MARKET_NEWS, WHO_AM_I } from "../../api/urls";
 import { checkAuthenticationState } from "../../firebase/config";
 import InternetExplorer from "../../shared/classes/InternetExplorer";
 import { LOADING } from "../reducers/reducers";
@@ -15,6 +15,8 @@ import {
   SET_MARKET_NEWS_DETAILS,
   INSTANTIATE_EXPLORER,
   ITEM_FULL_VIEW,
+  SET_CLIENT_ORDERS,
+  SET_SELLER_ORDERS,
 } from "../ReduxConstants";
 
 export const fetchMarketNews = (requestObj, cb) => {
@@ -86,10 +88,19 @@ export const fetchAuthencationInformation = () => {
         dispatch(reduxSetDonkomiAuth(content.user));
         dispatch(reduxAddNewShop(content.shops));
         dispatch(reduxAddNewProduct(content.products));
+        dispatch(reduxAddNewProduct(content.client_order_history));
+        dispatch(reduxAddNewProduct(content.seller_orders));
+        
       });
     });
 };
 
+export const reduxSetClientOrders = (orders) => {
+  return { type: SET_CLIENT_ORDERS, payload: orders };
+};
+export const reduxSetSellerOrders = (orders) => {
+  return { type: SET_SELLER_ORDERS, payload: orders };
+};
 export const testReduxAction = (someValue) => {
   return { type: DO_NOTHING, payload: someValue };
 };

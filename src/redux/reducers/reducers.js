@@ -6,15 +6,29 @@ import {
   ITEM_FULL_VIEW,
   PUT_CONTENT_IN_FORM_HOLDER,
   SET_ACTIVE_SHOP,
+  SET_CLIENT_ORDERS,
   SET_DONKOMI_AUTH,
   SET_FIREBASE_AUTH,
   SET_MARKET_NEWS,
   SET_MARKET_NEWS_DETAILS,
+  SET_SELLER_ORDERS,
   UPDATE_CART,
 } from "../ReduxConstants";
 
 export const LOADING = "LOADING";
 
+export const reducerForClientOrders = (state = [], action = {}) => {
+  if (action.type === SET_CLIENT_ORDERS) {
+    return action.payload;
+  }
+  return state;
+};
+export const reducerForSellerOrders = (state = [], action = {}) => {
+  if (action.type === SET_SELLER_ORDERS) {
+    return action.payload;
+  }
+  return state;
+};
 export const reducerForItemFullView = (state = null, action = {}) => {
   if (action.type === ITEM_FULL_VIEW) {
     return action.payload;
