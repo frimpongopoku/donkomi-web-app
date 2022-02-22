@@ -43,7 +43,11 @@ class TabView extends Component {
     const { data } = this.props;
     const { activeTabId } = this.state;
     const tabItem = (data || []).find((tab) => tab.id === activeTabId);
-    return tabItem?.component || <> Could not find component </>;
+    return (
+      <React.Fragment key={tabItem?.key?.toString()}>
+        {tabItem?.component || <> Could not find component </>}
+      </React.Fragment>
+    );
   }
   renderTabHeaders() {
     const { headers, activeTabId } = this.state;

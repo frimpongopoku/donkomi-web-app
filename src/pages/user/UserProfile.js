@@ -94,7 +94,7 @@ function UserProfile({ user, explorer, setUserInRedux }) {
   };
   const userName = user?.preferred_name || "Unknown";
   const settings = user?.settings || {};
-  console.log("I am the the settings my gee", settings);
+
   return (
     <>
       {removeConfirmation && (

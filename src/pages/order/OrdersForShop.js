@@ -2,6 +2,7 @@ import React from "react";
 import { getDetailsFromProductOrders } from "../../shared/js/utils";
 import OrderItem from "./OrderItem";
 function OrdersForShop({ showFullView, orders }) {
+ 
   return (
     <div>
       <p style={{ marginTop: 20, marginBottom: 20 }}>

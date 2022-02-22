@@ -61,7 +61,6 @@ function Cart({ cart, addToCart, explorer, orders }) {
   };
 
   const sendCartItemsToBackend = () => {
-    // const newCart = { ...cart };
     const basket = makeReadyForBackend(cart?.shop);
     const body = { cart: basket, order_type: "PRODUCT_ORDER" };
     setNotification({});
@@ -72,9 +71,6 @@ function Cart({ cart, addToCart, explorer, orders }) {
           setConfirmCheckout(false);
           return setNotification({ message: response?.error?.message });
         }
-
-        console.log("I am the response data", response.data);
-        // delete newCart.shop;
         addToCart([]);
       })
       .catch((e) => {

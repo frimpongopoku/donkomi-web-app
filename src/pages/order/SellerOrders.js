@@ -1,23 +1,28 @@
 import React from "react";
 import TabView from "../../components/TabView/TabView";
-import { generateOrders } from "../../factory/make";
 import OrdersForShop from "./OrdersForShop";
 import SellerOrderHistory from "./SellerOrderHistory";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
-const sellerOrders = generateOrders();
-function SellerOrders({ showFullView }) {
+function SellerOrders({ showFullView, ordersForShop, ordersCompleted }) {
   const TABS = [
     {
       name: "Orders for you",
       id: "orders-for-your",
       component: (
-        <OrdersForShop showFullView={showFullView} orders={sellerOrders} />
+        <OrdersForShop showFullView={showFullView} orders={ordersForShop} />
       ),
     },
     {
       name: "History",
       id: "order-history",
-      component: <SellerOrderHistory showFullView={showFullView} />,
+      component: (
+        <SellerOrderHistory
+          showFullView={showFullView}
+          ordersCompleted={ordersCompleted}
+        />
+      ),
     },
   ];
   return (
@@ -39,4 +44,11 @@ function SellerOrders({ showFullView }) {
   );
 }
 
-export default SellerOrders;
+const mapStateToProps = (state) => ({
+  ordersForShop: state.sellerOrders,
+  ordersCompleted: state.sellerOrdersCompleted,
+});
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({}, dispatch);
+};
+export default connect(mapStateToProps, mapDispatchToProps)(SellerOrders);

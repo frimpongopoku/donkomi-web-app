@@ -17,6 +17,8 @@ import {
   ITEM_FULL_VIEW,
   SET_CLIENT_ORDERS,
   SET_SELLER_ORDERS,
+  SET_CLIENT_COMPLETED_ORDERS,
+  SET_SELLER_COMPLETED_ORDERS,
 } from "../ReduxConstants";
 
 export const fetchMarketNews = (requestObj, cb) => {
@@ -55,6 +57,12 @@ export const fetchMarketNews = (requestObj, cb) => {
   };
 };
 
+export const reduxSetClientCompletedOrders = (data) => {
+  return { type: SET_CLIENT_COMPLETED_ORDERS, payload: data };
+};
+export const reduxSetSellerCompletedOrders = (data) => {
+  return { type: SET_SELLER_COMPLETED_ORDERS, payload: data };
+};
 export const setInternetExplorer = (exp) => {
   return { type: INSTANTIATE_EXPLORER, payload: exp };
 };
@@ -90,7 +98,12 @@ export const fetchAuthencationInformation = () => {
         dispatch(reduxAddNewProduct(content.products));
         dispatch(reduxSetClientOrders(content.client_order_history));
         dispatch(reduxSetSellerOrders(content.seller_orders));
-        
+        dispatch(
+          reduxSetClientCompletedOrders(content.client_orders_completed)
+        );
+        dispatch(
+          reduxSetSellerCompletedOrders(content.seller_orders_completed)
+        );
       });
     });
 };
